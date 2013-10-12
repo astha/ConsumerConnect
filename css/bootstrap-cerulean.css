@@ -4231,7 +4231,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', e
   color: #ffffff;
 }
 .navbar .nav-collapse.in .nav li > a {
-  color: #ffffff;
+  color: #000000;
 }
 .navbar .nav-collapse.in .nav li > a:hover {
   background-color: #2B7CAC;

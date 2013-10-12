@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <link id="bs-css" href="css/bootstrap-cerulean.css" rel="stylesheet">
+ 
 
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-    <link href="css/bootstrap-responsive.css" rel="stylesheet" media="screen">
-    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
   <link href="css/bootstrap-responsive.css" rel="stylesheet">
   <link href="css/charisma-app.css" rel="stylesheet">
   <link href="css/jquery-ui-1.8.21.custom.css" rel="stylesheet">
@@ -24,10 +20,19 @@
   <link href="css/jquery.iphone.toggle.css" rel="stylesheet">
   <link href="css/opa-icons.css" rel="stylesheet">
   <link href="css/uploadify.css" rel="stylesheet">
+
+  <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap-responsive.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+
+    <!-- <link href="css/reset.css" rel="stylesheet"> -->
+
+ 
     
 </head>
 
-<body>
+<body class="">
     <!-- topbar starts -->
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
@@ -64,7 +69,7 @@
     <div class="row-fluid">
         
       <!-- left menu starts -->
-     <div class="span2 main-menu-span" >
+     <div class="span2 main-menu-span">
         <div class="well nav-collapse sidebar-nav in collapse" style="padding:0px; margin-left: 10px; height: 219px;">
           <ul class="nav nav-tabs nav-stacked main-menu">
             <!-- <li class="nav-header hidden-tablet">Main</li> -->
@@ -74,7 +79,7 @@
             <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.html"><i class="icon-star-empty"></i><span class="hidden-tablet"> Friends' Reviews</span></a></li>
             <li style="margin-left: -2px;"><a class="ajax-link" href="questions.html"><i class="icon-question-sign"></i><span class="hidden-tablet"> Questions</span></a></li>
             <li><a class="ajax-link" href="appointments.html"><i class="icon-calendar"></i><span class="hidden-tablet"> Appointments</span></a></li>
-            <li><a class="ajax-link" href="wishlist.html"><i class="icon-gift"></i><span class="hidden-tablet"> Wishlist</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.html"><i class="icon-gift"></i><span class="hidden-tablet"> Wishlist</span></a></li>
           </ul>
           <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
         </div><!--/.well -->
@@ -87,20 +92,48 @@
       
   
 
-      <div class="row-fluid sortable">
-        <div class="box span12">
-          <div class="box-header well" data-original-title>
-             <h2>Recent Reviews</h2>
+      <div class="row-fluid sortable ui-sortable" style="text-shadow:none;">
+        <div class="box">
+          <div class="box-header well" data-original-title="">
+             <!-- <h2>Recent Reviews Yayayyyayayy</h2> -->
             <div class="box-icon">
               <a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
               <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
               <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
             </div>
           </div>
-          <div class="box-content">
-            <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */">
-                <a style="background-color:white" title="User1" href="images/user1.png"><img src="images/user1.png" alt="User1"></a>
-            </div>
+          <div class="box-content" style="display: block;">
+            <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
+  <table class="table table-bordered table-striped">
+              <tbody><tr>
+                <td style="width: 100px">
+                                  <a style="background-color:white" title="User1" href="images/user1.png" class="cboxElement"><img src="images/user1.png" alt="User1" style="width: 100px;"></a></td>
+                <td><font style="color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">Swati Khanna</font><br>
+
+ 
+                  <font style="color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+font-size: 11px; line-height: 1.28;">3 hours before</font></td>
+
+<td class="span4"></td>
+
+
+<td><font style="color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">Dinesh Shah</font><br>
+  <font style="color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+font-size: 12px; line-height: 1.28;">Dinesh Pharmacy</font><br>
+                  <font style="color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+font-size: 11px; line-height: 1.28;">Medical (Chemist)</font></td>
+                
+                <td style="width: 100px;">
+                                  <a style="background-color:white" title="User5" href="images/user5.png" class="cboxElement"><img src="images/user5.png" alt="User5"></a></td></tr></tbody></table>
+                 <table class="table table-bordered table-striped">
+              <tbody><tr><td style="width: 100%;">
+                  <div class="raty" style="cursor: pointer; width: 100px;"><img src="img/star-on.png" alt="1" title="bad">&nbsp;<img src="img/star-on.png" alt="2" title="poor">&nbsp;<img src="img/star-on.png" alt="3" title="regular">&nbsp;<img src="img/star-on.png" alt="4" title="good">&nbsp;<img src="img/star-off.png" alt="5" title="gorgeous"><input type="hidden" name="score" value="4"></div>
+                  <div><button><i class="icon-thumbs-up"></i></button>
+                  <button style="float: left;"><i class="icon-thumbs-down"></i></button></div>
+                  <p style="float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">Modern pharmacies carry a wide range of products beyond those which can only be dispensed by prescription. Non-prescription medications, nutritional supplements and medical equipment are among the many offerings. Youâ€™ll also find personal care products, diet and exercise aids and beauty treatments among their many offerings. Purchasing these products online, whether in conjunction with a pharmaceutical order or independently can be a tremendous convenience and often offer great deals as well.</p>
+                </td>
+              </tr></tbody></table>
+            <!-- </div> -->
           
           </div>
         </div><!--/span-->
@@ -108,7 +141,7 @@
       </div><!--/row-->
     
           <!-- content ends -->
-      </div><!--/#content.span10-->
+      </div>
       <div class="span2 main-menu-span">
         <div class="well nav-collapse sidebar-nav in collapse" style="margin-left: 10px; height: 219px; padding:0px">
           <ul class="nav nav-tabs nav-stacked main-menu">
@@ -128,9 +161,9 @@
         
     
     
-    <div class="modal hide fade" id="myModal">
+    <div class="modal hide fade" id="myModal" style="display: none;">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
+        <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â</button>
         <h3>Settings</h3>
       </div>
       <div class="modal-body">
@@ -183,9 +216,9 @@
   <!-- library for cookie management -->
   <script src="js/jquery.cookie.js"></script>
   <!-- calander plugin -->
-  <script src='js/fullcalendar.min.js'></script>
+  <script src="js/fullcalendar.min.js"></script>
   <!-- data table plugin -->
-  <script src='js/jquery.dataTables.min.js'></script>
+  <script src="js/jquery.dataTables.min.js"></script>
 
   <!-- chart libraries start -->
   <script src="js/excanvas.js"></script>
@@ -221,5 +254,6 @@
   <script src="js/charisma.js"></script>
   
     
-</body>
-</html>
+
+
+<div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" style="display: none; padding-bottom: 57px; padding-right: 28px;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxLoadedContent" style="width: 0px; height: 0px; overflow: hidden; float: left;"></div><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><div id="cboxNext" style="float: left;"></div><div id="cboxPrevious" style="float: left;"></div><div id="cboxSlideshow" style="float: left;"></div><div id="cboxClose" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div></div><div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" style="display: none; padding-bottom: 57px; padding-right: 28px;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxLoadedContent" style="width: 0px; height: 0px; overflow: hidden; float: left;"></div><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><div id="cboxNext" style="float: left;"></div><div id="cboxPrevious" style="float: left;"></div><div id="cboxSlideshow" style="float: left;"></div><div id="cboxClose" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div></div><div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" style="display: none; padding-bottom: 57px; padding-right: 28px;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxLoadedContent" style="width: 0px; height: 0px; overflow: hidden; float: left;"></div><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><div id="cboxNext" style="float: left;"></div><div id="cboxPrevious" style="float: left;"></div><div id="cboxSlideshow" style="float: left;"></div><div id="cboxClose" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div></div><div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" style="display: none; padding-bottom: 57px; padding-right: 28px;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxLoadedContent" style="width: 0px; height: 0px; overflow: hidden; float: left;"></div><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><div id="cboxNext" style="float: left;"></div><div id="cboxPrevious" style="float: left;"></div><div id="cboxSlideshow" style="float: left;"></div><div id="cboxClose" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div></div></body></html>

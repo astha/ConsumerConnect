@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Consumer Connect</title>
+<html lang="en">
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
 
@@ -9,51 +8,217 @@
     <link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
     <link href="css/bootstrap-responsive.css" rel="stylesheet" media="screen">
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
-  </head>
-  <body>
+  <link href="css/bootstrap-responsive.css" rel="stylesheet">
+  <link href="css/charisma-app.css" rel="stylesheet">
+  <link href="css/jquery-ui-1.8.21.custom.css" rel="stylesheet">
+  <link href="css/fullcalendar.css" rel="stylesheet">
+  <link href="css/fullcalendar.print.css" rel="stylesheet" media="print">
+  <link href="css/chosen.css" rel="stylesheet">
+  <link href="css/uniform.default.css" rel="stylesheet">
+  <link href="css/colorbox.css" rel="stylesheet">
+  <link href="css/jquery.cleditor.css" rel="stylesheet">
+  <link href="css/jquery.noty.css" rel="stylesheet">
+  <link href="css/noty_theme_default.css" rel="stylesheet">
+  <link href="css/elfinder.min.css" rel="stylesheet">
+  <link href="css/elfinder.theme.css" rel="stylesheet">
+  <link href="css/jquery.iphone.toggle.css" rel="stylesheet">
+  <link href="css/opa-icons.css" rel="stylesheet">
+  <link href="css/uploadify.css" rel="stylesheet">
+    
+</head>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
+<body>
+    <!-- topbar starts -->
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <!-- <div class="container-fluid"> -->
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Project name</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li class="divider"></li>
-                  <li class="nav-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
+          <div class="span3" style="min-width:278px;"><img src="./images/logo.gif" width="270px" height="40px" style="float: left;"></div>
+          <img class="span2">
+          <div class="nav-collapse in collapse" style="height: auto;">
+            <form class="navbar-form pull-left">
+              <input class="span4" type="text" placeholder="Find Users...">
+              <button type="submit" class="btn">Search</button>
+            </form>
+
+            <span>
+            <ul class="nav pull-right">
+               <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
+                <ul class="dropdown-menu" align="left">
+                  <li><a href="#">Switch To</a></li>
+                  <li><a href="#">Edit Profile</a></li>
+                  <li><a href="#">Sign Out</a></li>
                 </ul>
               </li>
             </ul>
-            <form class="navbar-form pull-right">
-              <input class="span2" type="text" placeholder="Email">
-              <input class="span2" type="password" placeholder="Password">
-              <button type="submit" class="btn">Sign in</button>
-            </form>
-          </div><!--/.nav-collapse -->
-        </div>
+          </span></div>
+      </div>
+    <!-- </div> -->
+  </div>
+  <!-- topbar ends -->
+    <div class="container-fluid">
+    <div class="row-fluid">
+        
+      <!-- left menu starts -->
+     <div class="span2 main-menu-span">
+        <div class="well nav-collapse sidebar-nav in collapse" style="margin-left: 10px; height: 219px;">
+          <ul class="nav nav-tabs nav-stacked main-menu">
+            <!-- <li class="nav-header hidden-tablet">Main</li> -->
+            <li style="margin-left: -2px;"><a class="ajax-link" href="index.html"><i class="icon-envelope"></i><span class="hidden-tablet"> Messages</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.html"><i class="icon-star"></i><span class="hidden-tablet"> My Reviews</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.html"><i class="icon-star-empty"></i><span class="hidden-tablet"> Friends' Reviews</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="questions.html"><i class="icon-question-sign"></i><span class="hidden-tablet"> Questions</span></a></li>
+            <li><a class="ajax-link" href="appointments.html"><i class="icon-calendar"></i><span class="hidden-tablet"> Appointments</span></a></li>
+            <li><a class="ajax-link" href="wishlist.html"><i class="icon-gift"></i><span class="hidden-tablet"> Wishlist</span></a></li>
+          </ul>
+          <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
+        </div><!--/.well -->
+      </div><!--/span-->
+      <!-- left menu ends -->
+      
+     
+      <div id="content" class="span8">
+      <!-- content starts -->
+      
+  
+
+      <div class="row-fluid sortable">
+        <div class="box span12">
+          <div class="box-header well" data-original-title>
+            <h2><i class="icon-picture"></i> Gallery</h2>
+            <div class="box-icon">
+              <a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
+              <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+              <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+            </div>
+          </div>
+          <div class="box-content">
+            <p class="center">
+              <button id="toggle-fullscreen" class="btn btn-large btn-primary visible-desktop" data-toggle="button">Toggle Fullscreen</button>
+            </p>
+            <br/>
+          </div>
+        </div><!--/span-->
+      
+      </div><!--/row-->
+    
+          <!-- content ends -->
+      </div><!--/#content.span10-->
+      <div class="span2 main-menu-span">
+        <div class="well nav-collapse sidebar-nav in collapse" style="margin-left: 10px; height: 219px;">
+          <ul class="nav nav-tabs nav-stacked main-menu">
+            <!-- <li class="nav-header hidden-tablet">Main</li> -->
+            <li style="margin-left: -2px;"><a class="ajax-link" href="services.html"><i class="icon-random"></i><span class="hidden-tablet"> Services</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.html"><span class="hidden-tablet"> Doctor</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.html"><span class="hidden-tablet"> Salon</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="questions.html"><span class="hidden-tablet"> Police</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.html"><span class="hidden-tablet"> Plumber</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.html"><span class="hidden-tablet"> See More</span></a></li>
+          </ul>
+          <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
+        </div><!--/.well -->
+      </div>
+
+        </div><!--/fluid-row-->
+        
+    
+    
+    <div class="modal hide fade" id="myModal">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>Settings</h3>
+      </div>
+      <div class="modal-body">
+        <p>Here settings can be configured...</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+        <a href="#" class="btn btn-primary">Save changes</a>
       </div>
     </div>
 
+   
     
-    <h1>Hello, world!</h1>
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/bootstrap-dropdown.js"></script>
-  </body>
+  </div><!--/.fluid-container-->
+
+  <!-- external javascript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+
+  <!-- jQuery -->
+  <script src="js/jquery-1.7.2.min.js"></script>
+  <!-- jQuery UI -->
+  <script src="js/jquery-ui-1.8.21.custom.min.js"></script>
+  <!-- transition / effect library -->
+  <script src="js/bootstrap-transition.js"></script>
+  <!-- alert enhancer library -->
+  <script src="js/bootstrap-alert.js"></script>
+  <!-- modal / dialog library -->
+  <script src="js/bootstrap-modal.js"></script>
+  <!-- custom dropdown library -->
+  <script src="js/bootstrap-dropdown.js"></script>
+  <!-- scrolspy library -->
+  <script src="js/bootstrap-scrollspy.js"></script>
+  <!-- library for creating tabs -->
+  <script src="js/bootstrap-tab.js"></script>
+  <!-- library for advanced tooltip -->
+  <script src="js/bootstrap-tooltip.js"></script>
+  <!-- popover effect library -->
+  <script src="js/bootstrap-popover.js"></script>
+  <!-- button enhancer library -->
+  <script src="js/bootstrap-button.js"></script>
+  <!-- accordion library (optional, not used in demo) -->
+  <script src="js/bootstrap-collapse.js"></script>
+  <!-- carousel slideshow library (optional, not used in demo) -->
+  <script src="js/bootstrap-carousel.js"></script>
+  <!-- autocomplete library -->
+  <script src="js/bootstrap-typeahead.js"></script>
+  <!-- tour library -->
+  <script src="js/bootstrap-tour.js"></script>
+  <!-- library for cookie management -->
+  <script src="js/jquery.cookie.js"></script>
+  <!-- calander plugin -->
+  <script src='js/fullcalendar.min.js'></script>
+  <!-- data table plugin -->
+  <script src='js/jquery.dataTables.min.js'></script>
+
+  <!-- chart libraries start -->
+  <script src="js/excanvas.js"></script>
+  <script src="js/jquery.flot.min.js"></script>
+  <script src="js/jquery.flot.pie.min.js"></script>
+  <script src="js/jquery.flot.stack.js"></script>
+  <script src="js/jquery.flot.resize.min.js"></script>
+  <!-- chart libraries end -->
+
+  <!-- select or dropdown enhancer -->
+  <script src="js/jquery.chosen.min.js"></script>
+  <!-- checkbox, radio, and file input styler -->
+  <script src="js/jquery.uniform.min.js"></script>
+  <!-- plugin for gallery image view -->
+  <script src="js/jquery.colorbox.min.js"></script>
+  <!-- rich text editor library -->
+  <script src="js/jquery.cleditor.min.js"></script>
+  <!-- notification plugin -->
+  <script src="js/jquery.noty.js"></script>
+  <!-- file manager library -->
+  <script src="js/jquery.elfinder.min.js"></script>
+  <!-- star rating plugin -->
+  <script src="js/jquery.raty.min.js"></script>
+  <!-- for iOS style toggle switch -->
+  <script src="js/jquery.iphone.toggle.js"></script>
+  <!-- autogrowing textarea plugin -->
+  <script src="js/jquery.autogrow-textarea.js"></script>
+  <!-- multiple file upload plugin -->
+  <script src="js/jquery.uploadify-3.1.min.js"></script>
+  <!-- history.js for cross-browser state change on ajax -->
+  <script src="js/jquery.history.js"></script>
+  <!-- application script for Charisma demo -->
+  <script src="js/charisma.js"></script>
+  
+    
+</body>
 </html>

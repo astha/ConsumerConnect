@@ -1,0 +1,25 @@
+a.gallerypic{
+  width:140px;
+  text-decoration:none;
+  position:relative;
+  display:block;
+  border:1px solid #666;
+  padding:3px;
+  margin-right:5px;
+  float:left;
+}
+
+a.gallerypic span.zoom-icon{
+  visibility:hidden;
+  position:absolute;
+  left:40%;
+  top:35%;
+  filter:alpha(opacity=50);
+  -moz-opacity:0.5;
+  -khtml-opacity: 0.5;
+  opacity: 0.5;
+}
+
+a.gallerypic:hover span.zoom-icon{
+  visibility:visible;
+}

@@ -331,6 +331,7 @@ height:0px;
 
 .sidebar-nav{
 min-height:0;
+position:fixed;
 box-shadow: 0 0 10px #BDBDBD;
 -webkit-box-shadow: 0 0 10px #BDBDBD;
 -moz-box-shadow: 0 0 10px #BDBDBD;

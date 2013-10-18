@@ -1,0 +1,33 @@
+<html>
+<head>
+
+</head>
+<body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+
+<script language="javascript" type="text/javascript">
+$(document).ready(function(){
+  setInterval("yourAjaxCall()",1000);
+  function yourAjaxCall(){
+  	$.ajax({
+        type: 'GET',
+        url: 'http://localhost:8888/question.php',
+        error: function(xhr, status, error) {
+      		document.getElementById("q1").innerHTML="error";
+   		},
+        success: function(result) {
+ //       	var jsonData = JSON.parse(result);
+// 			for (var i in jsonData) {
+            	document.getElementById("q1").innerHTML="jsahdjshdjshf";
+        }
+    }).done(function() {
+        alert('Done!');
+    }).fail(function() {
+        alert('Fail!');
+    });
+  }
+});
+</script>
+<p id="q1">lkklkk</p>
+</body>
+</html>

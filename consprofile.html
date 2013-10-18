@@ -30,6 +30,27 @@
 <link href="css/bootstrap.css" rel="stylesheet" media="screen">
 
 <!-- <link href="css/reset.css" rel="stylesheet"> -->
+<script>
+$(document).ready(function(){
+  setInterval("yourAjaxCall()",1000);
+  function yourAjaxCall(){
+  	$.ajax({
+        type: 'POST',
+        url: 'http://localhost:8888/question.php',
+        data: {
+            data: "test_data"
+        },
+        cache: false,
+        success: function(result) {
+        	var jsonData = JSON.parse(result);
+// 			for (var i in jsonData) {
+            	document.getElementById("q1").innerHTML=jsonData[1].Description;
+        }
+    });
+  }
+});
+</script>
+
 
 
 
@@ -242,17 +263,17 @@ I'm just glad I've found my stylist for the next 5 years!</p>
                                   <!-- <td class="span4"></td> -->
                                   <td>
 
-                                    <p style="float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">
+                                    <p style="float: left; ">
                                       <i class="icon-question-sign"></i>
-                                      I have very oily hair. Do you offer a hair treatment for that?<br>
+                                      <font id="q1" style="color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">I have very oily hair. Do you offer a hair treatment for that?</font><br>
                                       <font style="color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;font-size: 11px; line-height: 1.28;">5 days ago</font>
 
                                     </p>
-                                      <br>
+                                      
 
-                                      <p style="float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">
+                                      <p style="float: left; ">
                                         <i class="icon-check"></i>
-                                        Yes, we have latest treatments available for oily hair. You can drop in anytime or book an appointment online.<br>
+                                        <font style="color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">Yes, we have latest treatments available for oily hair. You can drop in anytime or book an appointment online.</font><br>
                                         <font style="color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;font-size: 11px; line-height: 1.28;">4 days ago</font>
 
                                       </p>

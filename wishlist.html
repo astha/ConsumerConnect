@@ -108,7 +108,7 @@
             </div>
           </div>
           <div class="box-content" style="display: block;">
-           <table class="table table-bordered">
+           <table class="table table-bordered table-striped">
             <tbody><tr>
               <td style="width: 100px; height: 100px;">
 
@@ -218,51 +218,161 @@
           </div>
 
           <!-- content ends -->
+
+
+          <div class="row-fluid sortable ui-sortable" style="text-shadow:none;">
+            <div class="box">
+              <div class="box-header well" data-original-title="">
+               <h2>Add a Wish</h2>
+               <div class="box-icon">
+                <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+                <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+              </div>
+            </div>
+            <div class="box-content" style="display: block;">
+             <table class="table table-bordered table-striped">
+              <tbody><tr class="span12">
+                <td>
+                  <form class="form-horizontal">
+                    <fieldset>
+                      <div class="control-group">
+                        <label class="control-label" for="selectError2">Service Type</label>
+                        <div class="controls">
+                          <select data-placeholder="Add a Service Type to your Wish" id="selectError2" data-rel="chosen">
+                            <option value=""></option>
+                            <optgroup label="Doctor">
+                              <option>Cardiologist</option>
+                              <option>Dermatologist</option>
+                              <option>Gynecologist</option>
+                              <option>Neurologist</option>
+                              <option>Pathologist</option>
+                              <option>Radiologist</option>
+                            </optgroup>
+                            <optgroup label="Salon">
+                              <option>Hair Stylist</option>
+                              <option>Hair Cutting</option>
+                              <option>Hair Treatment</option>
+                              <option>Hair Colouring</option>
+                            </optgroup>
+                            <optgroup label="Mechanic">
+                              <option>Car</option>
+                              <option>Two Wheeler</option>
+                            </optgroup>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label" for="startdate">Select Date</label>
+                        <div class="controls">
+                          <input type="text" class="input-xlarge datepicker span6" id="startdate" placeholder="Start Date">
+                        <!-- </div> -->
+                      <!-- </div> -->
+
+                      <!-- <div class="control-group"> -->
+                        <!-- <label class="control-label" for="enddate">End Date</label> -->
+                        <!-- <div class="controls"> -->
+                          <input type="text" class="input-xlarge datepicker span6" id="enddate" placeholder="End Date">
+                        </div>
+                      </div>
+
+                      <div class="control-group">
+                        <label class="control-label" for="selectError1">Select Day</label>
+                        <div class="controls">
+                          <select id="selectError1" multiple data-rel="chosen">
+                            <option>Monday</option>
+                            <option>Tuesday</option>
+                            <option>Wednesday</option>
+                            <option>Thursday</option>
+                            <option>Friday</option>
+                            <option>Saturday</option>
+                            <option>Sunday</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label" for="selectError3">Plain Select</label>
+                        <div class="controls">
+                          <select id="selectError3">
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
+                            <option>Option 4</option>
+                            <option>Option 5</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label" for="selectError">Modern Select</label>
+                        <div class="controls">
+                          <select id="selectError" data-rel="chosen">
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
+                            <option>Option 4</option>
+                            <option>Option 5</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button class="btn">Cancel</button>
+                      </div>
+                    </fieldset>
+                  </form>
+                </tr>
+              </table>
+
+            </div>
+          </div><!--/span-->
+
+
         </div>
+      </div>
 
 
 
- <div class="span2 main-menu-span">
-      <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
-        <ul class="nav nav-tabs nav-stacked main-menu">
-          <!-- <li class="nav-header hidden-tablet">Main</li> -->
-          <li style="margin-left: -2px;"><a class="ajax-link" href="services.html"><i class="icon-random"></i><span class="hidden-tablet"> Services</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.html"><span class="hidden-tablet"><i class="icon-play"></i> Doctor</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.html"><span class="hidden-tablet"><i class="icon-play"></i> Salon</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="questions.html"><span class="hidden-tablet"><i class="icon-play"></i> Mechanic</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.html"><span class="hidden-tablet"><i class="icon-play"></i> Plumber</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.html"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li>
-          <!-- <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.html"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li> -->
-        </ul>
-        <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
-      </div><!--/.well -->
+      <div class="span2 main-menu-span">
+        <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
+          <ul class="nav nav-tabs nav-stacked main-menu">
+            <!-- <li class="nav-header hidden-tablet">Main</li> -->
+            <li style="margin-left: -2px;"><a class="ajax-link" href="services.html"><i class="icon-random"></i><span class="hidden-tablet"> Services</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.html"><span class="hidden-tablet"><i class="icon-play"></i> Doctor</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.html"><span class="hidden-tablet"><i class="icon-play"></i> Salon</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="questions.html"><span class="hidden-tablet"><i class="icon-play"></i> Mechanic</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.html"><span class="hidden-tablet"><i class="icon-play"></i> Plumber</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.html"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li>
+            <!-- <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.html"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li> -->
+          </ul>
+          <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
+        </div><!--/.well -->
+      </div>
+
+    </div><!--/fluid-row-->
+
+
+
+
+
+
+
+    <div class="modal hide fade" id="myModal" style="display: none;">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬&nbsp;ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬&nbsp;ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â</button>
+        <h3>Settings</h3>
+      </div>
+      <div class="modal-body">
+        <p>Here settings can be configured...</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+        <a href="#" class="btn btn-primary">Save changes</a>
+      </div>
     </div>
 
-  </div><!--/fluid-row-->
 
 
-
-
-
-
-
-  <div class="modal hide fade" id="myModal" style="display: none;">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬&nbsp;ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬&nbsp;ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â</button>
-      <h3>Settings</h3>
-    </div>
-    <div class="modal-body">
-      <p>Here settings can be configured...</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#" class="btn" data-dismiss="modal">Close</a>
-      <a href="#" class="btn btn-primary">Save changes</a>
-    </div>
-  </div>
-
-
-
-</div><!--/.fluid-container-->
+  </div><!--/.fluid-container-->
 
   <!-- external javascript
   ================================================== -->

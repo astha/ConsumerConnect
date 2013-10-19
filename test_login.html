@@ -1,10 +1,8 @@
-
-
 <html>
 <head>
 
-
-
+</head>
+<body>
 <script src="js/jquery-1.7.2.min.js"></script>
 
 <!-- 
@@ -29,15 +27,9 @@
 	
 
 
+<!-- 
 <script>
  $(document).ready(function(){
- 	//  $.ajax({
-//          url: 'http://localhost:8888/login.php',
-//          success: function(data) {
-//              $( "h1" )
-// 		    .append(data);
-//          }
-//      });
      setInterval(ajaxcall, 1000);
  });
  function ajaxcall(){
@@ -46,10 +38,7 @@
          dataType: "json",
          success: function(data) {
          for (var i in data){
-         	if(i==0){
-         		$( "p" ).html("");
-         	}
-             $( "p" )
+             $( "body" )
 		    .append( "Name: " + data[i].Description ) 
 		    .append( "Time: " + data[i].TimeStamp ); 
 			}
@@ -57,21 +46,21 @@
      });
  }
 </script>
-
+ -->
 
 <script type="text/javascript">
-// 
-// 
-// <!--
-// $(document).ready(function() {
-//     $.get( "http://localhost:8888/login.php", function( data ) {
-// 		$( "body" )
-// 		    .append(data) ; 
-// 		    doPoll();
-// 		});
-// });
-// //-->
-// 
+
+
+<!--
+$(document).ready(function() {
+    $.get( "http://localhost:8888/login.php", function( data ) {
+		$( "body" )
+		    .append(data) ; 
+		   // doPoll();
+		});
+});
+//-->
+
 // <!--
 // function doPoll() {
 //    $.get("http://localhost:8888/question.php", {}, function(data) {
@@ -86,12 +75,10 @@
 //    }, 'json'); 
 // }
 // //-->
-// </script>
+</script>
 
-</head>
 
-<body>
-<h1></h1>
-<p></p>
+
+
 </body>
 </html>

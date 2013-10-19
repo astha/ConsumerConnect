@@ -1,7 +1,6 @@
 <?php 
 
 session_start(); 
-$quesID = $_REQUEST['quesID']; 
 
 function count_ques($con){
 	$query= "SELECT count(*) as cnt FROM Question;";
@@ -19,6 +18,8 @@ function max_ques($con){
 	return $currentt;
 }
 
+//$quesID = $_REQUEST['quesID']; 
+
 
 $con=mysql_connect("localhost","root","root") or die("Problems connecting to DB.");
 mysql_select_db("UsernamePassword",$con) or  die("Problems selecting DB.");
@@ -26,9 +27,14 @@ mysql_select_db("UsernamePassword",$con) or  die("Problems selecting DB.");
 
 
 
-//if(!(count_ques($con)==$_SESSION['prev'] && max_ques($con)==$_SESSION['prevt'])){
-	// $_SESSION['prev']=count_ques($con);
-// 	$_SESSION['prevt']=max_ques($con);	
+
+
+
+while((count_ques($con)==$_SESSION['prev'] && max_ques($con)==$_SESSION['prevt'])){
+	sleep(5);
+}
+	$_SESSION['prev']=count_ques($con);
+	$_SESSION['prevt']=max_ques($con);	
 	
 	$sql = "SELECT * FROM Question;";
 	$result = mysql_query($sql,$con) or die("Problems on querying " . mysql_error() );
@@ -39,9 +45,7 @@ mysql_select_db("UsernamePassword",$con) or  die("Problems selecting DB.");
 	}
   	echo json_encode($r);
 
-//}
 //echo $currentt;
-
 
 mysql_close($con);
 ?>

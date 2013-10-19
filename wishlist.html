@@ -23,6 +23,8 @@
 <link href="css/jquery.iphone.toggle.css" rel="stylesheet">
 <link href="css/opa-icons.css" rel="stylesheet">
 <link href="css/uploadify.css" rel="stylesheet">
+<link href="css/bootstrap-timepicker.css" rel="stylesheet" media="screen">
+<link href="css/bootstrap-timepicker.min.css" rel="stylesheet" media="screen">
 
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
@@ -231,148 +233,157 @@
             </div>
             <div class="box-content" style="display: block;">
              <table class="table table-bordered table-striped">
-              <tbody><tr class="span12">
+              <tbody><tr>
                 <td>
-                  <form class="form-horizontal">
+                  <form role="form" class="form-horizontal">
                     <fieldset>
-                      <div class="control-group">
-                        <label class="control-label" for="selectError2">Service Type</label>
-                        <div class="controls">
-                          <select data-placeholder="Add a Service Type to your Wish" id="selectError2" data-rel="chosen">
-                            <option value=""></option>
-                            <optgroup label="Doctor">
-                              <option>Cardiologist</option>
-                              <option>Dermatologist</option>
-                              <option>Gynecologist</option>
-                              <option>Neurologist</option>
-                              <option>Pathologist</option>
-                              <option>Radiologist</option>
-                            </optgroup>
-                            <optgroup label="Salon">
-                              <option>Hair Stylist</option>
-                              <option>Hair Cutting</option>
-                              <option>Hair Treatment</option>
-                              <option>Hair Colouring</option>
-                            </optgroup>
-                            <optgroup label="Mechanic">
-                              <option>Car</option>
-                              <option>Two Wheeler</option>
-                            </optgroup>
-                          </select>
-                        </div>
+                     <div class="control-group">
+                      <label class="control-label" for="selectError2">Service Type</label>
+                      <div class="controls">
+                        <select data-placeholder="Select the Kind of Service Here" id="selectty" data-rel="chosen">
+                          <option value=""></option>
+                          <optgroup label="Doctor">
+                            <option>Cardiologist</option>
+                            <option>Dermatologist</option>
+                            <option>Gynecologist</option>
+                            <option>Neurologist</option>
+                            <option>Pathologist</option>
+                            <option>Radiologist</option>
+                          </optgroup>
+                          <optgroup label="Salon">
+                            <option>Hair Stylist</option>
+                            <option>Hair Cutting</option>
+                            <option>Hair Treatment</option>
+                            <option>Hair Colouring</option>
+                          </optgroup>
+                          <optgroup label="Mechanic">
+                            <option>Car</option>
+                            <option>Two Wheeler</option>
+                          </optgroup>
+                        </select>
                       </div>
-                      <div class="control-group">
-                        <label class="control-label" for="startdate">Select Date</label>
-                        <div class="controls">
-                          <input type="text" class="input-xlarge datepicker span6" id="startdate" placeholder="Start Date">
-                        <!-- </div> -->
-                      <!-- </div> -->
+                    </div>
 
-                      <!-- <div class="control-group"> -->
-                        <!-- <label class="control-label" for="enddate">End Date</label> -->
-                        <!-- <div class="controls"> -->
-                          <input type="text" class="input-xlarge datepicker span6" id="enddate" placeholder="End Date">
-                        </div>
-                      </div>
 
-                      <div class="control-group">
-                        <label class="control-label" for="selectError1">Select Day</label>
-                        <div class="controls">
-                          <select id="selectError1" multiple data-rel="chosen">
-                            <option>Monday</option>
-                            <option>Tuesday</option>
-                            <option>Wednesday</option>
-                            <option>Thursday</option>
-                            <option>Friday</option>
-                            <option>Saturday</option>
-                            <option>Sunday</option>
-                          </select>
-                        </div>
+                    <div class="control-group">
+
+                      <label class="control-label" for="startdate"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">Select Date</label>
+                      <div class="controls">
+                        <input type="text" class="input-xlarge datepicker span6" id="startdate" placeholder="Start Date">
+                        <input type="text" class="input-xlarge datepicker span6" id="enddate" placeholder="End Date">
                       </div>
-                      <div class="control-group">
-                        <label class="control-label" for="selectError3">Plain Select</label>
-                        <div class="controls">
-                          <select id="selectError3">
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
-                            <option>Option 4</option>
-                            <option>Option 5</option>
-                          </select>
-                        </div>
+                    </div>
+
+                    <div class="control-group">
+                      <label class="control-label" for="selectError1"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option2" checked=""> Select Day</label>
+                      <div class="controls">
+                        <select id="selectError1" multiple data-rel="chosen">
+                          <option>Monday</option>
+                          <option>Tuesday</option>
+                          <option>Wednesday</option>
+                          <option>Thursday</option>
+                          <option>Friday</option>
+                          <option>Saturday</option>
+                          <option>Sunday</option>
+                        </select>
                       </div>
-                      <div class="control-group">
-                        <label class="control-label" for="selectError">Modern Select</label>
-                        <div class="controls">
-                          <select id="selectError" data-rel="chosen">
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
-                            <option>Option 4</option>
-                            <option>Option 5</option>
-                          </select>
+                    </div>
+                    <div class="control-group" >
+                      <label class="control-label" for="selectError2">Select Time</label>
+                      <div class="controls">
+                        <div class="input-append bootstrap-timepicker span4" style="float:left;">
+                          <input id="timepicker1" type="text" placeholder="Start Time" class="input-small">
+                          <span class="add-on"><i class="icon-time"></i></span>
+                        </div>
+                        <div style="float:left;">  
+                          <label class="span8"> to </label>
+                        </div>
+                        <div class="input-append bootstrap-timepicker span4" style="float:left;">
+
+                          <input id="timepicker2" type="text" class="input-small">
+                          <span class="add-on"><i class="icon-time"></i></span>
                         </div>
                       </div>
 
-                      <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                        <button class="btn">Cancel</button>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label" for="appendedPrependedInput">Maximum Price</label>
+                    <div class="controls">
+                      <div class="input-prepend input-append">
+                        <span class="add-on">&#8377</span><input id="appendedPrependedInput" size="16" type="text"><span class="add-on">per appointment</span>
                       </div>
-                    </fieldset>
-                  </form>
-                </tr>
-              </table>
+                    </div>
+                  </div>   
+                  <div class="control-group">
+                    <label class="control-label" for="appendedPrependedInput">Description</label>
+                    <div class="controls">
 
-            </div>
-          </div><!--/span-->
+                      <textarea class="autogrow span10" style="height:40px;" placeholder="Add details..."></textarea>
+
+                    </div>
+                  </div>
 
 
-        </div>
+                  <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Add Wish</button>
+                  </div>
+                </fieldset>
+              </form>
+            </td>
+          </tr>
+        </table>
+
       </div>
+    </div><!--/span-->
+
+
+  </div>
+</div>
 
 
 
-      <div class="span2 main-menu-span">
-        <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
-          <ul class="nav nav-tabs nav-stacked main-menu">
-            <!-- <li class="nav-header hidden-tablet">Main</li> -->
-            <li style="margin-left: -2px;"><a class="ajax-link" href="services.html"><i class="icon-random"></i><span class="hidden-tablet"> Services</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.html"><span class="hidden-tablet"><i class="icon-play"></i> Doctor</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.html"><span class="hidden-tablet"><i class="icon-play"></i> Salon</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="questions.html"><span class="hidden-tablet"><i class="icon-play"></i> Mechanic</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.html"><span class="hidden-tablet"><i class="icon-play"></i> Plumber</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.html"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li>
-            <!-- <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.html"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li> -->
-          </ul>
-          <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
-        </div><!--/.well -->
-      </div>
+<div class="span2 main-menu-span">
+  <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
+    <ul class="nav nav-tabs nav-stacked main-menu">
+      <!-- <li class="nav-header hidden-tablet">Main</li> -->
+      <li style="margin-left: -2px;"><a class="ajax-link" href="services.html"><i class="icon-random"></i><span class="hidden-tablet"> Services</span></a></li>
+      <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.html"><span class="hidden-tablet"><i class="icon-play"></i> Doctor</span></a></li>
+      <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.html"><span class="hidden-tablet"><i class="icon-play"></i> Salon</span></a></li>
+      <li style="margin-left: -2px;"><a class="ajax-link" href="questions.html"><span class="hidden-tablet"><i class="icon-play"></i> Mechanic</span></a></li>
+      <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.html"><span class="hidden-tablet"><i class="icon-play"></i> Plumber</span></a></li>
+      <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.html"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li>
+      <!-- <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.html"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li> -->
+    </ul>
+    <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
+  </div><!--/.well -->
+</div>
 
-    </div><!--/fluid-row-->
-
-
+</div><!--/fluid-row-->
 
 
 
 
 
-    <div class="modal hide fade" id="myModal" style="display: none;">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬&nbsp;ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬&nbsp;ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â</button>
-        <h3>Settings</h3>
-      </div>
-      <div class="modal-body">
-        <p>Here settings can be configured...</p>
-      </div>
-      <div class="modal-footer">
-        <a href="#" class="btn" data-dismiss="modal">Close</a>
-        <a href="#" class="btn btn-primary">Save changes</a>
-      </div>
-    </div>
+
+
+<div class="modal hide fade" id="myModal" style="display: none;">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬&nbsp;ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬&nbsp;ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â</button>
+    <h3>Settings</h3>
+  </div>
+  <div class="modal-body">
+    <p>Here settings can be configured...</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <a href="#" class="btn btn-primary">Save changes</a>
+  </div>
+</div>
 
 
 
-  </div><!--/.fluid-container-->
+</div><!--/.fluid-container-->
 
   <!-- external javascript
   ================================================== -->
@@ -414,6 +425,8 @@
   <script src="js/fullcalendar.min.js"></script>
   <!-- data table plugin -->
   <script src="js/jquery.dataTables.min.js"></script>
+  <script src="js/bootstrap-timepicker.js"></script>
+  <script src="js/bootstrap-timepicker.min.js"></script>
 
   <!-- chart libraries start -->
   <script src="js/excanvas.js"></script>
@@ -447,8 +460,12 @@
   <script src="js/jquery.history.js"></script>
   <!-- application script for Charisma demo -->
   <script src="js/charisma.js"></script>
-  
-
+  <script type="text/javascript">
+  $('#timepicker1').timepicker();
+  </script>
+  <script type="text/javascript">
+  $('#timepicker2').timepicker();
+  </script>
 
 
 </body>

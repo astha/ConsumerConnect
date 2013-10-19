@@ -4,7 +4,7 @@
 
 <link id="bs-css" href="css/bootstrap-cerulean.css" rel="stylesheet">
 
-<title>Customer Home - ConsumerConnect </title>
+<title>Select Servie Type - ConsumerConnect </title>
 <link rel="icon" type="image/png" href="favicon.ico">
 <link href="css/my.css" rel="stylesheet">
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
@@ -115,29 +115,73 @@
                     <div class="accordion-heading">
                       <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse1">
                         <div>
-                          <h3>Team</h3>
+                          <h4>Doctor</h4>
                         </div>
                       </a>
                     </div>
                     <div id="collapse1" class="accordion-body  collapse" >
                       <div class="accordion-inner">
-                        <div class = "from-group" style = "padding:2px;" >
-                          <label for="team" class="control-label"><strong>Team</strong></label>                 
-                          <input type="text" id="team" name = "team" class = "form-control" style = "margin-left:5px;">   
-                        </div>
-                        <div class = "form-group" style = "padding:2px;">
-
-                          <label for="oppsition" class="control-label"><strong>Opposition</strong></label>                  
-                          <input type="text" id="oppsition" name = "oppsition" class = "form-control" style = "margin-left:5px;">                 
-                        </div>
+                        <ul class="nav nav-tabs nav-stacked"> 
+                          <li><div class="checkbox"><label><input type="checkbox">Cardiologist - Heart Doctors</label></div></li>
+                          <li><div class="checkbox"><label><input type="checkbox">Dermatologists - Skin Doctor</label></div></li>
+                          <li><div class="checkbox"><label><input type="checkbox">Gynecologists - Female Reproductive System Doctor</label></div></li>
+                          <li><div class="checkbox"><label><input type="checkbox">Neurologist - Doctor for problems of brain</label></div></li>
+                          <li><div class="checkbox"><label><input type="checkbox">Pathologist - Medical Examination and day-to-day diseases</label></div></li>
+                          <li><div class="checkbox"><label><input type="checkbox">Radiologists - For X-ray and other imaging tests</label></div></li>
+                        </ul>
 
                       </div>
                     </div>
                   </div>
 
+
+                  <div class="accordion-group">
+                    <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapse2">
+                        <div>
+                          <h4>Salon</h4>
+                        </div>
+                      </a>
+                    </div>
+                    <div id="collapse2" class="accordion-body  collapse" >
+                      <div class="accordion-inner">
+                        <ul class="nav nav-tabs nav-stacked"> 
+                          <li><div class="checkbox"><label><input type="checkbox">Hair Stylist - Choose from a variety of available styles</label></div></li>
+                          <li><div class="checkbox"><label><input type="checkbox">Hair Cutting - Get your hair just the correct length</label></div></li>
+                          <li><div class="checkbox"><label><input type="checkbox">Hair Treatment - Treatment for hairfall, oily hair etc.</label></div></li>
+                          <li><div class="checkbox"><label><input type="checkbox">Hair Colouring - Get colorful hair streaks</label></div></li>
+                        </ul>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="accordion-group">
+                    <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapse3">
+                        <div>
+                          <h4>Mechanic</h4>
+                        </div>
+                      </a>
+                    </div>
+                    <div id="collapse3" class="accordion-body  collapse" >
+                      <div class="accordion-inner">
+                        <ul class="nav nav-tabs nav-stacked"> 
+                          <li><div class="checkbox"><label><input type="checkbox">Car - Get your car repaired.</label></div></li>
+                          <li><div class="checkbox"><label><input type="checkbox">Two Wheeler - Mechanic for two-wheelers</label></div></li>
+                        </ul>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
                 </div >
                 <div style = "text-align:center;">
-                  <input  type = "submit" class="btn btn-large btn-success container" value = "Submit Query">
+                  <input  type = "submit" class="btn btn-success container" value = "Search">
                 </div>
 
               </form>

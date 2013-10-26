@@ -1,0 +1,17 @@
+<html>
+
+<head>
+	<script src="jquery-2.0.3.min.js"></script>
+	<script type="text/javascript">
+		$.get( "server.php", function( data ) {
+		$( "body" )
+		    .append( "Name: " + data.name ) // John
+		    .append( "Time: " + data.time ); //  2pm
+		}, "json" );
+	</script>
+</head>
+
+<body>
+</body>
+
+</html>

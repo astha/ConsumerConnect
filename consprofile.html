@@ -78,9 +78,10 @@ $(document).ready(function(){
            <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i> Settings <b class="caret"></b></a>
             <ul class="dropdown-menu" align="left">
-              <li><a href="#">Switch To</a></li>
-              <li><a href="#">Edit Profile</a></li>
-              <li><a href="#">Sign Out</a></li>
+              <li><a href="#"><i class="icon-share"></i> Switch To</a></li>
+              <li><a href="#"><i class="icon-pencil"></i> Edit Profile</a></li>
+              <li class="divider"></li>
+              <li><a href="#"><i class="icon-off"></i> Sign Out</a></li>
             </ul>
           </li>
         </ul>
@@ -129,7 +130,7 @@ $(document).ready(function(){
               <tbody><tr>
                 <td style="width: 100px; height: 100px;">
 
-                  
+
 
                   <a style="background-color:white" title="User1" href="images/user1.png" class="cboxElement"><img src="images/user1.png" alt="User1" width="100" height="100"></a></td>
                   <td class="span4"><font style="color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">Swati Khanna</font><br>
@@ -154,7 +155,7 @@ $(document).ready(function(){
                         <li><a href="#">Send Message</a></li>
                         <li><a href="#">Unfriend</a></li>
                       </ul>
-                    </li>
+                    </div>
                   </td>
                 </tr></tbody></table>
               </div> </div>
@@ -175,7 +176,7 @@ $(document).ready(function(){
                     <tbody><tr>
                       <td style="width: 100px; height: 100px;">
 
-                        
+
 
                         <a style="background-color:white" title="User1" href="images/user1.png" class="cboxElement"><img src="images/user1.png" alt="User1" width="100" height="100"></a></td>
                         <td class="span4"><font style="color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">Swati Khanna</font><br>
@@ -197,7 +198,8 @@ $(document).ready(function(){
                           <td style="width: 100px;">
                             <a style="background-color:white" title="User5" href="images/user5.png" class="cboxElement"><img src="images/user5.png" alt="User5" width="100" height="100"></a></td></tr><tr></tr>
                             <tr><td colspan="4" style="width: 100%;">
-                             <div class="raty" style="float: right; width: 100px; cursor: pointer;"><img src="img/star-on.png" alt="1" title="bad">&nbsp;<img src="img/star-on.png" alt="2" title="poor">&nbsp;<img src="img/star-on.png" alt="3" title="regular">&nbsp;<img src="img/star-on.png" alt="4" title="good">&nbsp;<img src="img/star-off.png" alt="5" title="gorgeous"><input type="hidden" name="score" value="4"></div>
+                             <div id="fixed" data-score="3" class="pull-right"></div>
+
                              <div class="btn btn-success enabled vbtn"><i class="icon-thumbs-up"></i> 90</div>
                              <div class="btn btn-danger enabled vbtn"><i class="icon-thumbs-down"></i> 66</div>
                              <p style="float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;">Modern pharmacies carry a wide range of products beyond those which can only be dispensed by prescription. Non-prescription medications, nutritional supplements and medical equipment are among the many offerings. You can also find personal care products, diet and exercise aids and beauty treatments among their many offerings. Purchasing these products online, whether in conjunction with a pharmaceutical order or independently can be a tremendous convenience and often offer great deals as well.</p>
@@ -208,7 +210,7 @@ $(document).ready(function(){
                           <tbody><tr>
                             <td style="width: 100px; height: 100px;">
 
-                              
+
 
                               <a style="background-color:white" title="User1" href="images/user1.png" class="cboxElement"><img src="images/user1.png" alt="User1" width="100" height="100"></a></td>
                               <td class="span4"><font style="color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">Swati Khanna</font><br>
@@ -230,7 +232,8 @@ $(document).ready(function(){
                                 <td style="width: 100px;">
                                   <a style="background-color:white" title="User5" href="images/user8.png" class="cboxElement"><img src="images/user8.png" alt="User8" width="100" height="100"></a></td></tr><tr></tr>
                                   <tr><td colspan="4" style="width: 100%;">
-                                   <div class="raty" style="float: right; width: 100px; cursor: pointer;"><img src="img/star-on.png" alt="1" title="bad">&nbsp;<img src="img/star-on.png" alt="2" title="poor">&nbsp;<img src="img/star-on.png" alt="3" title="regular">&nbsp;<img src="img/star-on.png" alt="4" title="good">&nbsp;<img src="img/star-off.png" alt="5" title="gorgeous"><input type="hidden" name="score" value="4"></div>
+                                   <div id="fixed" data-score="4" class="pull-right"></div>
+
                                    <div class="btn btn-success enabled vbtn"><i class="icon-thumbs-up"></i> 40</div>
                                    <div class="btn btn-danger enabled vbtn"><i class="icon-thumbs-down"></i> 15</div>
                                    <p style="float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;"> I've had the same stylist since I was in the 10th grade. And that was a really long time ago! So I decided to change things up a little bit, and asked around for salon recommendations. Two of my friends (proud owners of very luscious hair) replied with Aarti Stylist. They convinced me that Aarti's wielding of the scissor was exactly what my hair needed. And I'm SO glad I listened to them! 
@@ -283,7 +286,10 @@ $(document).ready(function(){
                                   <font style="float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                                   font-size: 12px; line-height: 1.28;">Poise Parlour</font><br>
                                   <font style="float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                                  font-size: 11px; line-height: 1.28;">Salon (Hair Styling)</font></td>
+                                  font-size: 11px; line-height: 1.28;">Salon (Hair Styling)</font>
+                                  <br>
+                                  <div id="half" data-score="2.9" class="pull-right"></div>
+                                  </td>
 
                                   <td style="width: 100px;">
                                     <a style="background-color:white" title="User8" href="images/user8.png" class="cboxElement"><img src="images/user8.png" alt="User6"></a></td>
@@ -416,6 +422,8 @@ $(document).ready(function(){
   <script src="js/jquery.history.js"></script>
   <!-- application script for Charisma demo -->
   <script src="js/charisma.js"></script>
+  <!-- to specify the rating ids -->
+  <script src="js/rating.js"></script>
   
 
 

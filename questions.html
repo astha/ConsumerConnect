@@ -57,9 +57,10 @@
            <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i> Settings <b class="caret"></b></a>
             <ul class="dropdown-menu" align="left">
-              <li><a href="#">Switch To</a></li>
-              <li><a href="#">Edit Profile</a></li>
-              <li><a href="#">Sign Out</a></li>
+              <li><a href="#"><i class="icon-share"></i> Switch To</a></li>
+              <li><a href="#"><i class="icon-pencil"></i> Edit Profile</a></li>
+              <li class="divider"></li>
+              <li><a href="#"><i class="icon-off"></i> Sign Out</a></li>
             </ul>
           </li>
         </ul>
@@ -76,8 +77,8 @@
         <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; padding:0px; margin-left: 10px; height: 219px;">
           <ul class="nav nav-tabs nav-stacked main-menu">
             <!-- <li class="nav-header hidden-tablet">Main</li> -->
-            <li style="margin-left: -2px;"><a class="ajax-link" href="index.html"><i class="icon-home"></i><span class="hidden-tablet"> Home</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="index.html"><i class="icon-envelope"></i><span class="hidden-tablet"> Messages</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="cons.html"><i class="icon-home"></i><span class="hidden-tablet"> Home</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="messages.html"><i class="icon-envelope"></i><span class="hidden-tablet"> Messages</span></a></li>
             <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.html"><i class="icon-star"></i><span class="hidden-tablet"> My Reviews</span></a></li>
             <li style="margin-left: -2px;"><a class="ajax-link" href="friends.html"><i class="icon-user"></i><span class="hidden-tablet"> My Friends</span></a></li>
             <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.html"><i class="icon-star-empty"></i><span class="hidden-tablet"> Friends' Reviews</span></a></li>
@@ -138,7 +139,8 @@
                   <font style="float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                   font-size: 12px; line-height: 1.28;">Dinesh Pharmacy</font><br>
                   <font style="float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                  font-size: 11px; line-height: 1.28;">Medical (Chemist)</font></td>
+                  font-size: 11px; line-height: 1.28;">Medical (Chemist)</font><br>
+                  <div id="half" data-score="3.3" class="pull-right"></div></td>
 
                   <td style="width: 100px;">
                     <a style="background-color:white" title="User5" href="images/user5.png" class="cboxElement"><img src="images/user5.png" alt="User5"></a></td>
@@ -171,7 +173,8 @@
                       <font style="float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                       font-size: 12px; line-height: 1.28;">BonBon Foods</font><br>
                       <font style="float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                      font-size: 11px; line-height: 1.28;">Food(Bakery Food)</font></td>
+                      font-size: 11px; line-height: 1.28;">Food(Bakery Food)</font><br>
+                    <div id="half" data-score="4.6" class="pull-right"></div></td>
 
                       <td style="width: 100px;">
                         <a style="background-color:white" title="User6" href="images/user6.png" class="cboxElement"><img src="images/user6.png" alt="User6"></a></td>
@@ -308,6 +311,8 @@
   <script src="js/jquery.history.js"></script>
   <!-- application script for Charisma demo -->
   <script src="js/charisma.js"></script>
+  <!-- to specify the rating ids -->
+  <script src="js/rating.js"></script>
   
 
 

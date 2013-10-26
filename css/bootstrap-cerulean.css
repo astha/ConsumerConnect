@@ -3169,8 +3169,8 @@ input[type="submit"].btn.btn-mini {
   color: #f5f5f5;
   text-decoration: none;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  border-right: 1px solid #3887B3;
-  border-left: 1px solid #3887B3;
+  /*border-right: 1px solid #3887B3;*/
+  /*border-left: 1px solid #3887B3;*/
 }
 .navbar .btn {
   display: inline-block;

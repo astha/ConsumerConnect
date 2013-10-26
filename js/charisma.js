@@ -160,9 +160,9 @@ function docReady(){
 	$('.iphone-toggle').iphoneStyle();
 
 	//star rating
-	$('.raty').raty({
-		score : 4 //default stars
-	});
+	// $('.raty').raty({
+	// 	score : 4 //default stars
+	// });
 
 	//uploadify - multiple uploads
 	$('#file_upload').uploadify({

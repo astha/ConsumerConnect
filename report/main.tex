@@ -43,7 +43,7 @@ Assuming E/R Model Approach for hierarchy relationship in Users (Customer, Servi
 
 \item ServiceProvider(\underline{UserID}, Webpage)
 
-\item Service(\underline{ServiceID}, Name, Type, SubType, MiniDescription)
+\item Service(\underline{ServiceID}, Type, SubType, MiniDescription)
 
 \item  \textbf{Many-to-Many Bad Relational Design -}\\  Review(\underline{ReviewID, ServiceID},CustomerUserID, Content, Rating, TimeStamp, \underline{VotedByCustomerUserID}, TypeOfVote)
 
@@ -93,9 +93,9 @@ For \textbf{OO Approach}, we have 3 relations again:
 \begin{enumerate}
 \item Follows(\underline{FollowerCustomerUserID,FollowedCustomerUserID})
 \item Bids(\underline{ServiceProviderUserID, WishID, CustomerUserID}, BidValue, Details)
-\item Provides(\underline{ServiceProviderUserID, ServiceID, RegionID, Days, StartTime}, EndTime, Price, Discount, Description)
+\item Provides(\underline{ServiceProviderUserID, ServiceID, RegionID, Days, StartTime}, EndTime, Name, Price, Discount, Description)
 \item Appointment(\underline{CustomerUserID, ServiceID, ServiceProviderUserID},\\ \underline{RegionID}, Price, Status, StartDate, EndDate, Days, StartTime, EndTime)  
-\item QAndA(\underline{CustomerUserID, ServiceProviderUserID, QuestionID})
+\item QandA(\underline{CustomerUserID, ServiceProviderUserID, QuestionID})
 
 \end{enumerate}
 
@@ -109,7 +109,7 @@ For \textbf{OO Approach}, we have 3 relations again:
 \item ReviewID in Experience is foreign key into ReviewID in Reviews.
 \item WishID in Wishes, Bids and WishTime are foreign keys into WishID in Wish.
 \item QuestionID in Answer is foreign key into QuestionID in Question.
-\item QuestionID, AnswerID in QAndA are foreign keys into QuestionID, AnswerID in Answer.
+\item QuestionID, AnswerID in QandA are foreign keys into QuestionID, AnswerID in Answer.
 \item For location names, CountryName is a foreign key into Country, StateName is a foreign key into State and CityName is a foreign key into City.
 \end{enumerate}
 
@@ -165,7 +165,7 @@ For \textbf{OO Approach}, we have 3 relations again:
 
 \item ServiceProvider(\underline{UserID}, Webpage)
 
-\item Service(\underline{ServiceID}, Name, Type, SubType, MiniDescription)
+\item Service(\underline{ServiceID}, Type, SubType, MiniDescription)
 
 \item In the earlier relation Reviews, attributes CustomerUserID, Content, Rating, Timestamp are dependent only on the subset of the candidate key that is (ReviewID, ServiceID), hence a separate relation corresponding to this is formed.
 \subitem Review(\underline{ReviewID, ServiceID},CustomerUserID, Content, Rating, TimeStamp)
@@ -185,9 +185,9 @@ For \textbf{OO Approach}, we have 3 relations again:
 
 \item Follows(\underline{FollowerCustomerUserID,FollowedCustomerUserID})
 \item Bids(\underline{ServiceProviderUserID, WishID, CustomerUserID}, BidValue, Details)
-\item Provides(\underline{ServiceProviderUserID, ServiceID, RegionID, Days, StartTime}, EndTime, Price, Discount, Description)
+\item Provides(\underline{ServiceProviderUserID, ServiceID, RegionID, Days, StartTime}, EndTime, Name, Price, Discount, Description)
 \item Appointment(\underline{CustomerUserID, ServiceID, ServiceProviderUserID},\\ \underline{RegionID}, Price, Status, StartDate, EndDate, Days, StartTime, EndTime)  
-\item QAndA(\underline{CustomerUserID, ServiceProviderUserID, QuestionID})
+\item QandA(\underline{CustomerUserID, ServiceProviderUserID, QuestionID})
 
 \end{enumerate}
 

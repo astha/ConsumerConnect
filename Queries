@@ -1,61 +1,65 @@
-For Customer - 
+Appointments:
+Looking for appointments: 
 
-Service - Select SubType, Minidescription from Service where Type = SomeType1;
+select * from "appointments" where "startdate" <= date '2013-09-08' and "enddate" >= date '2013-09-08';  //appointments on date 2013-09-08
+select * from "appointments" where dbo.RegexMatch("days", '{0,1}1{0,1}*' ) = 1; //appointments on Monday
 
-Review - 
-For all my reviews - Select 
+Other 'where' clauses:
 
-Select 
-
-Answer - 
-
+where "status"="Confirmed";
 
 
-Message - 
+-------------------------------------------------------------------------------------------------------------------------------------------
 
-
+QuestionAndAnswers:
 QAndA - 
 
 To find all Questions asked by a particular Customer : 
 
-Select Question.* , User.FirstName, User.LastName, User.Photograph from QAndA Natural Join Question, User where CustomerUserID = MyUserID and QAndA.ServiceProviderUserID = User.UserID;
+Select "Question.*" , "users.FirstName", "users.LastName", "users.Photograph" from "QAndA" Natural Join "Question", "users" where "CustomeruserID" = MyuserID and "QAndA.ServiceProvideruserID" = "users.userID";
 
 To find answers to a Question :
 
-Select * from Answer where QuestionID = MyQuestionID;
-
-
-Wishlist -
-
-Select Wish.*, Service.*, Region.* from Wish, Service, Location where Wish.CustomerUserID = MyUserID;
-
-Select Bids.* from Bids, User where Customer.UserID= MyUserID and WishId = MyWishId and Bids.ServiceProviderUSerID = User.UserID;
-
-
-Appointments -
-
-Select * from Appointment where CustomerUserID = MyUserID;
-
-ServiceProviderUserID - 
-
-Friends -
-
-Select User.FirstName, User.LastName, User.EmailID, User.Photograph, User.ContactNumber from Follows, User where Follows.FollowerCustomerUserID = MyUserID and Follows.FollowedCustomerUserID = User.UserID;
-
-
-
-For Service Provider - 
+Select * from "Answer" where "QuestionID" = "MyQuestionID";
 
 To find all Questions asked to a particular Service Provider : 
 
-Select Question.* , User.FirstName, User.LastName, User.Photograph from QAndA Natural Join Question, User where ServiceProviderUserID = MyUserID and QAndA.CustomerUserID = User.UserID;
+Select "Question.*" , "users.FirstName", "users.LastName", "users.Photograph" from "QAndA" Natural Join "Question", "users" where "ServiceProvideruserID" = MyuserID and "QAndA.CustomeruserID" = "users.userID";
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Bids and Wishes:
+
+Selecting wishes of a particular customer :
+Select "Wish.*", "Service.*", "Region.*" from "Wish", "Service", "Location" where "Wish.CustomeruserID" = "MyuserID";
 
 
-Appointments -
+Seeing the bid related to a particular wish :
+Select "Bids.*" from "Bids", "users" where "Customer.userID"= "MyuserID" and "WishId" = "MyWishId" and "Bids.ServiceProvideruserID" = "users.userID";
 
-Select * from Appointment where ServiceProviderUserID = MyUserID;
+-------------------------------------------------------------------------------------------------------------------------------------------
 
-Bids ;
+Followers:
 
-Select Wish.*, Service.*, Region.*, Bid.* from Wish, Service, Location, Bid where Bid.ServiceProviderUserID = MyUserID and Wish.CustomerUserID = Bid.CustomerUserID;
+People followed by my Myusers :
 
+Select "users.FirstName", "users.LastName", "users.EmailID", "users.Photograph", "users.ContactNumber" from "Follows", "users" where "Follows.FollowerCustomeruserID" = "MyuserID" and "Follows.FollowedCustomeruserID" = "users.userID";
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Services:
+
+Search Filters-
+a) Type filter
+Select * from Service where "Type" = Type1;
+
+b) Location filter
+Select "Service.*" from "Service" Natural Join "Provides" Natural Join "Location" where "CityName"= c1;
+
+c)Price Filter
+Select "Service.*" from "Service" Natural Join "Provides" where "price" < X;
+
+d)Time Filter
+Select "Service.*" from "Service" Natural Join "Provides" where "startdate" <= date '2013-09-08' and "enddate" >= date '2013-09-08';
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------

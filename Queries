@@ -1,0 +1,61 @@
+For Customer - 
+
+Service - Select SubType, Minidescription from Service where Type = SomeType1;
+
+Review - 
+For all my reviews - Select 
+
+Select 
+
+Answer - 
+
+
+
+Message - 
+
+
+QAndA - 
+
+To find all Questions asked by a particular Customer : 
+
+Select Question.* , User.FirstName, User.LastName, User.Photograph from QAndA Natural Join Question, User where CustomerUserID = MyUserID and QAndA.ServiceProviderUserID = User.UserID;
+
+To find answers to a Question :
+
+Select * from Answer where QuestionID = MyQuestionID;
+
+
+Wishlist -
+
+Select Wish.*, Service.*, Region.* from Wish, Service, Location where Wish.CustomerUserID = MyUserID;
+
+Select Bids.* from Bids, User where Customer.UserID= MyUserID and WishId = MyWishId and Bids.ServiceProviderUSerID = User.UserID;
+
+
+Appointments -
+
+Select * from Appointment where CustomerUserID = MyUserID;
+
+ServiceProviderUserID - 
+
+Friends -
+
+Select User.FirstName, User.LastName, User.EmailID, User.Photograph, User.ContactNumber from Follows, User where Follows.FollowerCustomerUserID = MyUserID and Follows.FollowedCustomerUserID = User.UserID;
+
+
+
+For Service Provider - 
+
+To find all Questions asked to a particular Service Provider : 
+
+Select Question.* , User.FirstName, User.LastName, User.Photograph from QAndA Natural Join Question, User where ServiceProviderUserID = MyUserID and QAndA.CustomerUserID = User.UserID;
+
+
+Appointments -
+
+Select * from Appointment where ServiceProviderUserID = MyUserID;
+
+Bids ;
+
+Select Wish.*, Service.*, Region.*, Bid.* from Wish, Service, Location, Bid where Bid.ServiceProviderUserID = MyUserID and Wish.CustomerUserID = Bid.CustomerUserID;
+

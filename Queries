@@ -1,8 +1,8 @@
 Appointments:
 Looking for appointments: 
 
-select * from "appointments" where "startdate" <= date '2013-09-08' and "enddate" >= date '2013-09-08';  //appointments on date 2013-09-08
-select * from "appointments" where dbo.RegexMatch("days", '{0,1}1{0,1}*' ) = 1; //appointments on Monday
+select * from "Appointment" where "StartDate" <= date '2013-09-08' and "EndDate" >= date '2013-09-08';  //appointments on date 2013-09-08
+select * from "Appointment" where "Days" LIKE '01%' or "Days" LIKE '11%'; //appointments on Monday
 
 Other 'where' clauses:
 
@@ -16,26 +16,26 @@ QAndA -
 
 To find all Questions asked by a particular Customer : 
 
-Select "Question.*" , "users.FirstName", "users.LastName", "users.Photograph" from "QAndA" Natural Join "Question", "users" where "CustomeruserID" = MyuserID and "QAndA.ServiceProvideruserID" = "users.userID";
+Select "Question".* , "Users"."FirstName", "Users"."LastName", "Users"."Photograph" from "QandA" Natural Join "Question", "Users" where "CustomerUserID" = 8 and "QandA"."ServiceProviderUserID" = "Users"."UserID";;
 
 To find answers to a Question :
 
-Select * from "Answer" where "QuestionID" = "MyQuestionID";
+Select * from "Answer" where "QuestionID" = 1;
 
 To find all Questions asked to a particular Service Provider : 
 
-Select "Question.*" , "users.FirstName", "users.LastName", "users.Photograph" from "QAndA" Natural Join "Question", "users" where "ServiceProvideruserID" = MyuserID and "QAndA.CustomeruserID" = "users.userID";
+Select "Question".*, "Users"."FirstName", "Users"."LastName", "Users"."Photograph" from "QandA" Natural Join "Question", "Users" where "ServiceProviderUserID" = 54 and "QandA"."CustomerUserID" = "Users"."UserID";
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 
 Bids and Wishes:
 
 Selecting wishes of a particular customer :
-Select "Wish.*", "Service.*", "Region.*" from "Wish", "Service", "Location" where "Wish.CustomeruserID" = "MyuserID";
+Select "Wish".*, "Service".*, "Location".* from "Wish" Natural Join "Service" Natural Join "Location" where "Wish"."CustomerUserID" = 16;
 
 
 Seeing the bid related to a particular wish :
-Select "Bids.*" from "Bids", "users" where "Customer.userID"= "MyuserID" and "WishId" = "MyWishId" and "Bids.ServiceProvideruserID" = "users.userID";
+Select "Bids".* from "Bids", "Users", "Customer" where "Customer"."UserID"= 28 and "WishID" = 89 and "Bids"."ServiceProviderUserID" = "Users"."UserID";
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -43,7 +43,7 @@ Followers:
 
 People followed by my Myusers :
 
-Select "users.FirstName", "users.LastName", "users.EmailID", "users.Photograph", "users.ContactNumber" from "Follows", "users" where "Follows.FollowerCustomeruserID" = "MyuserID" and "Follows.FollowedCustomeruserID" = "users.userID";
+Select "Users"."FirstName", "Users"."LastName", "Users"."EmailID", "Users"."Photograph", "Users"."ContactNumber" from "Follows", "Users" where "Follows"."FollowerCustomerUserID" = 51 and "Follows"."FollowedCustomerUserID" = "Users"."UserID";
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -51,15 +51,15 @@ Services:
 
 Search Filters-
 a) Type filter
-Select * from Service where "Type" = Type1;
+Select * from "Service" where "Type" = 'Home';
 
 b) Location filter
-Select "Service.*" from "Service" Natural Join "Provides" Natural Join "Location" where "CityName"= c1;
+Select "Service".* from "Service" Natural Join "Provides" Natural Join "Location" where "CityName"= 'Akot';
 
 c)Price Filter
-Select "Service.*" from "Service" Natural Join "Provides" where "price" < X;
+Select * from "Service" Natural Join "Provides" where "Price" < 800;
 
 d)Time Filter
-Select "Service.*" from "Service" Natural Join "Provides" where "startdate" <= date '2013-09-08' and "enddate" >= date '2013-09-08';
+Select * from "Service" Natural Join "Provides" where "Days" LIKE '01%' or "Days" LIKE '11%';
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------

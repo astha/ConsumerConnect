@@ -1,0 +1,1 @@
+wget --proxy-user "astha23" --proxy-password "@buddhu"  -r -P . -A jpeg,jpg,bmp,gif,png https://www.facebook.com/search/single/users/109524955741121/residents/present/me/non-friends/females/intersect

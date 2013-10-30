@@ -45,7 +45,7 @@ Assuming E/R Model Approach for hierarchy relationship in Users (Customer, Servi
 
 \item Service(\underline{ServiceID}, Type, SubType, MiniDescription)
 
-\item  \textbf{Many-to-Many Bad Relational Design -}\\  Review(\underline{ReviewID, ServiceID},CustomerUserID, Content, Rating, TimeStamp, \underline{VotedByCustomerUserID}, TypeOfVote)
+\item  \textbf{Many-to-Many Bad Relational Design -}\\  Review(\underline{ReviewID, CustomerUserID},ServiceID, ServiceProviderID Content, Rating, TimeStamp, \underline{VotedByCustomerUserID}, TypeOfVote)
 
 \item Wish(\underline{WishID,CustomerUserID}, Description, MaximumPrice, StartDate, EndDate, Days, StartTime, EndTime, ServiceID, RegionID);
 
@@ -120,7 +120,7 @@ For \textbf{OO Approach}, we have 3 relations again:
 \item As is obvious, all super keys determine the entire tuple.
 \item In User relation: LoginID $\to$ (Password and other user details), EmailID $\to$ LoginID, Email-ID $\to$ UserID (In fact, LoginID and emailID are candidate keys.)
 \item In the relation Location:  RegionName $\to$ RegionName, CityName, StateName, CountryName 
-\item In the relation Reviews: (ReviewID, ServiceID) $\to$  CustomerUserID, Content, Rating, Timestamp
+\item In the relation Reviews: (ReviewID, CustomerUSerID) $\to$  ServiceID, ServiceProviderUserID, Content, Rating, Timestamp
 \item Functional dependencies for derived attributes (note that we have already removed them from the schema as the ER to Relational model design suggests.):
 \begin{enumerate}
 \item In the earlier relation Location attributes RegionName, CityName, StateName, CountryName are dependent only on RegionID which is a part of the key, hence a separate relation is formed corresponding to it.
@@ -159,19 +159,19 @@ For \textbf{OO Approach}, we have 3 relations again:
 \subsection{2NF}
 \begin{enumerate}
 
-\item User(\underline{UserID}, LoginID, Password, FirstName, LastName, EmailID, Photograph, ContactNumber)
+\item Users(\underline{UserID}, LoginID, Password, FirstName, LastName, EmailID, Photograph, ContactNumber, Gender)
 
-\item Customer(\underline{UserID}, Gender, DOB, CumulativeUpvotes, CumulativeDownvotes)
+
 
 \item ServiceProvider(\underline{UserID}, Webpage)
 
 \item Service(\underline{ServiceID}, Type, SubType, MiniDescription)
 
-\item In the earlier relation Reviews, attributes CustomerUserID, Content, Rating, Timestamp are dependent only on the subset of the candidate key that is (ReviewID, ServiceID), hence a separate relation corresponding to this is formed.
-\subitem Review(\underline{ReviewID, ServiceID},CustomerUserID, Content, Rating, TimeStamp)
-\subitem Vote(\underline{ReviewID, ServiceID, VotedByCustomerUserID}, TypeOfVote)
+\item In the earlier relation Reviews, attributes ServiceID, ServiceProviderUserID, Content, Rating, Timestamp are dependent only on the subset of the candidate key that is (ReviewID, CustomerUserID), hence a separate relation corresponding to this is formed.
+\subitem Review(\underline{ReviewID, CustomerUserID}, ServiceID, ServiceProviderUserID, Content, Rating, TimeStamp)
+\subitem Vote(\underline{ReviewID, CustomerUserID, VotedByCustomerUserID}, TypeOfVote)
 
-\item Wish(\underline{WishID,CustomerUserID}, Description, MaximumPrice, StartDate, EndDate, Days, StartTime, EndTime, ServiceID, RegionID);
+\item Wish(\underline{WishID, CustomerUserID}, Timestamp, Description, MaximumPrice, StartDate, EndDate, Days, StartTime, EndTime, ServiceID, RegionID);
 
 \item Question(\underline{QuestionID}, Description, TimeStamp);
 
@@ -181,7 +181,12 @@ For \textbf{OO Approach}, we have 3 relations again:
 
 \item In the earlier relation Location attributes RegionName, CityName, StateName, CountryName are dependent only on RegionID which is a part of the key, hence a separate relation is formed corresponding to it.
 \subitem Location(\underline{RegionID}, RegionName, CityName, StateName, CountryName)
-\subitem Lives(\underline{RegionID, CustomerUserID})
+\subitem Lives(\underline{RegionID, CustomerUserID}
+
+\item
+Now because we know that Lives is a Many to One relation, we can merge it with Customer relation itself and remove the Lives relation.
+
+\subitem Customer(\underline{UserID}, DOB, CumulativeUpvotes, CumulativeDownvotes, RegionID)
 
 \item Follows(\underline{FollowerCustomerUserID,FollowedCustomerUserID})
 \item Bids(\underline{ServiceProviderUserID, WishID, CustomerUserID}, BidValue, Details)

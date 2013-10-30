@@ -20,6 +20,14 @@
    $i=0;
 while(! ($i==500))
   {
+  
+  $hours=rand(0,23);
+  $mm=rand(1,9);
+  $dd=rand(1,9);
+  $date="2013-0{$mm}-0{$dd}";
+  $timestamp="{$hours}:00:00";
+  $timestamp="{$date} {$timestamp}";
+  
   $customerID=rand(0,58);
   $serviceID=rand(0,400);
   $regionID=rand(0,50);
@@ -44,7 +52,7 @@ while(! ($i==500))
   $endTime="{$hours}:{$min}:00";
  
 
-  $query="INSERT INTO \"Wish\" (\"WishID\", \"CustomerUserID\", \"ServiceID\", \"MaximumPrice\", \"RegionID\", \"StartDate\",\"EndDate\",\"Days\",\"StartTime\",\"EndTime\") VALUES ({$i},{$customerID}, {$serviceID},{$maxprice}, {$regionID} , '{$startDate}' , '{$endDate}', '{$days}', '{$startTime}' , '{$endTime}' );";
+  $query="INSERT INTO \"Wish\" (\"Timestamp\", \"WishID\", \"CustomerUserID\", \"ServiceID\", \"MaximumPrice\", \"RegionID\", \"StartDate\",\"EndDate\",\"Days\",\"StartTime\",\"EndTime\") VALUES ('{$timestamp}', {$i},{$customerID}, {$serviceID},{$maxprice}, {$regionID} , '{$startDate}' , '{$endDate}', '{$days}', '{$startTime}' , '{$endTime}' );";
   echo $query;
   pg_query($db, $query);
 

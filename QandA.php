@@ -18,14 +18,14 @@
    
    
    $i=0;
-while(! ($i==4))
+while(! ($i==40))
   {
   
   $serviceProviderID=rand(0,58);
   $customerID=rand(0,58);
   $questionID=rand(0,1);
  
-  $query="INSERT INTO \"QandA\" (\"CustomerUserID\", \"ServiceProviderID\", \"QuestionID\") VALUES ({$customerID}, {$serviceProviderID}, {$questionID});";
+  $query="INSERT INTO \"QandA\" (\"CustomerUserID\", \"ServiceProviderUserID\", \"QuestionID\") VALUES ({$customerID}, {$serviceProviderID}, {$questionID});";
   echo $query;
   pg_query($db, $query);
 

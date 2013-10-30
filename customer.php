@@ -23,12 +23,8 @@ while(!($i==40))
   {
   
   $userID=rand(0,58);
-  if($userID%2==0){
-  	$gender='Male';
-  }
-  else{
-  	$gender='Female';
-  }
+  $regionID=rand(0,400);
+  
   $up=rand(0,500);
   $down=rand(0,500);
   
@@ -37,7 +33,7 @@ while(!($i==40))
   $date="2013-0{$mm}-0{$dd}";
   
   
-  $query="INSERT INTO \"Customer\" (\"UserID\", \"Gender\", \"DOB\", \"CumulativeUpVotes\", \"CumulativeDownVotes\") VALUES ({$userID}, '{$gender}', '{$date}', {$up}, {$down});";
+  $query="INSERT INTO \"Customer\" (\"UserID\", \"DOB\", \"CumulativeUpVotes\", \"CumulativeDownVotes\" , \"RegionID\") VALUES ({$userID}, '{$date}', {$up}, {$down}, {$regionID});";
   echo $query;
   pg_query($db, $query);
 

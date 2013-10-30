@@ -2,7 +2,7 @@
 
 <?php
 
-   $file = fopen("services.csv","r");
+   $file = fopen("reviews.csv","r");
    $host        = "host=localhost";
    $port        = "port=5432";
    $dbname      = "dbname=postgres";
@@ -18,20 +18,28 @@
    
    
    $i=0;
-while(! ($i==50))
-  {
-  
-  
+//while(! feof($file))  {
+while(!($i==50000)){
+  $serviceID=rand(0,400);
   $customerID=rand(0,58);
-  $regionID=rand(0,400);
- 
-  $query="INSERT INTO \"Lives\" (\"CustomerUserID\", \"RegionID\") VALUES ({$customerID}, {$regionID});";
+  $reviewID=rand(0,180);
+  $type=rand(0,1);
+  if($type==0){
+  	$type='false';
+  }
+  else{
+  	$type='true';
+  }
+  
+  
+  $query="INSERT INTO \"Vote\" (\"ReviewID\", \"ServiceID\", \"VotedByCustomerUserID\",\"TypeOfVote\") VALUES ({$reviewID}, {$serviceID}, {$customerID}, '{$type}');";
   echo $query;
   pg_query($db, $query);
 
   
   $i=$i+1;
 }
+
 //echo $data;
 
 fclose($file);

@@ -8,14 +8,16 @@ function restrict(elem){
 	}
 	tf.value = tf.value.replace(rx, "");
 }
+
 function emptyElement(x){
 	_(x).innerHTML = "";
 }
+
 function checkusername(){
 	var u = _("username").value;
 	if(u != ""){
 		_("unamestatus").innerHTML = 'checking ...';
-		var ajax = ajaxObj("POST", "signup.php");
+		var ajax = ajaxObj("POST", "index.php");
         ajax.onreadystatechange = function() {
 	        if(ajaxReturn(ajax) == true) {
 	            _("unamestatus").innerHTML = ajax.responseText;
@@ -24,6 +26,9 @@ function checkusername(){
         ajax.send("usernamecheck="+u);
 	}
 }
+
+/**
+
 function signup(){
 	var u = _("username").value;
 	var e = _("email").value;
@@ -56,11 +61,12 @@ function signup(){
         ajax.send("u="+u+"&e="+e+"&p="+p1+"&c="+c+"&g="+g);
 	}
 }
+
 function openTerms(){
 	_("terms").style.display = "block";
 	emptyElement("status");
 }
-/* function addEvents(){
+ function addEvents(){
 	_("elemID").addEventListener("click", func, false);
 }
 window.onload = addEvents; */

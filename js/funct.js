@@ -15,6 +15,8 @@ function emptyElement(x){
 
 function checkusername(){
 	var u = _("username").value;
+	//_("username").innerHTML="KFH!";
+	//document.write(u);
 	if(u != ""){
 		_("unamestatus").innerHTML = 'checking ...';
 		var ajax = ajaxObj("POST", "index.php");

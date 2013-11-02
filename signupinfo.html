@@ -24,6 +24,7 @@
 <link href="css/opa-icons.css" rel="stylesheet">
 <!-- <link href="css/uploadify.css" rel="stylesheet"> -->
 
+
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
 <link href="css/bootstrap-responsive.css" rel="stylesheet" media="screen">
@@ -69,114 +70,132 @@
         <div class="row-fluid sortable ui-sortable"  style="text-shadow:none;">
           <div class="box">
             <div class="box-header well" data-original-title="">
-             <h2>Fill Up Your Details</h2>    
-           </div>
-           <div class="box-content" style="display: block;">
+             <h2>Fill Up Your Details</h2>   
+             <div class="box-icon">
+              <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+              <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+            </div> 
+          </div>
+          <div class="box-content" style="display: block;">
 
-             <table class="table table-bordered table-striped">
-              <tbody><tr>
+           <table class="table table-bordered table-striped">
+            <tbody>
+              <tr>
                 <td>
                   <form role="form" class="form-horizontal">
                     <fieldset>
-                     <div class="control-group">
-                      <label class="control-label" for="selectError2">Your Name</label>
-                      <div class="controls">
-                        <input class="input-xlarge focused span6" id="firstName" type="text" placeholder="First Name" style="float:left">
-                        <input class="input-xlarge focused span6" id="lastName" type="text" placeholder="Last Name" style="float:left">
-                        
+                      <div class="control-group">
+                        <label class="control-label" for="selectError2">Your Name</label>
+                        <div class="controls">
+                          <input class="input-xlarge focused span6" id="firstName" type="text" placeholder="First Name" >
+                          <input class="input-xlarge focused span6" id="lastName" type="text" placeholder="Last Name">
+
+                        </div>
                       </div>
-                    </div>
 
-                    <div class="control-group">
-                      <label class="control-label" for="number">Contact Number</label>
-                      <div class="controls">
-                        <input id="number" size="16" type="text">
+                      <div class="control-group">
+                        <label class="control-label" for="number">Contact Number</label>
+                        <div class="controls">
+                          <input id="number" size="16" type="text">
+                        </div>
                       </div>
-                    </div>
-                    
 
-                    <div class="control-group">
-                      <label class="control-label" for="photo">Add Photograph</label>
-                      <div class="controls">
-                        <input class="input-file uniform_on" id="photo" type="file">
-                      </div>
-                    </div>  
 
-                    <div class="controls">
-                      <h5 >
-                        For Your Customer Profile
-                      </h5>
-                    </div>
-                    <br>
-
-                    <div class="control-group">
-
-                      <label class="control-label">Select Country</label>
-                      <div class="controls">
-                        <select name="country" onchange="getState(this.value)"><option>Select Country</option><option value="1">USA</option><option value="2">India</option> <option value="3">Canada</option> </select>
-                      </div>
-                    </div>
-
-                    <div class="control-group">
-
-                      <label class="control-label">Select State</label>
-                      <div class="controls">
-                        <select name="state"><option>Select Country First</option> </select>
-                      </div>
-                    </div>
-
-                    <div class="control-group">
-
-                      <label class="control-label">Select City</label>
-                      <div class="controls">
-                        <select name="city"><option>Select State First</option> </select>
-                      </div>
-                    </div>
-
-                    <div class="control-group">
-                      <label class="control-label" >Gender</label>
-
+                      <div class="control-group">
+                        <label class="control-label" for="photo">Add Photograph</label>
+                        <div class="controls">
+                          <input class="input-file uniform_on" id="photo" type="file">
+                        </div>
+                      </div>  
 
                       <div class="controls">
-                        <select id="selectError3">
-                          <option>Male</option>
-                          <option>Female</option>
-
-                        </select>
+                        <h5 >
+                          For Your Customer Profile
+                        </h5>
                       </div>
-                    </div>
-                  </div>
+                      <br>
 
-                  <div class="controls">
-                    <h5 >
-                      For Your Service Provider Profile
-                    </h5>
-                  </div>
-                  <br>
-                  <div class="control-group">
-                    <label class="control-label" for="number">WebPage</label>
-                    <div class="controls">
-                      <input id="number" size="16" type="text">
-                    </div>
-                  </div>
+                      <div class="control-group">
+
+                        <label class="control-label">Select Country</label>
+                        <div class="controls">
+                          <select name="country" onchange="getState(this.value)"><option>Select Country</option><option value="1">USA</option><option value="2">India</option> <option value="3">Canada</option> </select>
+                        </div>
+                      </div>
+
+                      <div class="control-group">
+
+                        <label class="control-label">Select State</label>
+                        <div class="controls">
+                          <select name="state"><option>Select Country First</option> </select>
+                        </div>
+                      </div>
+
+                      <div class="control-group">
+
+                        <label class="control-label">Select City</label>
+                        <div class="controls">
+                          <select name="city"><option>Select State First</option> </select>
+                        </div>
+                      </div>
+
+                      <div class="control-group">
+                        <label class="control-label" >Gender</label>
 
 
-                  <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Submit Details</button>
-                  </div>
-                </fieldset>
-              </form>
-            </td>
-          </tr>
-        </tbody></table>
+                        <div class="controls">
+                          <label class="radio">
+                              <input type="radio" name="gender" id="male" value="option1">
+                              Male
+                            </label>
+                            <div style="clear:both"></div>
+                            <label class="radio">
+                              <input type="radio" name="gender" id="female" value="option2">
+                              Female
+                            </label>
+                        </div>
+                      </div>
 
-        <!-- </div> -->
+                      <div class="control-group">
 
-      </div>
-    </div><!--/span-->
+                        <label class="control-label">Date of Birth</label>
+                        <div class="controls">
+                          <input type="text" class="input-xlarge datepicker span6" id="dob" placeholder="Select Date">
 
+                        </div>
+                      </div>
+
+                      <div class="controls">
+                        <h5 >
+                          For Your Service Provider Profile
+                        </h5>
+                      </div>
+                      <br>
+                      <div class="control-group">
+                        <label class="control-label" for="number">WebPage</label>
+                        <div class="controls">
+                          <input id="number" size="16" type="text">
+                        </div>
+                      </div>
+
+
+                      <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Submit Details</button>
+                      </div>
+                    </fieldset>
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- </div> -->
+
+        </div>
+      </div><!--/span-->
+
+    </div>
   </div>
-</div>
 
 </div><!--/fluid-row-->
 
@@ -254,7 +273,7 @@
   <!-- history.js for cross-browser state change on ajax -->
   <script src="js/jquery.history.js"></script>
   <!-- application script for Charisma demo -->
-  <!--<script src="js/charisma.js"></script> -->
+  <script src="js/charisma.js"></script> 
   <!-- to specify the rating ids -->
   <script src="js/rating.js"></script>
 

@@ -116,8 +116,8 @@ function docReady(){
 	});
 
 
-	//uniform - styler for checkbox, radio and file input
-	$("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
+	// //uniform - styler for checkbox, radio and file input
+	// $("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
 
 	//chosen - improves select
 	$('[data-rel="chosen"],[rel="chosen"]').chosen();
@@ -151,10 +151,10 @@ function docReady(){
 	//popover
 	$('[rel="popover"],[data-rel="popover"]').popover();
 
-	//file manager
-	var elf = $('.file-manager').elfinder({
-		url : 'misc/elfinder-connector/connector.php'  // connector URL (REQUIRED)
-	}).elfinder('instance');
+	// //file manager
+	// var elf = $('.file-manager').elfinder({
+	// 	url : 'misc/elfinder-connector/connector.php'  // connector URL (REQUIRED)
+	// }).elfinder('instance');
 
 	//iOS / iPhone style toggle switch
 	$('.iphone-toggle').iphoneStyle();
@@ -164,12 +164,12 @@ function docReady(){
 	// 	score : 4 //default stars
 	// });
 
-	//uploadify - multiple uploads
-	$('#file_upload').uploadify({
-		'swf'      : 'misc/uploadify.swf',
-		'uploader' : 'misc/uploadify.php'
-		// Put your options here
-	});
+	// //uploadify - multiple uploads
+	// $('#file_upload').uploadify({
+	// 	'swf'      : 'misc/uploadify.swf',
+	// 	'uploader' : 'misc/uploadify.php'
+	// 	// Put your options here
+	// });
 
 	//gallery controlls container animation
 	$('ul.gallery li').hover(function(){

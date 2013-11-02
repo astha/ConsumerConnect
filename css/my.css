@@ -23,3 +23,8 @@ a.gallerypic span.zoom-icon{
 a.gallerypic:hover span.zoom-icon{
   visibility:visible;
 }
+
+.serviceoptions{
+  margin-left:20px;
+
+}

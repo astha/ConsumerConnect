@@ -44,6 +44,8 @@
 			});
 		}
 	}
+
+
 	</script>
 
 	<style>
@@ -91,7 +93,8 @@
 					<i class="icon-lock icon-large"></i>
 				</p>
 				<p class="submit">
-					<button type="submit" name="submit"><i class="icon-arrow-right icon-large"></i></button>
+					<button id="loginbtn" onclick="login()" type="submit" name="submit"><i class="icon-arrow-right icon-large"></i></button>
+					<p id="status"> </p>
 				</p>
 			</form>
 

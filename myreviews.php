@@ -77,14 +77,14 @@
         <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; padding:0px; margin-left: 10px; height: 219px;">
           <ul class="nav nav-tabs nav-stacked main-menu">
             <!-- <li class="nav-header hidden-tablet">Main</li> -->
-            <li style="margin-left: -2px;"><a class="ajax-link" href="cons.html"><i class="icon-home"></i><span class="hidden-tablet"> Home</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="messages.html"><i class="icon-envelope"></i><span class="hidden-tablet"> Messages</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.html"><i class="icon-star"></i><span class="hidden-tablet"> My Reviews</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="friends.html"><i class="icon-user"></i><span class="hidden-tablet"> My Friends</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.html"><i class="icon-star-empty"></i><span class="hidden-tablet"> Friends' Reviews</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="questions.html"><i class="icon-question-sign"></i><span class="hidden-tablet"> My Questions</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.html"><i class="icon-calendar"></i><span class="hidden-tablet"> Appointments</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.html"><i class="icon-gift"></i><span class="hidden-tablet"> Wishlist</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="cons.php"><i class="icon-home"></i><span class="hidden-tablet"> Home</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="messages.php"><i class="icon-envelope"></i><span class="hidden-tablet"> Messages</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.php"><i class="icon-star"></i><span class="hidden-tablet"> My Reviews</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="friends.php"><i class="icon-user"></i><span class="hidden-tablet"> My Friends</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.php"><i class="icon-star-empty"></i><span class="hidden-tablet"> Friends' Reviews</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="questions.php"><i class="icon-question-sign"></i><span class="hidden-tablet"> My Questions</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.php"><i class="icon-calendar"></i><span class="hidden-tablet"> Appointments</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.php"><i class="icon-gift"></i><span class="hidden-tablet"> Wishlist</span></a></li>
           </ul>
           <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
         </div><!--/.well -->
@@ -109,16 +109,14 @@
           <div class="box-content" style="display: block;">
            <?php
               
-               include("connect_sql.php");
-              //$sql = "SELECT \"LoginID\" from \"Users\"";
-              //$sql = "SELECT \"Review\".\"ReviewID\", sum(\"TypeOfVote\") from \"Review\",\"Vote\" where \"Review\".\"ReviewID\"=\"Vote\".\"ReviewID\" and \"Review\".\"CustomerUserID\"= \"Vote\".\"CustomerUserID\" and \"Review\".\"CustomerUserID\"=53 group by \"Review\".\"ReviewID\"";
-              $sql = "SELECT * from \"Review\" where \"CustomerUserID\"= '40' order by \"Timestamp\" desc";
+              include("connect_sql.php");
+              $sql = "SELECT * from \"Review\" where \"CustomerUserID\"= '5' order by \"Timestamp\" desc";
  
               //echo $sql;
             
-              $query = pg_query($db, $sql);
+              $query1 = pg_query($db, $sql);
        
-              if (!$query) {
+              if (!$query1) {
                 //echo "An error occurred.\n";
                exit;
               }
@@ -126,13 +124,13 @@
                 //echo "No Error!";
               }
              
-              while ($row = pg_fetch_row($query)) {
+              while ($row = pg_fetch_row($query1)) {
                   $content = $row[3];
                   $rating = $row[4];
                   $time = $row[5];
                   $spid = $row[6];
                   $sid = $row[1];
-                  $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '40'";
+                  $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '5'";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
                   $cfn = $row[0];
@@ -149,17 +147,28 @@
                   $row = pg_fetch_row($query);
                   $type = $row[0];
                   $stype = $row[1];
-                  $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = '40'";
+                  
+                  $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = '5'";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
                   $cu= $row[0];
                   $cd = $row[1];
 
-                  $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = '40'";
-                  $query = pg_query($db, $sql);
-                  $row = pg_fetch_row($query);
-                  $cu= $row[0];
-                  $cd = $row[1];
+
+                  $ratio = $cu/$cd;
+                   
+                  if ($ratio < 1){
+                      $ratimage = "images/J.jpeg";
+                  }
+                  elseif ($ratio < 2){
+                      $ratimage = "images/Q.jpeg";
+                  }
+                  elseif ($ratio < 3){
+                      $ratimage = "images/K.jpeg";
+                  }
+                  else{
+                      $ratimage = "images/A.jpeg";
+                  }
                   
                   //$sql = "SELECT \"Review\".\"ReviewID\", sum(\"TypeOfVote\") from \"Review\",\"Vote\" where \"Review\".\"ReviewID\"=\"Vote\".\"ReviewID\" and \"Review\".\"CustomerUserID\"= \"Vote\".\"CustomerUserID\" and \"Review\".\"CustomerUserID\"=53 group by \"Review\".\"ReviewID\";
                   
@@ -180,7 +189,7 @@
 
                   <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                   font-size: 11px; line-height: 1.28;\">$time</font><br>
-                  <img src=\"images/J.jpeg\" width=40px height=70px>
+                  <img src=$ratimage width=40px height=70px>
                 </td>
 
 

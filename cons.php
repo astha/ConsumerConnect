@@ -116,173 +116,190 @@
 
 
 
-                  <a style="background-color:white" title="User1" href="images/user1.png" class="cboxElement"><img src="images/user1.png" alt="User1" width="100" height="100"></a></td>
+                  <a style="background-color:white" title="User1" href="images/user1.png" class="cboxElement"><img src="images/user1.png" alt="User1" width="100" height="100"></a>
 
-                  <td class="span4">
-                    <?php
-                    echo "<font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">Swati Khanna</font><br>"
-                    ?>
+                </td>
 
-                    <font style="color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 11px; line-height: 1.28;">3 hours ago</font><br>
-                    <img src="images/Q.jpeg" width=40px height=70px>
-                  </td>
-
-
-
-                  <td class="span4"><font style="float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">Dinesh Shah</font><br>
-                    <font style="float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 12px; line-height: 1.28;">Dinesh Pharmacy</font><br>
-                    <font style="float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 11px; line-height: 1.28;">Medical (Chemist)</font></td>
-
-                    <td style="width: 100px;">
-                      <a style="background-color:white" title="User5" href="images/user5.png" class="cboxElement"><img src="images/user5.png" alt="User5" width="100" height="100"></a></td></tr><tr></tr>
-                      <tr><td colspan="4" style="width: 100%;">
-
-                        <div id="fixed" data-score="3" class="pull-right"></div>
-
-
-                        <div class="btn btn-success enabled vbtn"><i class="icon-thumbs-up"></i> 90</div>
-                        <div class="btn btn-danger enabled vbtn"><i class="icon-thumbs-down"></i> 66</div>
-                        <p style="float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;">Modern pharmacies carry a wide range of products beyond those which can only be dispensed by prescription. Non-prescription medications, nutritional supplements and medical equipment are among the many offerings. You can also find personal care products, diet and exercise aids and beauty treatments among their many offerings. Purchasing these products online, whether in conjunction with a pharmaceutical order or independently can be a tremendous convenience and often offer great deals as well.</p>
-                      </td>
-                    </tr></tbody></table>
-
-
-                    <table class="table table-bordered table-striped">
-                      <tbody><tr>
-                        <td style="width: 100px; height: 100px;">
+                <td class="span4">
+       <?php 
+       include("connect_sql.php");
+       $sql = "SELECT \"LoginID\" from \"Users\"";
+       $query = pg_query($db, $sql);
+       
+       if (!$query) {
+  echo "An error occurred.\n";
+  exit;
+}
+else {
+  //echo"no error";
+}
+       while ($row = pg_fetch_row($query)) {
+          //echo "Author: $row[0]  E-mail: $row[1]";
+         
+      
+      echo "<font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$row[0]</font><br>";
+      }
+        ?>
+                  <font style="color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                  font-size: 11px; line-height: 1.28;">3 hours ago</font><br>
+                  <img src="images/Q.jpeg" width=40px height=70px>
+                </td>
 
 
 
-                          <a style="background-color:white" title="User7" href="images/user7.png" class="cboxElement"><img src="images/user7.png" alt="User7" width="100" height="100"></a></td>
-                          <td class="span4"><font style="color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">John Wilfred</font><br>
+                <td class="span4"><font style="float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">Dinesh Shah</font><br>
+                  <font style="float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                  font-size: 12px; line-height: 1.28;">Dinesh Pharmacy</font><br>
+                  <font style="float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                  font-size: 11px; line-height: 1.28;">Medical (Chemist)</font></td>
+
+                  <td style="width: 100px;">
+                    <a style="background-color:white" title="User5" href="images/user5.png" class="cboxElement"><img src="images/user5.png" alt="User5" width="100" height="100"></a></td></tr><tr></tr>
+                    <tr><td colspan="4" style="width: 100%;">
+
+                      <div id="fixed" data-score="3" class="pull-right"></div>
 
 
-                            <font style="color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                            font-size: 11px; line-height: 1.28;">5 hours ago</font><br>
-                            <img src="images/K.jpeg" width=40px height=70px >
-                          </td>
+                      <div class="btn btn-success enabled vbtn"><i class="icon-thumbs-up"></i> 90</div>
+                      <div class="btn btn-danger enabled vbtn"><i class="icon-thumbs-down"></i> 66</div>
+                      <p style="float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;">Modern pharmacies carry a wide range of products beyond those which can only be dispensed by prescription. Non-prescription medications, nutritional supplements and medical equipment are among the many offerings. You can also find personal care products, diet and exercise aids and beauty treatments among their many offerings. Purchasing these products online, whether in conjunction with a pharmaceutical order or independently can be a tremendous convenience and often offer great deals as well.</p>
+                    </td>
+                  </tr></tbody></table>
+
+
+                  <table class="table table-bordered table-striped">
+                    <tbody><tr>
+                      <td style="width: 100px; height: 100px;">
 
 
 
-                          <td class="span4"><font style="float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">Dejoy Cherian</font><br>
-                            <font style="float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                            font-size: 12px; line-height: 1.28;">Prime Property Dealers</font><br>
-                            <font style="float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                            font-size: 11px; line-height: 1.28;">Real Estate (Investment Consultant)</font></td>
+                        <a style="background-color:white" title="User7" href="images/user7.png" class="cboxElement"><img src="images/user7.png" alt="User7" width="100" height="100"></a></td>
+                        <td class="span4"><font style="color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">John Wilfred</font><br>
+
+
+                          <font style="color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                          font-size: 11px; line-height: 1.28;">5 hours ago</font><br>
+                          <img src="images/K.jpeg" width=40px height=70px >
+                        </td>
+
+
+
+                        <td class="span4"><font style="float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">Dejoy Cherian</font><br>
+                          <font style="float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                          font-size: 12px; line-height: 1.28;">Prime Property Dealers</font><br>
+                          <font style="float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                          font-size: 11px; line-height: 1.28;">Real Estate (Investment Consultant)</font></td>
+
+                          <td style="width: 100px;">
+                            <a style="background-color:white" title="User3" href="images/user3.png" class="cboxElement"><img src="images/user3.png" alt="User3" width="100" height="100%"></a></td></tr><tr></tr>
+                            <tr><td colspan="4" style="width: 100%;">
+
+                              <div id="fixed" class="pull-right" data-score="4" ></div>
+
+                              <div class="btn btn-success enabled vbtn"><i class="icon-thumbs-up"></i> 83</div>
+                              <div class="btn btn-danger enabled vbtn"><i class="icon-thumbs-down"></i> 24</div>
+                              <p style="float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;">I'm happy to share my experience in hiring new apartment. Thanks to the excellent team work of their agents , we were able to find the property we wanted to and sign a lease on terms that satisfy us completely. </p>
+                            </td>
+                          </tr></tbody></table>
+
+                          <!-- </div> -->
+
+                        </div>
+                      </div><!--/span-->
+
+                    </div>
+
+                    <div class="row-fluid sortable ui-sortable" style="text-shadow:none; float:top;">
+                      <div class="box">
+                        <div class="box-header well" data-original-title="">
+                         <h2>My Questions</h2>
+                         <div class="box-icon">
+                          <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+                          <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+                        </div>
+                      </div>
+                      <div class="box-content" style="display: block;">
+                        <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
+                        <table class="table table-bordered table-striped">
+                          <tbody><tr>
+
+
+                            <!-- <td class="span4"></td> -->
+                            <td>
+
+                              <p style="color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">
+                                <i class="icon-question-sign"></i>
+                                Why don't you extend the services 24*7?<br>
+                                <font style="color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                                font-size: 11px; line-height: 1.28;">2 days ago</font>
+
+                              </p>
+
+
+
+
+                              <p style="color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">
+                                <i class="icon-check"></i>
+                                Because we don't have required resources. We are working on it.<br>
+                                <font style="color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                                font-size: 11px; line-height: 1.28;">1 day ago</font>
+                              </p>
+                            </td>
+                            <td style="width:110px;"><font style="float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">Dinesh Shah</font><br>
+                              <font style="float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                              font-size: 12px; line-height: 1.28;">Dinesh Pharmacy</font><br>
+                              <font style="float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                              font-size: 11px; line-height: 1.28;">Medical (Chemist)</font>
+                              <br>
+                              <div id="half" data-score="3.3" class="pull-right"></div>
+                            </td>
 
                             <td style="width: 100px;">
-                              <a style="background-color:white" title="User3" href="images/user3.png" class="cboxElement"><img src="images/user3.png" alt="User3" width="100" height="100%"></a></td></tr><tr></tr>
-                              <tr><td colspan="4" style="width: 100%;">
+                              <a style="background-color:white" title="User5" href="images/user5.png" class="cboxElement"><img src="images/user5.png" alt="User5"></a></td>
 
-                                <div id="fixed" class="pull-right" data-score="4" ></div>
+                            </tr>
 
-                                <div class="btn btn-success enabled vbtn"><i class="icon-thumbs-up"></i> 83</div>
-                                <div class="btn btn-danger enabled vbtn"><i class="icon-thumbs-down"></i> 24</div>
-                                <p style="float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;">I'm happy to share my experience in hiring new apartment. Thanks to the excellent team work of their agents , we were able to find the property we wanted to and sign a lease on terms that satisfy us completely. </p>
+                          </tbody></table>
+                          <table class="table table-bordered table-striped">
+                            <tbody><tr>
+                              <!-- <td class="span4"></td> -->
+                              <td>
+
+                                <p style="float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">
+                                  <i class="icon-question-sign"></i>
+                                  What oil do you use for your chocolate cookies? Is it bad for heart patients?<br>
+                                  <font style="color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;font-size: 11px; line-height: 1.28;">2 days ago</font>
+
+                                </p>
+                                <br>
+
+                                <p style="float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">
+                                  <i class="icon-check"></i>
+                                  We use vegetable oils with almond, vanilla and chocolate extracts. I would not recommend a high quantity of the cookies for heart patients.<br>
+                                  <font style="color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;font-size: 11px; line-height: 1.28;">2 days ago</font>
+
+                                </p>
                               </td>
-                            </tr></tbody></table>
+
+                              <td style="width: 110px;"><font style="float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">Alisha Mehta</font><br>
+                                <font style="float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                                font-size: 12px; line-height: 1.28;">BonBon Foods</font><br>
+                                <font style="float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                                font-size: 11px; line-height: 1.28;">Food(Bakery Food)</font><br>
+                                <div id="half" data-score="4.6" class="pull-right"></div>
+
+                              </td>
+
+                              <td style="width: 100px;">
+                                <a style="background-color:white" title="User6" href="images/user6.png" class="cboxElement"><img src="images/user6.png" alt="User6"></a></td>
+                              </tr>
+
+                            </tbody></table>
 
                             <!-- </div> -->
 
                           </div>
                         </div><!--/span-->
-
-                      </div>
-
-                      <div class="row-fluid sortable ui-sortable" style="text-shadow:none; float:top;">
-                        <div class="box">
-                          <div class="box-header well" data-original-title="">
-                           <h2>My Questions</h2>
-                           <div class="box-icon">
-                            <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-                            <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
-                          </div>
-                        </div>
-                        <div class="box-content" style="display: block;">
-                          <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
-                          <table class="table table-bordered table-striped">
-                            <tbody><tr>
-
-
-                              <!-- <td class="span4"></td> -->
-                              <td>
-
-                                <p style="color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">
-                                  <i class="icon-question-sign"></i>
-                                  Why don't you extend the services 24*7?<br>
-                                  <font style="color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                                  font-size: 11px; line-height: 1.28;">2 days ago</font>
-
-                                </p>
-
-
-
-
-                                <p style="color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">
-                                  <i class="icon-check"></i>
-                                  Because we don't have required resources. We are working on it.<br>
-                                  <font style="color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                                  font-size: 11px; line-height: 1.28;">1 day ago</font>
-                                </p>
-                              </td>
-                              <td style="width:110px;"><font style="float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">Dinesh Shah</font><br>
-                                <font style="float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                                font-size: 12px; line-height: 1.28;">Dinesh Pharmacy</font><br>
-                                <font style="float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                                font-size: 11px; line-height: 1.28;">Medical (Chemist)</font>
-                                <br>
-                                <div id="half" data-score="3.3" class="pull-right"></div>
-                              </td>
-
-                              <td style="width: 100px;">
-                                <a style="background-color:white" title="User5" href="images/user5.png" class="cboxElement"><img src="images/user5.png" alt="User5"></a></td>
-
-                              </tr>
-
-                            </tbody></table>
-                            <table class="table table-bordered table-striped">
-                              <tbody><tr>
-                                <!-- <td class="span4"></td> -->
-                                <td>
-
-                                  <p style="float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">
-                                    <i class="icon-question-sign"></i>
-                                    What oil do you use for your chocolate cookies? Is it bad for heart patients?<br>
-                                    <font style="color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;font-size: 11px; line-height: 1.28;">2 days ago</font>
-
-                                  </p>
-                                  <br>
-
-                                  <p style="float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">
-                                    <i class="icon-check"></i>
-                                    We use vegetable oils with almond, vanilla and chocolate extracts. I would not recommend a high quantity of the cookies for heart patients.<br>
-                                    <font style="color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;font-size: 11px; line-height: 1.28;">2 days ago</font>
-
-                                  </p>
-                                </td>
-
-                                <td style="width: 110px;"><font style="float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">Alisha Mehta</font><br>
-                                  <font style="float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                                  font-size: 12px; line-height: 1.28;">BonBon Foods</font><br>
-                                  <font style="float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                                  font-size: 11px; line-height: 1.28;">Food(Bakery Food)</font><br>
-                                  <div id="half" data-score="4.6" class="pull-right"></div>
-                                  
-                                </td>
-
-                                <td style="width: 100px;">
-                                  <a style="background-color:white" title="User6" href="images/user6.png" class="cboxElement"><img src="images/user6.png" alt="User6"></a></td>
-                                </tr>
-
-                              </tbody></table>
-
-                              <!-- </div> -->
-
-                            </div>
-                          </div><!--/span-->
 
       </div><!--/row
 

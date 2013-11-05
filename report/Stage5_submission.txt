@@ -1,0 +1,196 @@
+Astha Agarwal (110050018)
+Anmol Garg (110050020)
+Deepali Adlakha (11D170020)
+
+DATA UPLOAD
+
+-We have used the technique of Bulk Upload for our application. 
+-Data available online like names of people, photographs, loginID, password, emailID (public) have been used for Bulk upload. CSV files
+were built for containing this data from the web. 
+-Fields involving numbers have been produced through Random Number Generator.
+-For fields requiring description, we have made a "Random Sentence Generator" in C++. Given a set of vocabulary, it produces
+random sentences. So we have used this to generate content of Reviews, Questions, Answers and Messages. As of now, we have only deployed
+it for content of Reviews.
+-We have written PHP Scripts to read these CSV files and insert data into the relations.
+
+The data SQL is ./sql/data.sql
+The structure SQL is ./sql/structure.sql
+The data files are present in ./data
+The php scripts used to insert data are in ./php_scripts
+
+###################################################################################################################heck
+
+CONSTRAINTS
+
+a) check("EndTime">"StartTime"); in all the relations concerning time.
+b) check("EndDate">"StartDate"); in all relations concerning date.
+c) check("SenderCustomerUserID" <> "ReceiverCustomerUserID"); (In Message relation)
+d) check("Rating" >=0  and "Rating" <= 5); (In Review relation)
+e) check (DATALENGTH("Password") >= 8 ); (In Users relation)
+f) check (DATALENGTH("ContactNumber") >= 10 ); (In Users relation)
+g) check("Discount" >=0  and "Discount" <= 100); (In Provides relation)
+h) check("Gender" = 'Male' or "Gender" = 'Female'); (In Users relation)
+i) check("TypeOfVote" = 1 or "TypeOfVote" = -1); (In Vote relation)
+j) DOB Constraint has been implemented through Domain.
+	CREATE DOMAIN birthdate AS date DEFAULT NULL
+    CHECK ("dob" <= now()); (In Customer relation)
+
+###################################################################################################################
+QUERIES
+
+Messages :
+
+-Sending a message
+a)Insert into "Message" Values (MyUseID, PresentTime, messageContent, ReceiverUserID);
+
+-Loading messages
+b)Select * from "Message" where "SenderCustomerUserID" = MyUserID or "ReceiverCustomerUserID" = MyUserID ;
+
+
+-------------------------------------------------------------------------------------------------------------------------
+Edit Profile:
+
+a)Update "Users" set 
+		("Password", "FirstName", "LastName", "Photograph", "ContactNumber" ) = (NewPassword, NewFirstName, NewLastName, NewPhotograph, NewContactNumber)
+		where UserID = MyUserID;
+
+b)Update "ServiceProvider" set ("Webpage") = (NewPage) where UserID = MyUserID;
+---------------------------------------------------------------------------------------------------------------------------
+Signup:
+
+a)Insert into "Users" ("LoginID", "Password", "FirstName","LastName", "EmailID") Values (GivenLoginID, GivenPassword, GivenFirstName,GivenLastName, GivenEmailID);
+
+b)Insert into "Customers" ("UserID","Gender", "DOB") Values (GivenID,GivenGender, GivenDOB);
+
+c)Insert into "ServiceProvider"("UserID", "Webpage") Values (GivenID, GivenWebpage);
+-------------------------------------------------------------------------------------------------------------
+Login:
+
+a)For authenticating Login
+Select * from "Users" where "LoginID" = enteredUserName and "Password" = enteredPassword;
+--------------------------------------------------------------------------------------------------------------
+
+Search Users:
+a)Searching users by name
+Select * from "Users" where "FirstName" = enteredQuery or "LastName" = enteredQuery or FirstName || LastName = enteredQuery;
+
+b)Search Wishes: 
+-First find corresponding serviceID
+Select "ServiceID" from "Service" where "Type" = givenType and "SubType" = givenSubType;
+Select * from "Wishes" where "ServiceID" = givenServiceID and "RegionID" = givenRegionID;
+
+----------------------------------------------------------------------------------------------------
+
+Appointments:
+
+-Looking for appointments: 
+a)Searching for appointments on date 2013-09-08.
+select * from "Appointment" where "StartDate" <= date '2013-09-08' and "EndDate" >= date '2013-09-08'; 
+
+b)Searching for appointments on Monday. 
+select * from "Appointment" where "Days" LIKE '01%' or "Days" LIKE '11%'; 
+
+c)Other 'where' clauses:
+select * from "Appointment" where "status"="Confirmed";
+
+-Inserting appointments
+a)Insert into "Appointment" ("CustomerUserID", "ServiceID", "ServiceProviderUserID",
+"RegionID", "Price", "Status", "StartDate", "EndDate", "Days", "StartTime", "EndTime") Values (CustomerUserID, ServiceID, ServiceProviderUserID,
+RegionID, Price, Status, StartDate, EndDate, Days, StartTime, EndTime);
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Question And Answers:
+-Search
+a)To find all Questions asked by a particular Customer : 
+Select "Question".* , "Users"."FirstName", "Users"."LastName", "Users"."Photograph" from "QandA" Natural Join "Question", "Users" where "CustomerUserID" = 8 and "QandA"."ServiceProviderUserID" = "Users"."UserID";;
+
+b)To find answers to a Question :
+Select * from "Answer" where "QuestionID" = 1;
+
+c)To find all Questions asked to a particular Service Provider : 
+Select "Question".*, "Users"."FirstName", "Users"."LastName", "Users"."Photograph" from "QandA" Natural Join "Question", "Users" where "ServiceProviderUserID" = 54 and "QandA"."CustomerUserID" = "Users"."UserID";
+
+-Posting a Question/Answer
+a)Insert into "Question" ("Description", "TimeStamp") Values (GivenDescription, GivenTime);
+
+b)Insert into "Answer" ("QuestionID","Description", "TimeStamp") Values (GivenQuestionID, GivenDescription, GivenTime);
+
+c)Insert into "QAndA" ("CustomerUserID", "ServiceProviderUserID", "QuestionID") Values (CustomerUserID, ServiceProviderUserID, QuestionID);
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Bids and Wishes:
+-Selecting
+a)Selecting wishes of a particular customer :
+Select "Wish".*, "Service".*, "Location".* from "Wish" Natural Join "Service" Natural Join "Location" where "Wish"."CustomerUserID" = 16;
+
+b)Seeing the bid related to a particular wish :
+Select "Bids".* from "Bids", "Users", "Customer" where "Customer"."UserID"= 28 and "WishID" = 89 and "Bids"."ServiceProviderUserID" = "Users"."UserID";
+
+-Inserting
+a)Insert into "Wish" ("CustomerUserID", "Timestamp", "Description", "MaximumPrice", "StartDate", "EndDate",
+"Days", "StartTime", "EndTime", "ServiceID", "RegionID") Values (CustomerUserID, Timestamp, Description, MaximumPrice, StartDate, EndDate,
+Days, StartTime, EndTime, ServiceID, RegionID);
+
+b)Insert into "Bids" ("ServiceProviderUserID", "WishID", "CustomerUserID", "BidValue", "Details") Values (ServiceProviderUserID, WishID, CustomerUserID, BidValue, Details);
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+Followers:
+
+a)People followed by a User :
+Select "Users"."FirstName", "Users"."LastName", "Users"."EmailID", "Users"."Photograph", "Users"."ContactNumber" from "Follows", "Users" where "Follows"."FollowerCustomerUserID" = 51 and "Follows"."FollowedCustomerUserID" = "Users"."UserID";
+
+b)People following a particular User :
+elect "Users"."FirstName", "Users"."LastName", "Users"."EmailID", "Users"."Photograph", "Users"."ContactNumber" from "Follows", "Users" where "Follows"."FollowedCustomerUserID" = 51 and "Follows"."FollowerCustomerUserID" = "Users"."UserID";
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Services:
+
+-Search Filters
+a)Type filter
+Select * from "Service" where "Type" = 'Home';
+
+b)Location filter
+Select "Service".* from "Service" Natural Join "Provides" Natural Join "Location" where "CityName"= 'Akot';
+
+c)Price Filter
+Select * from "Service" Natural Join "Provides" where "Price" < 800;
+
+d)Time Filter
+Select * from "Service" Natural Join "Provides" where "Days" LIKE '01%' or "Days" LIKE '11%';
+
+-Inserting Services by Service Provider :
+a)Insert into Service ("Type", "SubType", "MiniDescription") Values (GivenType, GivenSubType, GivenMiniDescription);
+
+b)Insert into "Provides" ("ServiceProviderUserID", "ServiceID", "RegionID", "Days", "StartTime", "EndTime", "Name", "Price",
+"Discount", "Description") Values (ServiceProviderUserID, ServiceID, RegionID, Days, StartTime, EndTime, Name, Price,
+Discount, Description);
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Reviews:
+
+a)To find all Reviews posted by a particular Customer : 
+select "Review"."ReviewID", sum("TypeOfVote") from "Review","Vote" where "Review"."ReviewID"="Vote"."ReviewID" and "Review"."CustomerUserID"= "Vote"."CustomerUserID" and "Review"."CustomerUserID"=53 group by "Review"."ReviewID";
+
+b)To view all Reviews for a specific service provider for one specific service :
+select "Review"."ServiceID", sum("TypeOfVote") from "Review","Vote" where "Review"."ReviewID"="Vote"."ReviewID" and "Review"."CustomerUserID"= "Vote"."CustomerUserID" and "Review"."ServiceProviderUserID"=53 group by "Review"."ServiceID";
+
+c)To view friends reviews:
+First list down all friend using friends query, and then find reviews using the first query provided above.
+
+d)Range of services that a customer posts reviews on :
+select distinct "Review"."ServiceID" from "Review" where "Review". "CustomerUserID"=53;
+
+e)Posting a review :
+Insert into "Review" ("CustomerUserID", "ServiceID", "ServiceProviderUserID", "Content", "Rating", "TimeStamp") Values (MyUserID, GivenServiceID, 
+GivenServiceProviderUserID, GivenContent, GivenRating, PresentTime);
+
+f)UpVote and DownVote
+-Insert into "Vote" ("ReviewID", "CustomerUserID", "VotedByCustomerUserID", "TypeOfVote") Values (ReviewID, CustomerUserID, VotedByCustomerUserID, TypeOfVote);
+-Update "Customer" set ("CumulativeUpvotes") = (CumulativeUpvotes+1) where  CustomerID = givenCustomerID;
+
+----------------------------------------------------------------------------------------------------------------------------------

@@ -1,14 +1,3 @@
-<?php
-if (isset($_COOKIE["userID"])){
-	$webpage=$_COOKIE["webpage"];
-	session_start();
-	$_SESSION['userID']=$_COOKIE["userID"];
-	header("Location:".$webpage);
-	die();
-}
-  
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -126,7 +115,7 @@ if (isset($_COOKIE["userID"])){
 					<i class="icon-user icon-large"></i>
 				</p>
 				<p class="field">
-					<input id="email" type="text" name="email" placeholder="Email Address">
+					<input id="email" type="text" name="email" placeholder="UserID">
 					<i class="icon-envelope icon-large"></i>						
 				</p>
 				<p class="field">

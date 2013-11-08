@@ -26,18 +26,10 @@ while ($row = pg_fetch_row($query)) {
 }
 
 if ($num == "1") {
-	
-	$expire=time()+60*60*24;
-	setcookie("userID", $u, $expire);
-	session_start();
-	$_SESSION['userID']=$u;
-
-	header("Location: cons.php");
-	die();
+	echo "Welcome "."$u";
 }
 else {
-	header("Location: index.php");
-	die();
+	echo "Username or password incorrect";
 }
 
 	//echo “Your information was added to the database.”;

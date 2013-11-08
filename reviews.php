@@ -1,5 +1,4 @@
 
-
 <?php
 
    $file = fopen("reviews.csv","r");

@@ -1,21 +1,10 @@
-<?php
-	if (!isset($_COOKIE["userID"])){
-		header("Location:index.php");
-		die();
-	}
-	
-	$expire=time()+60*60*24;
-	setcookie("webpage","questions.php", $expire);
-	
-?>
-
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link id="bs-css" href="css/bootstrap-cerulean.css" rel="stylesheet">
 
-<title>My Questions - ConsumerConnect </title>
+<title>My Friends - ConsumerConnect </title>
 <link rel="icon" type="image/png" href="favicon.ico">
 <link href="css/my.css" rel="stylesheet">
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
@@ -42,11 +31,7 @@
 
 <!-- <link href="css/reset.css" rel="stylesheet"> -->
 
-<script type="text/javascript">
-function signOut() {
-    $.get("clearAll.php");
-}
-</script>
+
 
 </head>
 
@@ -59,7 +44,7 @@ function signOut() {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <div class="span3" style="min-width:278px;"><a href="cons.php"><img src="./images/logo.gif" width="270px" height="40px" style="float: left;"></a></div>
+      <div class="span3" style="min-width:278px;"><a href="index.html"><img src="./images/logo.gif" width="270px" height="40px" style="float: left;"></a></div>
       <img class="span2">
       <div class="nav-collapse in collapse" style="height: auto;">
         <form class="navbar-form pull-left">
@@ -75,7 +60,7 @@ function signOut() {
               <li><a href="#"><i class="icon-share"></i> Switch To</a></li>
               <li><a href="#"><i class="icon-pencil"></i> Edit Profile</a></li>
               <li class="divider"></li>
-              <li><a href="index.php" onclick="signOut();"><i class="icon-off"></i> Sign Out</a></li>
+              <li><a href="#"><i class="icon-off"></i> Sign Out</a></li>
             </ul>
           </li>
         </ul>
@@ -112,24 +97,26 @@ function signOut() {
 
 
 
-
-
-        <div class="row-fluid sortable ui-sortable" style="text-shadow:none; float:top;">
+        <div class="row-fluid sortable ui-sortable" style="text-shadow:none;">
           <div class="box">
             <div class="box-header well" data-original-title="">
-             <h2>My Questions</h2>
+             <h2>Friends </h2>
              <div class="box-icon">
               <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
               <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
             </div>
           </div>
           <div class="box-content" style="display: block;">
+            <table class="table table-bordered table-striped">
+              <tbody>
             <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
             <?php
                
               include("connect_sql.php");
-              $sql = "SELECT * from \"QandA\" where \"CustomerUserID\"= '40'";
+              $sql = "SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15'";
  
+              //echo $sql;
+
               $query1 = pg_query($db, $sql);
               
               if (!$query1) {
@@ -140,119 +127,122 @@ function signOut() {
                 //echo "No Error!";
               }
               while ($row = pg_fetch_row($query1)) {
-                  $spid = $row[1];
-                  $qid = $row[2];
-                  $sql = "SELECT \"Description\",\"Timestamp\" from \"Question\" where \"QuestionID\"= '$qid'";
+                  $followed = $row[0];
+                 
+                  $sql = "SELECT \"FirstName\", \"LastName\",\"EmailID\",\"ContactNumber\", \"Photograph\" from \"Users\" where \"UserID\" = '$followed'";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
-                  $des = $row[0];
-                  $time = $row[1];
-echo "<table class=\"table table-bordered table-striped\">
-              <tbody><tr>
-
-
-                <td>
-
-                  <p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
-                    <i class=\"icon-question-sign\"></i>
-                    $des<br>
-                    <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 11px; line-height: 1.28;\">$time</font>
-
-                  </p>";
+                  $cfn = $row[0];
+                  $cln = $row[1];
+                  $cpic = $row[4];
+                  $email = $row[2];
+                  $contact = $row[3];
+                  $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = '$followed'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $uv = $row[0];
+                  $dv = $row[1];
+                  $ratio = $uv/$dv;
+                   
+                  if ($ratio < 1){
+                      $ratimage = "images/J.jpeg";
+                  }
+                  elseif ($ratio < 2){
+                      $ratimage = "images/Q.jpeg";
+                  }
+                  elseif ($ratio < 3){
+                      $ratimage = "images/K.jpeg";
+                  }
+                  else{
+                      $ratimage = "images/A.jpeg";
+                  }
                   
-                  $sql = "SELECT \"FirstName\",\"LastName\",\"Photograph\" from \"Users\" where \"UserID\"= '$spid'";
-                  $query = pg_query($db, $sql);
-                  $row = pg_fetch_row($query);
-                  $fn = $row[0];
-                  $ln = $row[1];
-                  $pic = $row[2];
+                  
+                 
+              echo "
+                
+                <tr>
 
-                  $sql = "SELECT * from \"Answer\" where \"QuestionID\"= '$qid' order by \"Timestamp\" desc";
-                  $query = pg_query($db, $sql);
-                  while ($row = pg_fetch_row($query)) {
-                      $des1 = $row[2];
-                      $time1 = $row[3];
-                     
-                      echo "<p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
-                    <i class=\"icon-check\"></i>
-                    $des1<br>
-                    <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 11px; line-height: 1.28;\">$time1</font>
-                  </p>
-                </td>
-                <td style=\"width:110px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$fn $ln</font><br>
-                  <font style=\"float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                  font-size: 12px; line-height: 1.28;\">Dinesh Pharmacy</font><br>
-                  <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                  font-size: 11px; line-height: 1.28;\">Medical (Chemist)</font><br>
-                  <div id=\"half\" data-score=\"3.3\" class=\"pull-right\"></div></td>
-
-                  <td style=\"width: 100px;\">
-                    <a style=\"background-color:white\" title=\"User5\" href=\"images/user5.png\" class=\"cboxElement\"><img src=\"images/user5.png\" alt=\"User5\"></a></td>
-
-                  ";
+                  <td style=\"width: 100px; height: 100px;\">
+                    <a style=\"background-color:white\" title=\"User3\" href=\"images/user3.png\" class=\"cboxElement\"><img src=\"images/user3.png\" alt=\"User3\" width=\"100\" height=\"100\"></a></td>
+                    <td class=\"span4\"><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$cfn $cln</font><br>
+                      <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                      font-size: 11px; line-height: 1.28;\">32 years old</font><br>
+                      <img src=$ratimage width=40px height=70px>
+                    </td>
+                    <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">Contact Details</font><br>
+                      <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                      font-size: 11px; line-height: 1.28;\">$email</font><br>
+                      <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                      font-size: 11px; line-height: 1.28;\">$contact</font><br>
+                      <div class=\"dropdown pull-right\">
+                        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">Options <b class=\"caret\"></b></a>
+                        <ul class=\"dropdown-menu\" align=\"left\">
+                          <li><a href=\"#\">Send Message</a></li>
+                          <li><a href=\"#\">Unfriend</a></li>
+                        </ul>
+                      </li>
+                    </td>
 
 
-                  } 
-                  echo "</tr></tbody></table>";
+                  </tr>
+"; 
               }
-            ?>
 
             
-                    <!-- </div> -->
-
+            ?>
+                </tbody></table>
                   </div>
-                </div><!--/span-->
-
-      </div><!--/row -->
 
 
-      <!-- content ends -->
-    </div>
+                </div>
+              </div>
+
+              <!-- content ends -->
+            </div>
 
 
 
-    <div class="span2 main-menu-span">
-      <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
-        <ul class="nav nav-tabs nav-stacked main-menu">
-          <!-- <li class="nav-header hidden-tablet">Main</li> -->
-          <li style="margin-left: -2px;"><a class="ajax-link" href="services.php"><i class="icon-random"></i><span class="hidden-tablet"> Services</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.php"><span class="hidden-tablet"><i class="icon-play"></i> Doctor</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.php"><span class="hidden-tablet"><i class="icon-play"></i> Salon</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="questions.php"><span class="hidden-tablet"><i class="icon-play"></i> Mechanic</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.php"><span class="hidden-tablet"><i class="icon-play"></i> Plumber</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.php"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li>
-        </ul>
-        <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
-      </div><!--/.well -->
-    </div>
+            <div class="span2 main-menu-span">
+              <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
+                <ul class="nav nav-tabs nav-stacked main-menu">
+                  <!-- <li class="nav-header hidden-tablet">Main</li> -->
+                  <li style="margin-left: -2px;"><a class="ajax-link" href="services.html"><i class="icon-random"></i><span class="hidden-tablet"> Services</span></a></li>
+                  <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.html"><span class="hidden-tablet"><i class="icon-play"></i> Doctor</span></a></li>
+                  <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.html"><span class="hidden-tablet"><i class="icon-play"></i> Salon</span></a></li>
+                  <li style="margin-left: -2px;"><a class="ajax-link" href="questions.html"><span class="hidden-tablet"><i class="icon-play"></i> Mechanic</span></a></li>
+                  <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.html"><span class="hidden-tablet"><i class="icon-play"></i> Plumber</span></a></li>
+                  <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.html"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li>
+                </ul>
+                <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
+              </div><!--/.well -->
+            </div>
 
-  </div><!--/fluid-row-->
-
-
+          </div><!--/fluid-row-->
 
 
 
 
 
-  <div class="modal hide fade" id="myModal" style="display: none;">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬&nbsp;ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬&nbsp;ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â</button>
-      <h3>Settings</h3>
-    </div>
-    <div class="modal-body">
-      <p>Here settings can be configured...</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#" class="btn" data-dismiss="modal">Close</a>
-      <a href="#" class="btn btn-primary">Save changes</a>
-    </div>
-  </div>
+
+
+          <div class="modal hide fade" id="myModal" style="display: none;">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬&nbsp;ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬&nbsp;ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â</button>
+              <h3>Settings</h3>
+            </div>
+            <div class="modal-body">
+              <p>Here settings can be configured...</p>
+            </div>
+            <div class="modal-footer">
+              <a href="#" class="btn" data-dismiss="modal">Close</a>
+              <a href="#" class="btn btn-primary">Save changes</a>
+            </div>
+          </div>
 
 
 
-</div><!--/.fluid-container-->
+        </div><!--/.fluid-container-->
 
   <!-- external javascript
   ================================================== -->

@@ -1,13 +1,3 @@
-<?php
-	if (!isset($_COOKIE["userID"])){
-		header("Location:index.php");
-		die();
-	}
-	
-	$expire=time()+60*60*24;
-	setcookie("webpage","cons.php", $expire);
-	
-?>
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,11 +32,7 @@
 
 <!-- <link href="css/reset.css" rel="stylesheet"> -->
 
-<script type="text/javascript">
-function signOut() {
-    $.get("clearAll.php");
-}
-</script>
+
 
 </head>
 
@@ -59,7 +45,7 @@ function signOut() {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <div class="span3" style="min-width:278px;"><a href="cons.php"><img src="./images/logo.gif" width="270px" height="40px" style="float: left;"></a></div>
+      <div class="span3" style="min-width:278px;"><a href="index.html"><img src="./images/logo.gif" width="270px" height="40px" style="float: left;"></a></div>
       <img class="span2">
       <div class="nav-collapse in collapse" style="height: auto;">
         <form class="navbar-form pull-left">
@@ -75,7 +61,7 @@ function signOut() {
               <li><a href="#"><i class="icon-share"></i> Switch To</a></li>
               <li><a href="#"><i class="icon-pencil"></i> Edit Profile</a></li>
               <li class="divider"></li>
-              <li><a href="index.php" onclick="signOut();"><i class="icon-off"></i> Sign Out</a></li>
+              <li><a href="#"><i class="icon-off"></i> Sign Out</a></li>
             </ul>
           </li>
         </ul>
@@ -92,14 +78,14 @@ function signOut() {
         <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; padding:0px; margin-left: 10px; height: 219px;">
           <ul class="nav nav-tabs nav-stacked main-menu">
             <!-- <li class="nav-header hidden-tablet">Main</li> -->
-            <li style="margin-left: -2px;"><a class="ajax-link" href="cons.php"><i class="icon-home"></i><span class="hidden-tablet"> Home</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="messages.php"><i class="icon-envelope"></i><span class="hidden-tablet"> Messages</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.php"><i class="icon-star"></i><span class="hidden-tablet"> My Reviews</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="friends.php"><i class="icon-user"></i><span class="hidden-tablet"> My Friends</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.php"><i class="icon-star-empty"></i><span class="hidden-tablet"> Friends' Reviews</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="questions.php"><i class="icon-question-sign"></i><span class="hidden-tablet"> My Questions</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.php"><i class="icon-calendar"></i><span class="hidden-tablet"> Appointments</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.php"><i class="icon-gift"></i><span class="hidden-tablet"> Wishlist</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="cons.html"><i class="icon-home"></i><span class="hidden-tablet"> Home</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="messages.html"><i class="icon-envelope"></i><span class="hidden-tablet"> Messages</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.html"><i class="icon-star"></i><span class="hidden-tablet"> My Reviews</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="friends.html"><i class="icon-user"></i><span class="hidden-tablet"> My Friends</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.html"><i class="icon-star-empty"></i><span class="hidden-tablet"> Friends' Reviews</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="questions.html"><i class="icon-question-sign"></i><span class="hidden-tablet"> My Questions</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.html"><i class="icon-calendar"></i><span class="hidden-tablet"> Appointments</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.html"><i class="icon-gift"></i><span class="hidden-tablet"> Wishlist</span></a></li>
           </ul>
           <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
         </div><!--/.well -->
@@ -327,12 +313,12 @@ else {
       <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
         <ul class="nav nav-tabs nav-stacked main-menu">
           <!-- <li class="nav-header hidden-tablet">Main</li> -->
-          <li style="margin-left: -2px;"><a class="ajax-link" href="services.php"><i class="icon-random"></i><span class="hidden-tablet"> Services</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.php"><span class="hidden-tablet"><i class="icon-play"></i> Doctor</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.php"><span class="hidden-tablet"><i class="icon-play"></i> Salon</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="questions.php"><span class="hidden-tablet"><i class="icon-play"></i> Mechanic</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.php"><span class="hidden-tablet"><i class="icon-play"></i> Plumber</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.php"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li>
+          <li style="margin-left: -2px;"><a class="ajax-link" href="services.html"><i class="icon-random"></i><span class="hidden-tablet"> Services</span></a></li>
+          <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.html"><span class="hidden-tablet"><i class="icon-play"></i> Doctor</span></a></li>
+          <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.html"><span class="hidden-tablet"><i class="icon-play"></i> Salon</span></a></li>
+          <li style="margin-left: -2px;"><a class="ajax-link" href="questions.html"><span class="hidden-tablet"><i class="icon-play"></i> Mechanic</span></a></li>
+          <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.html"><span class="hidden-tablet"><i class="icon-play"></i> Plumber</span></a></li>
+          <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.html"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li>
         </ul>
         <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
       </div><!--/.well -->

@@ -1,12 +1,15 @@
 
 <?php
-	if (!isset($_COOKIE["userID"])){
+	session_start();
+		
+	$expire=time()+60*60*24;
+	setcookie("webpage","friendreviews.php", $expire);
+	
+	if (!isset($_SESSION['userID'])){
 		header("Location:index.php");
 		die();
 	}
-	
-	$expire=time()+60*60*24;
-	setcookie("webpage","friendreviews.php", $expire);
+
 ?>
 
 <!DOCTYPE html>

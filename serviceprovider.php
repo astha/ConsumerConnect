@@ -1,21 +1,10 @@
-
-<?php
-	if (!isset($_COOKIE["userID"])){
-		header("Location:index.php");
-		die();
-	}
-	
-	$expire=time()+60*60*24;
-	setcookie("webpage","friendreviews.php", $expire);
-?>
-
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link id="bs-css" href="css/bootstrap-cerulean.css" rel="stylesheet">
 
-<title>Friends' Reviews - ConsumerConnect </title>
+<title>Service Provider Home - ConsumerConnect </title>
 <link rel="icon" type="image/png" href="favicon.ico">
 <link href="css/my.css" rel="stylesheet">
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
@@ -42,11 +31,7 @@
 
 <!-- <link href="css/reset.css" rel="stylesheet"> -->
 
-<script type="text/javascript">
-function signOut() {
-    $.get("clearAll.php");
-}
-</script>
+
 
 </head>
 
@@ -59,7 +44,7 @@ function signOut() {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <div class="span3" style="min-width:278px;"><a href="cons.php"><img src="./images/logo.gif" width="270px" height="40px" style="float: left;"></a></div>
+      <div class="span3" style="min-width:278px;"><a href="index.html"><img src="./images/logo.gif" width="270px" height="40px" style="float: left;"></a></div>
       <img class="span2">
       <div class="nav-collapse in collapse" style="height: auto;">
         <form class="navbar-form pull-left">
@@ -75,7 +60,7 @@ function signOut() {
               <li><a href="#"><i class="icon-share"></i> Switch To</a></li>
               <li><a href="#"><i class="icon-pencil"></i> Edit Profile</a></li>
               <li class="divider"></li>
-              <li><a href="index.php" onclick="signOut();"><i class="icon-off"></i> Sign Out</a></li>
+              <li><a href="#"><i class="icon-off"></i> Sign Out</a></li>
             </ul>
           </li>
         </ul>
@@ -92,14 +77,11 @@ function signOut() {
         <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; padding:0px; margin-left: 10px; height: 219px;">
           <ul class="nav nav-tabs nav-stacked main-menu">
             <!-- <li class="nav-header hidden-tablet">Main</li> -->
-            <li style="margin-left: -2px;"><a class="ajax-link" href="cons.php"><i class="icon-home"></i><span class="hidden-tablet"> Home</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="messages.php"><i class="icon-envelope"></i><span class="hidden-tablet"> Messages</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.php"><i class="icon-star"></i><span class="hidden-tablet"> My Reviews</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="friends.php"><i class="icon-user"></i><span class="hidden-tablet"> My Friends</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.php"><i class="icon-star-empty"></i><span class="hidden-tablet"> Friends' Reviews</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="questions.php"><i class="icon-question-sign"></i><span class="hidden-tablet"> My Questions</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.php"><i class="icon-calendar"></i><span class="hidden-tablet"> Appointments</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.php"><i class="icon-gift"></i><span class="hidden-tablet"> Wishlist</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="serviceprovider.php"><i class="icon-home"></i><span class="hidden-tablet"> Home</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="myservicereviews.php"><i class="icon-star"></i><span class="hidden-tablet"> Reviews</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="servicequestions.php"><i class="icon-question-sign"></i><span class="hidden-tablet"> Questions</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="serviceappointments.php"><i class="icon-calendar"></i><span class="hidden-tablet"> Appointments</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="servicebids.php"><i class="icon-tag"></i><span class="hidden-tablet"> Bids</span></a></li>
           </ul>
           <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
         </div><!--/.well -->
@@ -115,18 +97,18 @@ function signOut() {
         <div class="row-fluid sortable ui-sortable" style="text-shadow:none;">
           <div class="box">
             <div class="box-header well" data-original-title="">
-             <h2>Friends' Reviews </h2>
+             <h2>Customers' Reviews</h2>
              <div class="box-icon">
               <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
               <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
             </div>
           </div>
           <div class="box-content" style="display: block;">
-            
             <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
-             <?php
-            include("connect_sql.php");
-              $sql = "SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15') order by \"Timestamp\" desc";
+            <?php
+
+              include("connect_sql.php");
+              $sql = "SELECT * from \"Review\" where \"ServiceProviderUserID\" ='45' order by \"Timestamp\" desc";
  
               //echo $sql;
             
@@ -141,19 +123,18 @@ function signOut() {
               }
              
               while ($row = pg_fetch_row($query1)) {
+                  $sid = $row[1];
+                  $cid = $row[2];
                   $content = $row[3];
                   $rating = $row[4];
                   $time = $row[5];
-                  $spid = $row[6];
-                  $sid = $row[1];
-                  $cid = $row[2];
                   $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '$cid'";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
                   $cfn = $row[0];
                   $cln = $row[1];
                   $cpic = $row[2];
-                  $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '$spid'";
+                  $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '45'";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
                   $spfn = $row[0];
@@ -169,8 +150,6 @@ function signOut() {
                   $row = pg_fetch_row($query);
                   $cu= $row[0];
                   $cd = $row[1];
-
-
                   $ratio = $cu/$cd;
                    
                   if ($ratio < 1){
@@ -214,24 +193,109 @@ function signOut() {
                      
                         <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
 
-                     <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> 90</div>
-                     <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> 66</div>
+                     <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $cu</div>
+                     <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $cd</div>
                      <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
                    </td>
                  </tr></tbody></table>";
 
                  }
                   //$sql = "SELECT \"Review\".\"ReviewID\", sum(\"TypeOfVote\") from \"Review\",\"Vote\" where \"Review\".\"ReviewID\"=\"Vote\".\"ReviewID\" and \"Review\".\"CustomerUserID\"= \"Vote\".\"CustomerUserID\" and \"Review\".\"CustomerUserID\"=53 group by \"Review\".\"ReviewID\";
+        ?>
+         <!-- </div> -->
+
+                 </div>
+               </div><!--/span-->
+
+             </div>
+
+             <div class="row-fluid sortable ui-sortable" style="text-shadow:none; float:top;">
+              <div class="box">
+                <div class="box-header well" data-original-title="">
+                 <h2>Customers' Questions</h2>
+                 <div class="box-icon">
+                  <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+                  <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+                </div>
+              </div>
+              <div class="box-content" style="display: block;">
+                <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
+                <?php
+               
+              include("connect_sql.php");
+              $sql = "SELECT * from \"QandA\" where \"ServiceProviderUserID\"= '49'";
+ 
+              $query1 = pg_query($db, $sql);
+              
+              if (!$query1) {
+                //echo "An error occurred.\n";
+               exit;
+              }
+              else {
+                //echo "No Error!";
+              }
+              while ($row = pg_fetch_row($query1)) {
+                  $cid = $row[0];
+                  $qid = $row[2];
+                  $sql = "SELECT \"Description\",\"Timestamp\" from \"Question\" where \"QuestionID\"= '$qid'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $des = $row[0];
+                  $time = $row[1];
+                  $sql = "SELECT \"FirstName\",\"LastName\",\"Photograph\" from \"Users\" where \"UserID\"= '$cid'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $fn = $row[0];
+                  $ln = $row[1];
+                  $pic = $row[2];
+echo "<table class=\"table table-bordered table-striped\">
+                  <tbody><tr>
+                    
+                    <td style=\"width: 100px;\">
+                      <a style=\"background-color:white\" title=\"User4\" href=\"images/user4.png\" class=\"cboxElement\"><img src=\"images/user4.png\" alt=\"User4\"></a></td>
+
+
+                      <td><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$fn $ln</font><br><br>
+
+
+                       <p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
+                        <i class=\"icon-question-sign\"></i>
+                        $des<br>
+                        <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                        font-size: 11px; line-height: 1.28;\">$time</font>
+
+                      </p>
+";
+                  
                   
 
-        ?>
+                  $sql = "SELECT * from \"Answer\" where \"QuestionID\"= '$qid' order by \"Timestamp\" desc";
+                  $query = pg_query($db, $sql);
+                  while ($row = pg_fetch_row($query)) {
+                      $des1 = $row[2];
+                      $time1 = $row[3];
                      
-                     <!-- </div> -->
+                     echo "<p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
+                        <i class=\"icon-check\"></i>
+                        $des1<br>
+                        <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                        font-size: 11px; line-height: 1.28;\">$time1</font>
+                      </p>
+                      
+                      <textarea class=\"autogrow span11\" style=\"height: 60px; float: left;\" placeholder=\"Add an answer\"></textarea>
+                      <button type=\"submit\" class=\"btn\" style=\"float:left;\">Add</button>
+                    </td>";
 
-                   </div>
-                 </div><!--/span-->
 
-               </div>
+                  } 
+                  echo "</tr></tbody></table>";
+              }
+            ?>
+
+              </div>
+            </div><!--/span-->
+
+      </div><!--/row-->
 
 
       <!-- content ends -->
@@ -239,16 +303,19 @@ function signOut() {
 
 
 
- <div class="span2 main-menu-span">
+    <div class="span2 main-menu-span">
       <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
         <ul class="nav nav-tabs nav-stacked main-menu">
           <!-- <li class="nav-header hidden-tablet">Main</li> -->
-          <li style="margin-left: -2px;"><a class="ajax-link" href="services.php"><i class="icon-random"></i><span class="hidden-tablet"> Services</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.php"><span class="hidden-tablet"><i class="icon-play"></i> Doctor</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="salon.php"><span class="hidden-tablet"><i class="icon-play"></i> Salon</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="questions.php"><span class="hidden-tablet"><i class="icon-play"></i> Mechanic</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.php"><span class="hidden-tablet"><i class="icon-play"></i> Plumber</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.php"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li>
+          <li class="nav-header hidden-tablet" style="padding-top:10px;">My Services</li>
+          <hr style="margin:0px;">
+          <hr style="margin:0px;">
+          <li class="nav-header hidden-tablet" style="margin-top:8px;"> Medical</li>
+          <li style="margin-left: -2px;"><a class="ajax-link" href="tutor.html"><span class="hidden-tablet"><i class="icon-play"></i> Pharmacy</span></a></li>
+          <li class="nav-header hidden-tablet" style="margin-top:8px;"> Home Tutor</li>
+          <li style="margin-left: -2px;"><a class="ajax-link" href="tutor.html"><span class="hidden-tablet"><i class="icon-play"></i> Mathematics</span></a></li>
+          <li style="margin-left: -2px;"><a class="ajax-link" href="tutor.html"><span class="hidden-tablet"><i class="icon-play"></i> Biology</span></a></li>
+          <li style="margin-left: -2px;"><a class="ajax-link" href="addservice.html"><span class="hidden-tablet"><i class="icon-plus-sign"></i> Add New Service</span></a></li>
         </ul>
         <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
       </div><!--/.well -->
@@ -264,7 +331,7 @@ function signOut() {
 
   <div class="modal hide fade" id="myModal" style="display: none;">
     <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬&nbsp;ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬&nbsp;ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â</button>
+      <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬&nbsp;ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â</button>
       <h3>Settings</h3>
     </div>
     <div class="modal-body">
@@ -359,5 +426,4 @@ function signOut() {
 
 
 
-</body>
-</html>
+</body></html>

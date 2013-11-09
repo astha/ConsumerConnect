@@ -1,11 +1,13 @@
 <?php
-	if (!isset($_COOKIE["userID"])){
-		header("Location:index.php");
-		die();
-	}
+	session_start();
 	
 	$expire=time()+60*60*24;
 	setcookie("webpage","cons.php", $expire);
+	
+	if (!isset($_SESSION['userID'])){
+		header("Location:index.php");
+		die();
+	}
 	
 ?>
 <!DOCTYPE html>

@@ -6,7 +6,7 @@ if (isset($_COOKIE["userID"])){
 	header("Location:".$webpage);
 	die();
 }
-  
+
 ?>
 
 <!DOCTYPE html>

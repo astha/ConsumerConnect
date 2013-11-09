@@ -31,7 +31,7 @@ if ($num == "1") {
 	setcookie("userID", $u, $expire);
 	session_start();
 	$_SESSION['userID']=$u;
-
+	session_write_close(); 
 	header("Location: cons.php");
 	die();
 }

@@ -2095,6 +2095,7 @@ SELECT pg_catalog.setval('"Question_QuestionID_seq"', 1, false);
 
 COPY "Review" ("ReviewID", "ServiceID", "CustomerUserID", "Content", "Rating", "Timestamp", "ServiceProviderUserID") FROM stdin;
 0	229	5	We gave a try to this service provider a few times before. The managers have a very good customer care. I highly recommend willing customers to try.	5	2013-01-08 02:00:00	44
+1	386	9	The service is really good.	3	2013-05-11 12:30:00	30
 2	145	57	I think I should write the service experience on this portal. The people here are very cooperative.	4	2013-06-01 08:00:00	8
 3	219	41	We have tried this type of service a few times before. The staff put customers on high pedestal. I would never recommend willing customers to try.	4	2013-09-02 05:00:00	31
 10	377	58	I want to mention the experience via ConcumerConnect. The staff have a very good customer care.	4	2013-02-07 19:00:00	12
@@ -2161,7 +2162,7 @@ SELECT pg_catalog.setval('"Review_CustomerUserID_seq"', 1, false);
 -- Name: Review_ReviewID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"Review_ReviewID_seq"', 1, false);
+SELECT pg_catalog.setval('"Review_ReviewID_seq"', 1, true);
 
 
 --

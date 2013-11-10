@@ -24,7 +24,8 @@
         return $result;
       }
 
-      $u=$_REQUEST['see'];
+       $u=$_REQUEST['see'];
+       $lu=40;
        $typeReq=$_REQUEST['type'];
        $subtypeReq=$_REQUEST['subtype'];
        
@@ -180,10 +181,10 @@
                                       <td class=\"span5\">
                                         <a href=\"serviceprovider.php?see=$rowprov[0]\"><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$name[0] $name[1]</font></a><br>
                                         <font style=\"color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;font-size: 12px; line-height: 1.28;\">$rowprov[6]</font><br>
-                    <a href=\"spType.php?type=$type[0]\"><font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                    <a href=\"spType.php?type=$type[0]&see=$u\"><font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                     font-size: 11px; line-height: 1.28;\">
 
-                                      $type[0]</font></a> <a href=\"/spSubType.php?type=$type[0]&subtype=$type[1]\">
+                                      $type[0]</font></a> <a href=\"/spSubType.php?type=$type[0]&subtype=$type[1]&see=$u\">
                                              <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                     font-size: 11px; line-height: 1.28;\"> ($type[1])</a></font>
 
@@ -271,7 +272,7 @@
           ?>
 
 
-          <li style="margin-left: -2px;"><a class="ajax-link" href="addservice.html"><span class="hidden-tablet"><i class="icon-plus-sign"></i> Add New Service</span></a></li>
+          
         </ul>
         <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
       </div><!--/.well -->

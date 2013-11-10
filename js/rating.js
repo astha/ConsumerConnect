@@ -1,6 +1,11 @@
     $(function() {
 
-     $('div#star').raty();
+     $('div#star').raty({
+      score: function() {
+        return $(this).attr('data-score');
+      },
+
+    });
 
      $('div#fixed').raty({
       score: function() {

@@ -1,6 +1,7 @@
 <?php 
        include("connect_sql.php");
        $u=$_REQUEST['see'];
+       $lu=40;
        
 ?>
 
@@ -205,7 +206,7 @@
                         <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
 
                      <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $cu</div>
-                     <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $cd</div>
+                     <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $cd</div><br><br>
                      <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
                    </td>
                  </tr></tbody></table>";
@@ -220,6 +221,8 @@
 
              </div>
 
+
+
             
 
 
@@ -232,6 +235,12 @@
       <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
         <ul class="nav nav-tabs nav-stacked main-menu">
           <!-- <li class="nav-header hidden-tablet">Main</li> -->
+          
+          <?php
+          echo"
+          <a class=\"ajax-link\" href=\"/servicequestions.php?see=$u\"><li class=\"nav-header hidden-tablet\" style=\"padding-top:10px;\">Questions</li></a>
+          <a class=\"ajax-link\" href=\"/serviceprovider.php?see=$u\"><li class=\"nav-header hidden-tablet\" style=\"padding-top:10px;\">Reviews</li></a>";
+          ?>
           <li class="nav-header hidden-tablet" style="padding-top:10px;">My Services</li>
           <hr style="margin:0px;">
           <hr style="margin:0px;">
@@ -277,11 +286,11 @@
       <h3>Settings</h3>
     </div>
     <div class="modal-body">
-      <?php echo "<form action=\"askQuestion.php\">"; ?>
-          <input type="text" name="content" placeholder="Ask question to this Service Provider"><br>
-          <input type="hidden" name="see" value="$u">
-          <input type="submit" value="Submit">
-          </form>
+      <?php echo "<form action=\"askQuestion.php\"> 
+          <input type=\"text\" name=\"content\" placeholder=\"Ask question to this Service Provider\"><br>
+          <input type=\"hidden\" name=\"see\" value=\"$u\">
+          <input type=\"submit\" value=\"Submit\">
+          </form>"; ?>
     </div>
     <div class="modal-footer">
       <a href="#" class="btn" data-dismiss="modal">Close</a>

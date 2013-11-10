@@ -24,6 +24,7 @@
         return $result;
       }
        $u=$_REQUEST['see'];
+       $lu=40;
        $sid=$_REQUEST['sid'];
        
 ?>
@@ -60,6 +61,8 @@
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
 <link href="css/bootstrap-responsive.css" rel="stylesheet" media="screen">
 <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+<link href="css/bootstrap-timepicker.css" rel="stylesheet" media="screen">
+<link href="css/bootstrap-timepicker.min.css" rel="stylesheet" media="screen">
 
 <!-- <link href="css/reset.css" rel="stylesheet"> -->
 
@@ -160,13 +163,13 @@
                         echo "<table class=\"table table-bordered table-striped\">
               <tbody><tr>
                             <td class=\"span6\"><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$row[6]</font>
-                            <br><a href=\"spType.php?type=$type[0]\">
+                            <br><a href=\"spType.php?see=$u&type=$type[0]\">
 
                     <font style=\"color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                     font-size: 12px; line-height: 1.28;\">$type[0]</font></a>
                             <br>
 
-                            <a href=\"/spSubType.php?type=$type[0]&subtype=$type[1]\">
+                            <a href=\"/spSubType.php?see=$u&type=$type[0]&subtype=$type[1]\">
                             <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                     font-size: 11px; line-height: 1.28;\">$type[1]</font></a>
 
@@ -185,6 +188,13 @@
                         
                         <br>$row[9]
                         
+                        </td>
+                        </tr>
+                        <tr><td>
+                           <a class=\"ajax-link\" href=# data-toggle=\"modal\" data-target=\"#myModal\"><i class=\"icon-plus-sign\"></i> Post Review </a>
+                        </td>
+                        <td>
+                            <a style=\"float:right;\" class=\"ajax-link\" href=# data-toggle=\"modal\" data-target=\"#myModal2\"><i class=\"icon-plus-sign\"></i> Request Appointment </a>
                         </td>
                         </tr>
                         </tbody></table>";
@@ -279,10 +289,12 @@
                         <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
 
                      <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $cu</div>
-                     <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $cd</div>
+                     <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $cd</div><br><br>
                      <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
                    </td>
-                 </tr></tbody></table>";
+                 </tr>
+
+                 </tbody></table>";
 
                  }
                   //$sql = "SELECT \"Review\".\"ReviewID\", sum(\"TypeOfVote\") from \"Review\",\"Vote\" where \"Review\".\"ReviewID\"=\"Vote\".\"ReviewID\" and \"Review\".\"CustomerUserID\"= \"Vote\".\"CustomerUserID\" and \"Review\".\"CustomerUserID\"=53 group by \"Review\".\"ReviewID\";
@@ -308,6 +320,11 @@
       <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
         <ul class="nav nav-tabs nav-stacked main-menu">
           <!-- <li class="nav-header hidden-tablet">Main</li> -->
+           <?php
+          echo"
+          <a class=\"ajax-link\" href=\"/servicequestions.php?see=$u\"><li class=\"nav-header hidden-tablet\" style=\"padding-top:10px;\">Questions</li></a>
+          <a class=\"ajax-link\" href=\"/serviceprovider.php?see=$u\"><li class=\"nav-header hidden-tablet\" style=\"padding-top:10px;\">Reviews</li></a>";
+          ?>
           <li class="nav-header hidden-tablet" style="padding-top:10px;">My Services</li>
           <hr style="margin:0px;">
           <hr style="margin:0px;">
@@ -332,7 +349,7 @@
           ?>
 
 
-          <li style="margin-left: -2px;"><a class="ajax-link" href="addservice.html"><span class="hidden-tablet"><i class="icon-plus-sign"></i> Add New Service</span></a></li>
+          
         </ul>
         <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
       </div><!--/.well -->
@@ -358,16 +375,112 @@
   <div class="modal hide fade" id="myModal" style="display: none;">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬&nbsp;ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â</button>
-      <h3>Settings</h3>
+      <h3>Post Review</h3>
     </div>
     <div class="modal-body">
-      <p>Here settings can be configured...</p>
+      <?php echo "<form action=\"postReview.php\"> 
+          <input type=\"text\" name=\"content\" placeholder=\"Post a review to this service.\"><br>
+          <input type=\"hidden\" name=\"see\" value=\"$u\">
+          <input type=\"hidden\" name=\"sid\" value=\"$sid\">
+          
+          Please rate the service. <br>
+          <div id=\"star\" class=\"raty\"></div><br><br>
+
+          <input type=\"submit\" value=\"Submit\">
+          </form>"; ?>
     </div>
     <div class="modal-footer">
       <a href="#" class="btn" data-dismiss="modal">Close</a>
-      <a href="#" class="btn btn-primary">Save changes</a>
     </div>
   </div>
+
+  <div class="modal hide fade" id="myModal2" style="display: none;">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬&nbsp;ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â</button>
+      <h3>Book Appointment</h3>
+    </div>
+    <div class="modal-body">
+      <form role="form" action="bookAppointment.php" class="form-horizontal">
+
+        <?php
+        echo "<input type=\"hidden\" name=\"see\" value=\"$u\">
+          <input type=\"hidden\" name=\"sid\" value=\"$sid\">";
+          ?>
+                    <fieldset>
+                     
+
+                    
+                    
+
+
+                    
+
+                    
+                    <div class="control-group">
+
+                      <label class="control-label" for="startdate">Select Date</label>
+                      <div class="controls">
+                        <input type="text" class="input-xlarge datepicker span2" id="startdate" name="startdate" placeholder="Start Date"><br>
+                        <input type="text" class="input-xlarge datepicker span2" id="enddate" name="enddate" placeholder="End Date"><br>
+                      </div>
+                    </div>
+
+                    <div class="control-group">
+                      <label class="control-label" for="selectError1">Select Day</label>
+                      <div class="controls">
+                        <select id="selectError1" multiple data-rel="chosen">
+                          <option name="mon">Monday</option>
+                          <option name="tue">Tuesday</option>
+                          <option name="wed">Wednesday</option>
+                          <option name="thu">Thursday</option>
+                          <option name="fri">Friday</option>
+                          <option name="sat">Saturday</option>
+                          <option name="sun">Sunday</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="control-group" >
+                      <label class="control-label" for="selectError2">Select Time</label>
+                      <div class="controls">
+                        <div class="input-append bootstrap-timepicker span2" style="float:left;">
+                          <input id="timepicker1" type="text" name="starttime" placeholder="Start Time" class="input-small" >
+                          <span class="add-on"><i class="icon-time"></i></span>
+                        </div>
+                        <div style="float:left;">  
+                          <label class="span4"> to </label>
+                        </div>
+                        <div class="input-append bootstrap-timepicker span2" style="float:left;">
+
+                          <input id="timepicker2" type="text" name="endtime" class="input-small">
+                          <span class="add-on"><i class="icon-time"></i></span>
+                        </div>
+                      </div>
+
+                    </div>
+                  
+                    
+                  <div class="control-group">
+                    <label class="control-label" for="appendedPrependedInput">Description</label>
+                    <div class="controls">
+
+                      <textarea name="description" class="autogrow span4" style="height:80px;" placeholder="Add details..."></textarea>
+
+                    </div>
+                  </div>
+
+
+                  <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Add Wish</button>
+                  </div>
+                </fieldset>
+              </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn" data-dismiss="modal">Close</a>
+    </div>
+  </div>
+
 
 
 
@@ -393,6 +506,8 @@
   <script src="js/bootstrap-scrollspy.js"></script>
   <!-- library for creating tabs -->
   <script src="js/bootstrap-tab.js"></script>
+   <script src="js/bootstrap-timepicker.js"></script>
+  <script src="js/bootstrap-timepicker.min.js"></script>
   <!-- library for advanced tooltip -->
   <script src="js/bootstrap-tooltip.js"></script>
   <!-- popover effect library -->
@@ -448,6 +563,13 @@
   <script src="js/charisma.js"></script>
   <!-- to specify the rating ids -->
   <script src="js/rating.js"></script>
+
+  <script type="text/javascript">
+  $('#timepicker1').timepicker();
+  </script>
+  <script type="text/javascript">
+  $('#timepicker2').timepicker();
+  </script>
   
 
 

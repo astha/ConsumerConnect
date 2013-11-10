@@ -1084,9 +1084,9 @@
     modalBackdrop: false,
     orientation: { x: 'auto', y: 'auto'},
     secondStep: 15,
-    showSeconds: false,
+    showSeconds: true,
     showInputs: true,
-    showMeridian: true,
+    showMeridian: false,
     template: 'dropdown',
     appendWidgetTo: 'body',
     showWidgetOnAddonClick: true

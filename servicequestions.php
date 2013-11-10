@@ -1,6 +1,7 @@
 <?php 
        include("connect_sql.php");
        $u=$_REQUEST['see'];
+       $lu=40;
        
 ?>
 
@@ -207,6 +208,11 @@ echo "<table class=\"table table-bordered table-striped\">
       <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
         <ul class="nav nav-tabs nav-stacked main-menu">
           <!-- <li class="nav-header hidden-tablet">Main</li> -->
+           <?php
+          echo"
+          <a class=\"ajax-link\" href=\"/servicequestions.php?see=$u\"><li class=\"nav-header hidden-tablet\" style=\"padding-top:10px;\">Questions</li></a>
+          <a class=\"ajax-link\" href=\"/serviceprovider.php?see=$u\"><li class=\"nav-header hidden-tablet\" style=\"padding-top:10px;\">Reviews</li></a>";
+          ?>
           <li class="nav-header hidden-tablet" style="padding-top:10px;">My Services</li>
           <hr style="margin:0px;">
           <hr style="margin:0px;">
@@ -231,7 +237,7 @@ echo "<table class=\"table table-bordered table-striped\">
           ?>
 
 
-          <li style="margin-left: -2px;"><a class="ajax-link" href="addservice.html"><span class="hidden-tablet"><i class="icon-plus-sign"></i> Add New Service</span></a></li>
+          <li style="margin-left: -2px;"><a class="ajax-link" href=# data-toggle="modal" data-target="#myModal"><span class="hidden-tablet"><i class="icon-plus-sign"></i> Ask Question </span></a></li>
         </ul>
         <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
       </div><!--/.well -->
@@ -251,11 +257,14 @@ echo "<table class=\"table table-bordered table-striped\">
       <h3>Settings</h3>
     </div>
     <div class="modal-body">
-      <p>Here settings can be configured...</p>
+      <?php echo "<form action=\"askQuestion.php\"> 
+          <input type=\"text\" name=\"content\" placeholder=\"Ask question to this Service Provider\"><br>
+          <input type=\"hidden\" name=\"see\" value=\"$u\">
+          <input type=\"submit\" value=\"Submit\">
+          </form>"; ?>
     </div>
     <div class="modal-footer">
       <a href="#" class="btn" data-dismiss="modal">Close</a>
-      <a href="#" class="btn btn-primary">Save changes</a>
     </div>
   </div>
 

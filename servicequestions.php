@@ -1,3 +1,10 @@
+<?php 
+       include("connect_sql.php");
+       $u=$_REQUEST['see'];
+       
+?>
+
+
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -73,19 +80,21 @@
     <div class="row-fluid">
 
       <!-- left menu starts -->
-      <div class="span2 main-menu-span">
-        <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; padding:0px; margin-left: 10px; height: 219px;">
-          <ul class="nav nav-tabs nav-stacked main-menu">
-            <!-- <li class="nav-header hidden-tablet">Main</li> -->
-            <li style="margin-left: -2px;"><a class="ajax-link" href="serviceprovider.php"><i class="icon-home"></i><span class="hidden-tablet"> Home</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="myservicereviews.php"><i class="icon-star"></i><span class="hidden-tablet"> Reviews</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="servicequestions.php"><i class="icon-question-sign"></i><span class="hidden-tablet"> Questions</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="serviceappointments.php"><i class="icon-calendar"></i><span class="hidden-tablet"> Appointments</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="servicebids.php"><i class="icon-tag"></i><span class="hidden-tablet"> Bids</span></a></li>
+      <?php
+      echo "<div class=\"span2 main-menu-span\">
+        <div class=\"well nav-collapse sidebar-nav in collapse\" style=\"position:fixed; padding:0px; margin-left: 10px; height: 219px;\">
+          <ul class=\"nav nav-tabs nav-stacked main-menu\">
+            <!-- <li class=\"nav-header hidden-tablet\">Main</li> -->
+            <!-- <li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"serviceprovider.php\"><i class=\"icon-home\"></i><span class=\"hidden-tablet\"> Home</span></a></li> -->
+            <li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"serviceprovider.php?see=$u\"><i class=\"icon-star\"></i><span class=\"hidden-tablet\"> Reviews</span></a></li>
+            <li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"servicequestions.php?see=$u\"><i class=\"icon-question-sign\"></i><span class=\"hidden-tablet\"> Questions</span></a></li>
+            <li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"serviceappointments.php?see=$u\"><i class=\"icon-calendar\"></i><span class=\"hidden-tablet\"> Appointments</span></a></li>
+            <li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"servicebids.php?see=$u\"><i class=\"icon-tag\"></i><span class=\"hidden-tablet\"> Bids</span></a></li>
           </ul>
-          <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
+          <!-- <label id=\"for-is-ajax\" class=\"hidden-tablet\" for=\"is-ajax\"><div class=\"checker\" id=\"uniform-is-ajax\"><span><input id=\"is-ajax\" type=\"checkbox\" style=\"opacity: 0;\"></span></div> Ajax on menu</label> -->
         </div><!--/.well -->
-      </div><!--/span-->
+      </div><!--/span-->";
+      ?>
       <!-- left menu ends -->
       
 
@@ -108,8 +117,8 @@
                 <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
                 <?php
                
-              include("connect_sql.php");
-              $sql = "SELECT * from \"QandA\" where \"ServiceProviderUserID\"= '49'";
+              //include("connect_sql.php");
+              $sql = "SELECT * from \"QandA\" where \"ServiceProviderUserID\"= '$u'";
  
               $query1 = pg_query($db, $sql);
               
@@ -134,11 +143,12 @@
                   $fn = $row[0];
                   $ln = $row[1];
                   $pic = $row[2];
+                  if($pic=="")$pic="./people/basic.png";
 echo "<table class=\"table table-bordered table-striped\">
                   <tbody><tr>
                     
                     <td style=\"width: 100px;\">
-                      <a style=\"background-color:white\" title=\"User4\" href=\"images/user4.png\" class=\"cboxElement\"><img src=\"images/user4.png\" alt=\"User4\"></a></td>
+                      <a style=\"background-color:white\" href=\"$pic\" class=\"cboxElement\"><img src=\"$pic\"></a></td>
 
 
                       <td><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$fn $ln</font><br><br>
@@ -191,18 +201,36 @@ echo "<table class=\"table table-bordered table-striped\">
 
 
 
-    <div class="span2 main-menu-span">
+   
+
+     <div class="span2">
       <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
         <ul class="nav nav-tabs nav-stacked main-menu">
           <!-- <li class="nav-header hidden-tablet">Main</li> -->
           <li class="nav-header hidden-tablet" style="padding-top:10px;">My Services</li>
           <hr style="margin:0px;">
           <hr style="margin:0px;">
-          <li class="nav-header hidden-tablet" style="margin-top:8px;"> Medical</li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="tutor.html"><span class="hidden-tablet"><i class="icon-play"></i> Pharmacy</span></a></li>
-          <li class="nav-header hidden-tablet" style="margin-top:8px;"> Home Tutor</li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="tutor.html"><span class="hidden-tablet"><i class="icon-play"></i> Mathematics</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="tutor.html"><span class="hidden-tablet"><i class="icon-play"></i> Biology</span></a></li>
+
+          <?php 
+      
+                      $sql = "SELECT \"Service\".\"Type\" from \"Provides\",\"Service\" where \"ServiceProviderUserID\" = $u and \"Provides\".\"ServiceID\"=\"Service\".\"ServiceID\" group by \"Service\".\"Type\";";
+                      $query = pg_query($db, $sql);
+                      while ($row = pg_fetch_row($query)) {
+                        echo "<li class=\"nav-header hidden-tablet\" style=\"margin-top:8px;\">$row[0]</li>";
+
+
+                        $typesql = "SELECT \"SubType\",\"Service\".\"ServiceID\" from \"Service\",\"Provides\" where \"ServiceProviderUserID\" = $u and \"Provides\".\"ServiceID\"=\"Service\".\"ServiceID\" and \"Type\" = '". $row[0] . "';";
+                        $typequery = pg_query($db, $typesql);
+                        while ($typerow = pg_fetch_row($typequery)) {
+                          echo "<li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"/moreservices.php?sid=$typerow[1]&see=$u\"><span class=\"hidden-tablet\"><i class=\"icon-play\"></i><font style=\"color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                          font-size: 12px; line-height: 1.28;\">$typerow[0]</font></span></a></li>";
+                        }
+                      }
+                        
+                      
+          ?>
+
+
           <li style="margin-left: -2px;"><a class="ajax-link" href="addservice.html"><span class="hidden-tablet"><i class="icon-plus-sign"></i> Add New Service</span></a></li>
         </ul>
         <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->

@@ -23,7 +23,8 @@
 
         return $result;
       }
-       $u=30;
+       $u=$_REQUEST['see'];
+       $sid=$_REQUEST['sid'];
        
 ?>
 
@@ -104,19 +105,21 @@
     <div class="row-fluid">
 
       <!-- left menu starts -->
-      <div class="span2 main-menu-span">
-        <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; padding:0px; margin-left: 10px; height: 219px;">
-          <ul class="nav nav-tabs nav-stacked main-menu">
-            <!-- <li class="nav-header hidden-tablet">Main</li> -->
-            <li style="margin-left: -2px;"><a class="ajax-link" href="serviceprovider.html"><i class="icon-home"></i><span class="hidden-tablet"> Home</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.html"><i class="icon-star"></i><span class="hidden-tablet"> Reviews</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="questions.html"><i class="icon-question-sign"></i><span class="hidden-tablet"> Questions</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.html"><i class="icon-calendar"></i><span class="hidden-tablet"> Appointments</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="bids.html"><i class="icon-tag"></i><span class="hidden-tablet"> Bids</span></a></li>
+      <?php
+      echo "<div class=\"span2 main-menu-span\">
+        <div class=\"well nav-collapse sidebar-nav in collapse\" style=\"position:fixed; padding:0px; margin-left: 10px; height: 219px;\">
+          <ul class=\"nav nav-tabs nav-stacked main-menu\">
+            <!-- <li class=\"nav-header hidden-tablet\">Main</li> -->
+            <!-- <li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"serviceprovider.php\"><i class=\"icon-home\"></i><span class=\"hidden-tablet\"> Home</span></a></li> -->
+            <li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"serviceprovider.php?see=$u\"><i class=\"icon-star\"></i><span class=\"hidden-tablet\"> Reviews</span></a></li>
+            <li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"servicequestions.php?see=$u\"><i class=\"icon-question-sign\"></i><span class=\"hidden-tablet\"> Questions</span></a></li>
+            <li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"serviceappointments.php?see=$u\"><i class=\"icon-calendar\"></i><span class=\"hidden-tablet\"> Appointments</span></a></li>
+            <li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"servicebids.php?see=$u\"><i class=\"icon-tag\"></i><span class=\"hidden-tablet\"> Bids</span></a></li>
           </ul>
-          <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
+          <!-- <label id=\"for-is-ajax\" class=\"hidden-tablet\" for=\"is-ajax\"><div class=\"checker\" id=\"uniform-is-ajax\"><span><input id=\"is-ajax\" type=\"checkbox\" style=\"opacity: 0;\"></span></div> Ajax on menu</label> -->
         </div><!--/.well -->
-      </div><!--/span-->
+      </div><!--/span-->";
+      ?>
       <!-- left menu ends -->
       
 
@@ -140,7 +143,7 @@
                 
                   <?php 
       
-                      $sql = "SELECT * from \"Provides\" where \"ServiceProviderUserID\" = ". $u . ";";
+                      $sql = "SELECT * from \"Provides\" where \"ServiceID\" = ".$sid." and \"ServiceProviderUserID\" = ". $u . ";";
                       $query = pg_query($db, $sql);
                       while ($row = pg_fetch_row($query)) {
 
@@ -185,6 +188,105 @@
                         </td>
                         </tr>
                         </tbody></table>";
+
+
+
+                        $sql1 = "SELECT * from \"Review\" where \"ServiceProviderUserID\" = $u and \"ServiceID\" = ".$sid." order by \"Timestamp\" desc";
+ 
+              //echo $sql;
+            
+              $query1 = pg_query($db, $sql1);
+       
+              if (!$query1) {
+                //echo "An error occurred.\n";
+               exit;
+              }
+              else {
+                //echo "No Error!";
+              }
+             
+              while ($row1 = pg_fetch_row($query1)) {
+                  $sid = $row1[1];
+                  $cid = $row1[2];
+                  $content = $row1[3];
+                  $rating = $row1[4];
+                  $time = $row1[5];
+                  $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '$cid'";
+                  $query = pg_query($db, $sql);
+                  $row1 = pg_fetch_row($query);
+                  $cfn = $row1[0];
+                  $cln = $row1[1];
+                  $cpic = $row1[2];
+                  if($cpic=="")$cpic="./people/basic.png";
+                  $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '$u'";
+                  $query = pg_query($db, $sql);
+                  $row1 = pg_fetch_row($query);
+                  $spfn = $row1[0];
+                  $spln = $row1[1];
+                  $sppic = $row1[2];
+                  if($sppic=="")$sppic="./people/basic.png";
+                  $sql = "SELECT \"Type\", \"SubType\" from \"Service\" where \"ServiceID\" = '$sid'";
+                  $query = pg_query($db, $sql);
+                  $row1 = pg_fetch_row($query);
+                  $type = $row1[0];
+                  $stype = $row1[1];
+                  $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = '$cid'";
+                  $query = pg_query($db, $sql);
+                  $row1 = pg_fetch_row($query);
+                  $cu= $row1[0];
+                  $cd = $row1[1];
+                  $ratio = $cu/$cd;
+                   
+                  if ($ratio < 1){
+                      $ratimage = "images/J.jpeg";
+                  }
+                  elseif ($ratio < 2){
+                      $ratimage = "images/Q.jpeg";
+                  }
+                  elseif ($ratio < 3){
+                      $ratimage = "images/K.jpeg";
+                  }
+                  else{
+                      $ratimage = "images/A.jpeg";
+                  }
+                  echo "<table class=\"table table-bordered table-striped\">
+            <tbody><tr>
+              
+              <td style=\"width: 100px; height: 100px;\">
+
+
+
+                <a style=\"background-color:white\" title=\"User1\" href=\"$cpic\" class=\"cboxElement\"><img src=\"$cpic\" alt=\"User4\" width=\"100\" height=\"100\"></a></td>
+                <td class=\"span4\"><font class=\"user-name\">$cfn $cln</font><br>
+
+
+                  <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                  font-size: 11px; line-height: 1.28;\">$time</font><br>
+                  <img src=$ratimage width=40px height=70px>
+                </td>
+
+
+
+                <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$spfn $spln</font><br>
+                  
+                  <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                  font-size: 11px; line-height: 1.28;\">$type ($stype)</font></td>
+
+                  <td style=\"width: 100px;\">
+                    <a style=\"background-color:white\" title=\"User3\" href=\"$sppic\" class=\"cboxElement\"><img src=\"$sppic\" alt=\"User8\" width=\"100\" height=\"100%\"></a></td></tr><tr></tr>
+                    <tr><td colspan=\"4\" style=\"width: 100%;\">
+                     
+                        <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
+
+                     <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $cu</div>
+                     <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $cd</div>
+                     <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
+                   </td>
+                 </tr></tbody></table>";
+
+                 }
+                  //$sql = "SELECT \"Review\".\"ReviewID\", sum(\"TypeOfVote\") from \"Review\",\"Vote\" where \"Review\".\"ReviewID\"=\"Vote\".\"ReviewID\" and \"Review\".\"CustomerUserID\"= \"Vote\".\"CustomerUserID\" and \"Review\".\"CustomerUserID\"=53 group by \"Review\".\"ReviewID\";
+        
                       }
         ?>
 
@@ -200,11 +302,46 @@
                </div><!--/span-->
 
              </div>
+</div>
+
+              <div class="span2">
+      <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
+        <ul class="nav nav-tabs nav-stacked main-menu">
+          <!-- <li class="nav-header hidden-tablet">Main</li> -->
+          <li class="nav-header hidden-tablet" style="padding-top:10px;">My Services</li>
+          <hr style="margin:0px;">
+          <hr style="margin:0px;">
+
+          <?php 
+      
+                      $sql = "SELECT \"Service\".\"Type\" from \"Provides\",\"Service\" where \"ServiceProviderUserID\" = $u and \"Provides\".\"ServiceID\"=\"Service\".\"ServiceID\" group by \"Service\".\"Type\";";
+                      $query = pg_query($db, $sql);
+                      while ($row = pg_fetch_row($query)) {
+                        echo "<li class=\"nav-header hidden-tablet\" style=\"margin-top:8px;\">$row[0]</li>";
+
+
+                        $typesql = "SELECT \"SubType\",\"Service\".\"ServiceID\" from \"Service\",\"Provides\" where \"ServiceProviderUserID\" = $u and \"Provides\".\"ServiceID\"=\"Service\".\"ServiceID\" and \"Type\" = '". $row[0] . "';";
+                        $typequery = pg_query($db, $typesql);
+                        while ($typerow = pg_fetch_row($typequery)) {
+                          echo "<li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"/moreservices.php?sid=$typerow[1]&see=$u\"><span class=\"hidden-tablet\"><i class=\"icon-play\"></i><font style=\"color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                          font-size: 12px; line-height: 1.28;\">$typerow[0]</font></span></a></li>";
+                        }
+                      }
+                        
+                      
+          ?>
+
+
+          <li style="margin-left: -2px;"><a class="ajax-link" href="addservice.html"><span class="hidden-tablet"><i class="icon-plus-sign"></i> Add New Service</span></a></li>
+        </ul>
+        <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
+      </div><!--/.well -->
+    </div>
 
 
 
       <!-- content ends -->
-    </div>
+    
 
 
 

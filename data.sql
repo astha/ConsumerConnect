@@ -531,7 +531,6 @@ COPY "Users" ("UserID", "LoginID", "Password", "FirstName", "LastName", "EmailID
 27	alpana	63mgYO32	Alpana	Kansal	alpana@college.in		32336-43588
 28	amba	66ybXU57	Amba	Mukopadhyay	amba@gmail.com		15612-78679
 29	amber	AE79YEq2k	Amber	Chauhan	amber@rediffmail.com		45795-53404
-30	bahula	F6OOhp91	Bahula	Agarwal	bahula@gmail.com		82762-58128
 31	bairavi	X4NQbt18	Bairavi	Rao	bairavi@yahoo.com		81102-79746
 32	bala	UE39GNr1i	Bala	Rangarajan	bala@gmail.com		84716-37263
 33	banhi	24K3jRQY36	Banhi	Subramanium	banhi@gmail.com		72216-63737
@@ -562,6 +561,7 @@ COPY "Users" ("UserID", "LoginID", "Password", "FirstName", "LastName", "EmailID
 58	diksha	X8AMdx69	Diksha	Mehta	diksha@gmail.com		37826-13965
 59	dipashri	21ucJE27	Dipashri	Sarin	dipashri@rediffmail.com		46285-80934
 60	dipti	MN88XYd7l	Dipti	Goyal	dipti@yahoo.com		35528-55958
+30	bahula	F6OOhp91	Bahula	Agarwal	bahula@gmail.com	./people/women/1.jpg	82762-58128
 \.
 
 

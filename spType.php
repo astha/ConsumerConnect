@@ -171,15 +171,17 @@
                                       
                                       <td style=\"width: 100px;\">
                                         <a style=\"background-color:white\" href=\"$name[2]\" class=\"cboxElement\"><img src=\"$name[2]\" width=\"100\" height=\"100\"></a>
+                                      </td>
 
-                      <td class=\"span4\"><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href=\"serviceproviderpage.php?id=$rowprov[0]\">$name[0] $name[1]</font></a><br>
-                    <font style=\"color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 12px; line-height: 1.28;\">$rowprov[6]</font><br>
-                    <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 11px; line-height: 1.28;\"><a href=\"spType.php?type=$type[0]\">
+                                      <td class=\"span5\">
+                                        <a href=\"serviceproviderpage.php?id=$rowprov[0]\"><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$name[0] $name[1]</font></a><br>
+                                        <font style=\"color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;font-size: 12px; line-height: 1.28;\">$rowprov[6]</font><br>
+                    <a href=\"spType.php?type=$type[0]\"><font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                    font-size: 11px; line-height: 1.28;\">
 
-                                      $type[0]</a> (<a href=\"/spSubType.php?type=$type[0]&subtype=$type[1]\">
-                                              $type[1]</a>)</font>
+                                      $type[0]</font></a> (<a href=\"/spSubType.php?type=$type[0]&subtype=$type[1]\">
+                                             <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                    font-size: 11px; line-height: 1.28;\"> $type[1]</a>)</font>
 
 
 
@@ -206,7 +208,7 @@
 									                       
 									                        </tr>
 									                        <tr>
-									                        <td colspan=2>
+									                        <td colspan=3>
 									                        
 									                        <br>$rowprov[9]
 									                        

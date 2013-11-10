@@ -127,6 +127,9 @@ function signOut() {
             <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
              <?php
             include("connect_sql.php");
+            include_once("classes/develop_php_library.php"); // Include the class library
+            $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
+              // Query your database here and get timestamp
               $sql = "SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15') order by \"Timestamp\" desc";
  
               //echo $sql;
@@ -144,7 +147,11 @@ function signOut() {
               while ($row = pg_fetch_row($query1)) {
                   $content = $row[3];
                   $rating = $row[4];
-                  $time = $row[5];
+                  $ts = $row[5];
+                  //$ts = "2010-01-30 20:19:18";
+                  $convertedTime = ($timeAgoObject -> convert_datetime($ts)); // Convert Date Time
+                  $time = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
+              
                   $spid = $row[6];
                   $sid = $row[1];
                   $cid = $row[2];
@@ -226,8 +233,8 @@ function signOut() {
                      
                         <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
 
-                     <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> 90</div>
-                     <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> 66</div>
+                     <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $cu</div>
+                     <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $cd</div>
                      <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
                    </td>
                  </tr></tbody></table>";
@@ -278,7 +285,11 @@ function signOut() {
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
                   $des = $row[0];
-                  $time = $row[1];
+                  $ts = $row[1];
+                  $convertedTime = ($timeAgoObject -> convert_datetime($ts)); // Convert Date Time
+                  $time = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
+              
+
 echo "<table class=\"table table-bordered table-striped\">
               <tbody><tr>
 
@@ -304,7 +315,10 @@ echo "<table class=\"table table-bordered table-striped\">
                   $query = pg_query($db, $sql);
                   while ($row = pg_fetch_row($query)) {
                       $des1 = $row[2];
-                      $time1 = $row[3];
+                      $ts1 = $row[3];
+                      $convertedTime = ($timeAgoObject -> convert_datetime($ts1)); // Convert Date Time
+                      $time1 = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
+              
                      
                       echo "<p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
                     <i class=\"icon-check\"></i>

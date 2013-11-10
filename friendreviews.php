@@ -1,14 +1,14 @@
 
 <?php
-	session_start();
-		
-	$expire=time()+60*60*24;
-	setcookie("webpage","friendreviews.php", $expire);
-	
-	if (!isset($_SESSION['userID'])){
-		header("Location:index.php");
-		die();
-	}
+session_start();
+
+$expire=time()+60*60*24;
+setcookie("webpage","friendreviews.php", $expire);
+
+if (!isset($_SESSION['userID'])){
+  header("Location:index.php");
+  die();
+}
 
 ?>
 
@@ -47,7 +47,7 @@
 
 <script type="text/javascript">
 function signOut() {
-    $.get("clearAll.php");
+  $.get("clearAll.php");
 }
 </script>
 
@@ -127,157 +127,163 @@ function signOut() {
           <div class="box-content" style="display: block;">
             
             <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
-             <?php
+            <?php
             include("connect_sql.php");
-              $sql = "SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15') order by \"Timestamp\" desc";
- 
+             include_once("classes/develop_php_library.php"); // Include the class library
+            $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
+           
+            $sql = "SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15') order by \"Timestamp\" desc";
+            
               //echo $sql;
             
-              $query1 = pg_query($db, $sql);
-       
-              if (!$query1) {
+            $query1 = pg_query($db, $sql);
+            
+            if (!$query1) {
                 //echo "An error occurred.\n";
-               exit;
-              }
-              else {
+             exit;
+           }
+           else {
                 //echo "No Error!";
-              }
-             
-              while ($row = pg_fetch_row($query1)) {
-                  $content = $row[3];
-                  $rating = $row[4];
-                  $time = $row[5];
-                  $spid = $row[6];
-                  $sid = $row[1];
-                  $cid = $row[2];
-                  $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '$cid'";
-                  $query = pg_query($db, $sql);
-                  $row = pg_fetch_row($query);
-                  $cfn = $row[0];
-                  $cln = $row[1];
-                  $cpic = $row[2];
-                  $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '$spid'";
-                  $query = pg_query($db, $sql);
-                  $row = pg_fetch_row($query);
-                  $spfn = $row[0];
-                  $spln = $row[1];
-                  $sppic = $row[2];
-                  $sql = "SELECT \"Type\", \"SubType\" from \"Service\" where \"ServiceID\" = '$sid'";
-                  $query = pg_query($db, $sql);
-                  $row = pg_fetch_row($query);
-                  $type = $row[0];
-                  $stype = $row[1];
-                  $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = '$cid'";
-                  $query = pg_query($db, $sql);
-                  $row = pg_fetch_row($query);
-                  $cu= $row[0];
-                  $cd = $row[1];
-
-
-                  $ratio = $cu/$cd;
-                   
-                  if ($ratio < 1){
-                      $ratimage = "images/J.jpeg";
-                  }
-                  elseif ($ratio < 2){
-                      $ratimage = "images/Q.jpeg";
-                  }
-                  elseif ($ratio < 3){
-                      $ratimage = "images/K.jpeg";
-                  }
-                  else{
-                      $ratimage = "images/A.jpeg";
-                  }
-                  echo "<table class=\"table table-bordered table-striped\">
-            <tbody><tr>
+           }
+           
+           while ($row = pg_fetch_row($query1)) {
+            $content = $row[3];
+            $rating = $row[4];
+            $ts = $row[5];
+            $convertedTime = ($timeAgoObject -> convert_datetime($ts)); // Convert Date Time
+            $time = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
               
-              <td style=\"width: 100px; height: 100px;\">
+            $spid = $row[6];
+            $sid = $row[1];
+            $cid = $row[2];
+            $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '$cid'";
+            $query = pg_query($db, $sql);
+            $row = pg_fetch_row($query);
+            $cfn = $row[0];
+            $cln = $row[1];
+            $cpic = $row[2];
+            $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '$spid'";
+            $query = pg_query($db, $sql);
+            $row = pg_fetch_row($query);
+            $spfn = $row[0];
+            $spln = $row[1];
+            $sppic = $row[2];
+            $sql = "SELECT \"Type\", \"SubType\" from \"Service\" where \"ServiceID\" = '$sid'";
+            $query = pg_query($db, $sql);
+            $row = pg_fetch_row($query);
+            $type = $row[0];
+            $stype = $row[1];
+            $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = '$cid'";
+            $query = pg_query($db, $sql);
+            $row = pg_fetch_row($query);
+            $cu= $row[0];
+            $cd = $row[1];
+
+
+            $ratio = $cu/$cd;
+            
+            if ($ratio < 1){
+              $ratimage = "images/J.jpeg";
+            }
+            elseif ($ratio < 2){
+              $ratimage = "images/Q.jpeg";
+            }
+            elseif ($ratio < 3){
+              $ratimage = "images/K.jpeg";
+            }
+            else{
+              $ratimage = "images/A.jpeg";
+            }
+            echo "<table class=\"table table-bordered table-striped\">
+            <tbody><tr>
+            
+            <td style=\"width: 100px; height: 100px;\">
 
 
 
-                <a style=\"background-color:white\" title=\"User1\" href=\"images/user4.png\" class=\"cboxElement\"><img src=\"images/user4.png\" alt=\"User4\" width=\"100\" height=\"100\"></a></td>
-                <td class=\"span4\"><font class=\"user-name\">$cfn $cln</font><br>
+            <a style=\"background-color:white\" title=\"User1\" href=\"images/user4.png\" class=\"cboxElement\"><img src=\"images/user4.png\" alt=\"User4\" width=\"100\" height=\"100\"></a></td>
+            <td class=\"span4\"><font class=\"user-name\">$cfn $cln</font><br>
 
 
-                  <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                  font-size: 11px; line-height: 1.28;\">$time</font><br>
-                  <img src=$ratimage width=40px height=70px>
-                </td>
+            <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+            font-size: 11px; line-height: 1.28;\">$time</font><br>
+            <img src=$ratimage width=40px height=70px>
+            </td>
 
 
 
-                <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$spfn $spln</font><br>
-                  
-                  <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                  font-size: 11px; line-height: 1.28;\">$type ($stype)</font></td>
+            <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$spfn $spln</font><br>
+            
+            <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+            font-size: 11px; line-height: 1.28;\">$type ($stype)</font></td>
 
-                  <td style=\"width: 100px;\">
-                    <a style=\"background-color:white\" title=\"User3\" href=\"images/user8.png\" class=\"cboxElement\"><img src=\"images/user8.png\" alt=\"User8\" width=\"100\" height=\"100%\"></a></td></tr><tr></tr>
-                    <tr><td colspan=\"4\" style=\"width: 100%;\">
-                     
-                        <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
+            <td style=\"width: 100px;\">
+            <a style=\"background-color:white\" title=\"User3\" href=\"images/user8.png\" class=\"cboxElement\"><img src=\"images/user8.png\" alt=\"User8\" width=\"100\" height=\"100%\"></a></td></tr><tr></tr>
+            <tr><td colspan=\"4\" style=\"width: 100%;\">
+            
+            <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
 
-                     <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> 90</div>
-                     <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> 66</div>
-                     <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
-                   </td>
-                 </tr></tbody></table>";
+            <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $cu</div>
+            <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $cd</div>
+            <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
+            </td>
+            </tr></tbody></table>";
 
-                 }
+          }
                   //$sql = "SELECT \"Review\".\"ReviewID\", sum(\"TypeOfVote\") from \"Review\",\"Vote\" where \"Review\".\"ReviewID\"=\"Vote\".\"ReviewID\" and \"Review\".\"CustomerUserID\"= \"Vote\".\"CustomerUserID\" and \"Review\".\"CustomerUserID\"=53 group by \"Review\".\"ReviewID\";
-                  
+          
 
-        ?>
-                     
-                     <!-- </div> -->
+          ?>
+          
+          <!-- </div> -->
 
-                   </div>
-                 </div><!--/span-->
+        </div>
+      </div><!--/span-->
 
-               </div>
-
-
-      <!-- content ends -->
     </div>
 
 
-
- <div class="span2 main-menu-span">
-      <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
-        <ul class="nav nav-tabs nav-stacked main-menu">
-          <!-- <li class="nav-header hidden-tablet">Main</li> -->
-          <li style="margin-left: -2px;"><a class="ajax-link" href="services.php"><i class="icon-random"></i><span class="hidden-tablet"> Services</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.php"><span class="hidden-tablet"><i class="icon-play"></i> Doctor</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="salon.php"><span class="hidden-tablet"><i class="icon-play"></i> Salon</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="questions.php"><span class="hidden-tablet"><i class="icon-play"></i> Mechanic</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.php"><span class="hidden-tablet"><i class="icon-play"></i> Plumber</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.php"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li>
-        </ul>
-        <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
-      </div><!--/.well -->
-    </div>
-
-  </div><!--/fluid-row-->
-
-
-
-
-
-
-
-  <div class="modal hide fade" id="myModal" style="display: none;">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬&nbsp;ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬&nbsp;ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â</button>
-      <h3>Settings</h3>
-    </div>
-    <div class="modal-body">
-      <p>Here settings can be configured...</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#" class="btn" data-dismiss="modal">Close</a>
-      <a href="#" class="btn btn-primary">Save changes</a>
-    </div>
+    <!-- content ends -->
   </div>
+
+
+
+  <div class="span2 main-menu-span">
+    <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
+      <ul class="nav nav-tabs nav-stacked main-menu">
+        <!-- <li class="nav-header hidden-tablet">Main</li> -->
+        <li style="margin-left: -2px;"><a class="ajax-link" href="services.php"><i class="icon-random"></i><span class="hidden-tablet"> Services</span></a></li>
+        <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.php"><span class="hidden-tablet"><i class="icon-play"></i> Doctor</span></a></li>
+        <li style="margin-left: -2px;"><a class="ajax-link" href="salon.php"><span class="hidden-tablet"><i class="icon-play"></i> Salon</span></a></li>
+        <li style="margin-left: -2px;"><a class="ajax-link" href="questions.php"><span class="hidden-tablet"><i class="icon-play"></i> Mechanic</span></a></li>
+        <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.php"><span class="hidden-tablet"><i class="icon-play"></i> Plumber</span></a></li>
+        <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.php"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li>
+      </ul>
+      <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
+    </div><!--/.well -->
+  </div>
+
+</div><!--/fluid-row-->
+
+
+
+
+
+
+
+<div class="modal hide fade" id="myModal" style="display: none;">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬&nbsp;ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬&nbsp;ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â</button>
+    <h3>Settings</h3>
+  </div>
+  <div class="modal-body">
+    <p>Here settings can be configured...</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <a href="#" class="btn btn-primary">Save changes</a>
+  </div>
+</div>
 
 
 

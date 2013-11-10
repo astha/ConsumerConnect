@@ -110,6 +110,9 @@
            <?php
               
               include("connect_sql.php");
+               include_once("classes/develop_php_library.php"); // Include the class library
+            $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
+           
               $sql = "SELECT * from \"Review\" where \"CustomerUserID\"= '5' order by \"Timestamp\" desc";
  
               //echo $sql;
@@ -127,7 +130,11 @@
               while ($row = pg_fetch_row($query1)) {
                   $content = $row[3];
                   $rating = $row[4];
-                  $time = $row[5];
+                  $ts = $row[5];
+                  $convertedTime = ($timeAgoObject -> convert_datetime($ts)); // Convert Date Time
+                  $time = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
+              
+
                   $spid = $row[6];
                   $sid = $row[1];
                   $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '5'";

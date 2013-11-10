@@ -130,6 +130,9 @@ function signOut() {
             <?php
                
               include("connect_sql.php");
+              include_once("classes/develop_php_library.php"); // Include the class library
+            $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
+            
               $sql = "SELECT * from \"QandA\" where \"CustomerUserID\"= '40'";
  
               $query1 = pg_query($db, $sql);
@@ -148,7 +151,10 @@ function signOut() {
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
                   $des = $row[0];
-                  $time = $row[1];
+                  $ts = $row[1];
+                  $convertedTime = ($timeAgoObject -> convert_datetime($ts)); // Convert Date Time
+                  $time = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
+              
 echo "<table class=\"table table-bordered table-striped\">
               <tbody><tr>
 
@@ -174,8 +180,10 @@ echo "<table class=\"table table-bordered table-striped\">
                   $query = pg_query($db, $sql);
                   while ($row = pg_fetch_row($query)) {
                       $des1 = $row[2];
-                      $time1 = $row[3];
-                     
+                      $ts1 = $row[3];
+                      $convertedTime = ($timeAgoObject -> convert_datetime($ts1)); // Convert Date Time
+                      $time1 = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
+                                   
                       echo "<p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
                     <i class=\"icon-check\"></i>
                     $des1<br>

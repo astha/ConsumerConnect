@@ -179,9 +179,9 @@
                     <a href=\"spType.php?type=$type[0]\"><font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                     font-size: 11px; line-height: 1.28;\">
 
-                                      $type[0]</font></a> (<a href=\"/spSubType.php?type=$type[0]&subtype=$type[1]\">
+                                      $type[0]</font></a> <a href=\"/spSubType.php?type=$type[0]&subtype=$type[1]\">
                                              <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 11px; line-height: 1.28;\"> $type[1]</a>)</font>
+                    font-size: 11px; line-height: 1.28;\"> ($type[1])</a></font>
 
 
 

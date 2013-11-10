@@ -157,39 +157,53 @@
 									                        $regionquery = pg_query($db, $regionsql);
 									                        $region=pg_fetch_row($regionquery);
 
-									                        $namesql = "SELECT \"FirstName\", \"LastName\" from \"Users\" where \"UserID\" = ". $rowprov[0] . ";";
+									                        $namesql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = ". $rowprov[0] . ";";
 									                        $namequery = pg_query($db, $namesql);
 									                        $name=pg_fetch_row($namequery);
-
+                                          if($name[2]==""){
+                                            $name[2]='./people/basic.png';
+                                          }
 
 									                        $result=findDays($rowprov[3]);
 									                        echo "<table class=\"table table-bordered table-striped\">
 									              			<tbody><tr>
-									                            <td class=\"span6\"><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$rowprov[6]</font>
-									                            <br><a href=\"spType.php?type=$type[0]\">
 
-									                    <font style=\"color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-									                    font-size: 12px; line-height: 1.28;\">$type[0]</font></a>
-									                            <br>
+                                      
+                                      <td style=\"width: 100px;\">
+                                        <a style=\"background-color:white\" href=\"$name[2]\" class=\"cboxElement\"><img src=\"$name[2]\" width=\"100\" height=\"100\"></a>
 
-									                            <a href=\"/spSubType.php?type=$type[0]&subtype=$type[1]\">
-									                            <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-									                    font-size: 11px; line-height: 1.28;\">$type[1]</font></a>
+                      <td class=\"span4\"><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href=\"serviceproviderpage.php?id=$rowprov[0]\">$name[0] $name[1]</font></a><br>
+                    <font style=\"color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                    font-size: 12px; line-height: 1.28;\">$rowprov[6]</font><br>
+                    <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                    font-size: 11px; line-height: 1.28;\"><a href=\"spType.php?type=$type[0]\">
+
+                                      $type[0]</a> (<a href=\"/spSubType.php?type=$type[0]&subtype=$type[1]\">
+                                              $type[1]</a>)</font>
+
+
+
+									                           
 
 									                      
 
 									                      <br><font style=\"color:  #006600; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
 									                    font-size: 12px; line-height: 1.28;\">$region[0],$region[1]</font>
 
-									                    <br><a href=\"serviceproviderpage.php?id=$rowprov[0]\"><font style=\"color:  #ff0066; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;font-size: 13px;
-									                    font-size: 12px; line-height: 1.28;\">$name[0] $name[1]</font></a>
-									                            </td>
-									                        <td>
-									                        <font style=\" font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-									                    font-size: 12px; line-height: 1.28;\">$result
-									                        <br>$rowprov[4] - $rowprov[5]
-									                        <br><font style=\"font-weight: bold; color: #660066;\">Price </font>$rowprov[7] per appointment
-									                        <br><font style=\"font-weight: bold; color: #660066;\">Discount </font>$rowprov[8]%</font></td>
+									                   
+                                    </td>
+                                       <td>
+                                          <font style=\" font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                                      font-size: 12px; line-height: 1.28;\">$result
+                                          <br>$rowprov[4] - $rowprov[5]
+                                          <br><font style=\"font-weight: bold; color: #660066;\">Price </font>$rowprov[7] per appointment
+                                          <br><font style=\"font-weight: bold; color: #660066;\">Discount </font>$rowprov[8]%</font></td>
+
+
+                                       
+
+									                           
+									                       
 									                        </tr>
 									                        <tr>
 									                        <td colspan=2>

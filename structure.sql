@@ -801,7 +801,7 @@ CREATE TABLE "Users" (
     "FirstName" character varying(20) NOT NULL,
     "LastName" character varying(20) NOT NULL,
     "EmailID" character varying(40) NOT NULL,
-    "Photograph" bytea,
+    "Photograph" character varying DEFAULT 'people/basic.png'::character varying NOT NULL,
     "ContactNumber" character varying(20)
 );
 

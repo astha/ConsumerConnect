@@ -48,8 +48,22 @@
 function signOut() {
     $.get("clearAll.php");
 }
+function yHandler(){
+  // Watch video for line by line explanation of the code
+  // http://www.youtube.com/watch?v=eziREnZPml4
+  var wrap = document.getElementById('wrap');
+  var contentHeight = wrap.offsetHeight;
+  var yOffset = window.pageYOffset; 
+  var y = yOffset + window.innerHeight;
+  if(y >= contentHeight){
+    // Ajax call to get more dynamic data goes here
+    wrap.innerHTML += '<div class="newData"></div>';
+  }
+}
+window.onscroll = yHandler;
 </script>
-
+<style>
+</style>
 </head>
 
 <body class="">
@@ -108,10 +122,10 @@ function signOut() {
       </div><!--/span-->
       <!-- left menu ends -->
       
+<div id="wrap">
 
       <div id="content" class="span8">
         <!-- content starts -->
-
 
 <div class="row-fluid sortable ui-sortable" style="text-shadow:none;">
           <div class="box">
@@ -178,17 +192,7 @@ function signOut() {
                   $cu= $row[0];
                   $cd = $row[1];
 
-                  $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = '$cid'";
-                  $query = pg_query($db, $sql);
-                  $row = pg_fetch_row($query);
-                  $cu= $row[0];
-                  $cd = $row[1];
-                  $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = '$cid'";
-                  $query = pg_query($db, $sql);
-                  $row = pg_fetch_row($query);
-                  $cu= $row[0];
-                  $cd = $row[1];
-
+        
 
                   $ratio = $cu/$cd;
                    
@@ -356,6 +360,7 @@ echo "<table class=\"table table-bordered table-striped\">
 
       <!-- content ends -->
     </div>
+  </div>
 
 
 

@@ -384,10 +384,12 @@
           <input type=\"hidden\" name=\"sid\" value=\"$sid\">
           
           Please rate the service. <br>
-          <div id=\"star\" class=\"raty\"></div><br><br>
+          <div id=\"star\" class=\"raty\"></div><br><br> ";?>
 
-          <input type=\"submit\" value=\"Submit\">
-          </form>"; ?>
+           <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Post Review</button>
+                  </div>
+          </form>
     </div>
     <div class="modal-footer">
       <a href="#" class="btn" data-dismiss="modal">Close</a>
@@ -428,14 +430,14 @@
                     <div class="control-group">
                       <label class="control-label" for="selectError1">Select Day</label>
                       <div class="controls">
-                        <select id="selectError1" multiple data-rel="chosen">
-                          <option name="mon">Monday</option>
-                          <option name="tue">Tuesday</option>
-                          <option name="wed">Wednesday</option>
-                          <option name="thu">Thursday</option>
-                          <option name="fri">Friday</option>
-                          <option name="sat">Saturday</option>
-                          <option name="sun">Sunday</option>
+                        <select id="selectError1" multiple data-rel="chosen" name="days[]">
+                          <option>Monday</option>
+                          <option>Tuesday</option>
+                          <option>Wednesday</option>
+                          <option>Thursday</option>
+                          <option>Friday</option>
+                          <option>Saturday</option>
+                          <option>Sunday</option>
                         </select>
                       </div>
                     </div>
@@ -468,8 +470,23 @@
 
                     </div>
                   </div>
+ <div class="control-group">
 
+                  <?php     
+     echo "<form name=sel>\n";
+     echo " <label class=\"control-label\">States</label> <div class=\"controls\">
+ <font id=states><select>\n";
+     echo "<option value='0'></option> \n" ;
+     echo "</select></font></div> 
+\n";
+     
+     echo " <label class=\"control-label\">Cities</label> <div class=\"controls\"><font id=cities><select>\n";
+     echo "<option value='0'></option> \n" ;
+     echo "</select></font></div>\n";
+?>
+</div>
 
+                
                   <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Add Wish</button>
                   </div>
@@ -566,10 +583,49 @@
 
   <script type="text/javascript">
   $('#timepicker1').timepicker();
+  $( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
   </script>
   <script type="text/javascript">
   $('#timepicker2').timepicker();
   </script>
+
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $('#country').change(function() {
+        var country = $(this).val();
+        $.post('country.php', {
+            country: country
+        }, function(data) {
+            $('#state').html(data); // I change this part
+        });
+    });
+  </script>
+
+  <script type="text/javascript">
+function Inint_AJAX() {
+   try { return new ActiveXObject("Msxml2.XMLHTTP");  } catch(e) {} //IE
+   try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch(e) {} //IE
+   try { return new XMLHttpRequest();          } catch(e) {} //Native Javascript
+   alert("XMLHttpRequest not supported");
+   return null;
+};
+
+function dochange(src, val) {
+     var req = Inint_AJAX();
+     req.onreadystatechange = function () { 
+          if (req.readyState==4) {
+               if (req.status==200) {
+                    document.getElementById(src).innerHTML=req.responseText; //retuen value
+               } 
+          }
+     };
+     req.open("GET", "state.php?data="+src+"&val="+val); //make connection
+     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=iso-8859-1"); // set Header
+     req.send(null); //send value
+}
+
+window.onLoad=dochange('states', -1);         // value in first dropdown
+</script>
   
 
 

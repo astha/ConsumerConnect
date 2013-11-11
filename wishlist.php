@@ -301,73 +301,53 @@
              <table class="table table-bordered table-striped">
               <tbody><tr>
                 <td>
-                  <form role="form" action="addWish.php" method="post" class="form-horizontal">
+                  <form role="form" action="addWish.php" method="get" class="form-horizontal">
                     <fieldset>
                      <div class="control-group">
-                      <label class="control-label" for="selectError2">Service Type</label>
-                      <div class="controls">
-                        <select data-placeholder="Select the Kind of Service Here" id="selectty" data-rel="chosen">
-                          <option value=""></option>
-                          <optgroup label="Doctor">
-                            <option>Cardiologist</option>
-                            <option>Dermatologist</option>
-                            <option>Gynecologist</option>
-                            <option>Neurologist</option>
-                            <option>Pathologist</option>
-                            <option>Radiologist</option>
-                          </optgroup>
-                          <optgroup label="Salon">
-                            <option>Hair Stylist</option>
-                            <option>Hair Cutting</option>
-                            <option>Hair Treatment</option>
-                            <option>Hair Colouring</option>
-                          </optgroup>
-                          <optgroup label="Mechanic">
-                            <option>Car</option>
-                            <option>Two Wheeler</option>
-                          </optgroup>
-                        </select>
-                      </div>
-                    </div>
 
-                    <div class="control-group">
-
-                      <label class="control-label">Select Country</label>
-                      <div class="controls">
-                        <select name="country" onchange="getState(this.value)"><option>Select Country</option><option value="1">USA</option><option value="2">India</option> <option value="3">Canada</option> </select>
-                      </div>
-                    </div>
+                  <?php     
+     echo " <label class=\"control-label\">Select Type of Service</label> <div class=\"controls\">
+ <font id=services><select>\n";
+     echo "<option value='0'></option> \n" ;
+     echo "</select></font></div> 
+\n";
+     
+     echo " <label class=\"control-label\">Select SubType of Service</label> <div class=\"controls\"><font id=subservices><select>\n";
+     echo "<option value='0'></option> \n" ;
+     echo "</select></font></div>\n";
+?>
+</div>
                     
 
+<div class="control-group">
+
+                  <?php     
+     echo "<form name=sel>\n";
+     echo " <label class=\"control-label\">Select State</label> <div class=\"controls\">
+ <font id=states><select>\n";
+     echo "<option value='0'></option> \n" ;
+     echo "</select></font></div> 
+\n";
+     
+     echo " <label class=\"control-label\">Select City</label> <div class=\"controls\"><font id=cities><select>\n";
+     echo "<option value='0'></option> \n" ;
+     echo "</select></font></div>\n";
+?>
+</div>
 
                     <div class="control-group">
 
-                      <label class="control-label">Select State</label>
+                      <label class="control-label" for="startdate">Select Date</label>
                       <div class="controls">
-                        <select name="state"><option>Select Country First</option> </select>
+                        <input type="text" class="input-xlarge datepicker span6" id="startdate" name="startdate" placeholder="Start Date">
+                        <input type="text" class="input-xlarge datepicker span6" id="enddate" name="enddate" placeholder="End Date">
                       </div>
                     </div>
 
                     <div class="control-group">
-
-                      <label class="control-label">Select City</label>
+                      <label class="control-label" for="selectError1">Select Day</label>
                       <div class="controls">
-                        <select name="city"><option>Select State First</option> </select>
-                      </div>
-                    </div>
-                    <div class="control-group">
-
-                      <label class="control-label" for="startdate"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">Select Date</label>
-                      <div class="controls">
-                        <input type="text" class="input-xlarge datepicker span6" id="startdate" placeholder="Start Date">
-                        <input type="text" class="input-xlarge datepicker span6" id="enddate" placeholder="End Date">
-                      </div>
-                    </div>
-
-                    <div class="control-group">
-                      <label class="control-label" for="selectError1"><input type="radio" name="optionsRadios" id="optionsRadios1" value="option2" checked=""> Select Day</label>
-                      <div class="controls">
-                        <select id="selectError1" multiple data-rel="chosen">
+                        <select id="selectError1" multiple data-rel="chosen" name="days[]">
                           <option>Monday</option>
                           <option>Tuesday</option>
                           <option>Wednesday</option>
@@ -382,7 +362,7 @@
                       <label class="control-label" for="selectError2">Select Time</label>
                       <div class="controls">
                         <div class="input-append bootstrap-timepicker span4" style="float:left;">
-                          <input id="timepicker1" type="text" placeholder="Start Time" class="input-small">
+                          <input id="timepicker1" type="text" placeholder="Start Time" class="input-small" name="starttime">
                           <span class="add-on"><i class="icon-time"></i></span>
                         </div>
                         <div style="float:left;">  
@@ -390,18 +370,18 @@
                         </div>
                         <div class="input-append bootstrap-timepicker span4" style="float:left;">
 
-                          <input id="timepicker2" type="text" class="input-small">
+                          <input id="timepicker2" type="text" class="input-small" name="endtime">
                           <span class="add-on"><i class="icon-time"></i></span>
                         </div>
                       </div>
 
                     </div>
-                  </div>
+                  
                   <div class="control-group">
                     <label class="control-label" for="appendedPrependedInput">Maximum Price</label>
                     <div class="controls">
                       <div class="input-prepend input-append">
-                        <span class="add-on">&#8377</span><input id="appendedPrependedInput" size="16" type="text"><span class="add-on">per appointment</span>
+                        <span class="add-on">&#8377</span><input id="appendedPrependedInput" size="16" type="text" name="price"><span class="add-on">per appointment</span>
                       </div>
                     </div>
                   </div>   
@@ -409,7 +389,7 @@
                     <label class="control-label" for="appendedPrependedInput">Description</label>
                     <div class="controls">
 
-                      <textarea class="autogrow span10" style="height:80px;" placeholder="Add details..."></textarea>
+                      <textarea class="autogrow span10" style="height:80px;" placeholder="Add details..." name="description"></textarea>
 
                     </div>
                   </div>
@@ -423,7 +403,7 @@
             </td>
           </tr>
         </table>
-
+        </div>
       </div>
     </div><!--/span-->
 
@@ -560,6 +540,58 @@
   <script type="text/javascript">
   $('#timepicker2').timepicker();
   </script>
+
+  <script type="text/javascript">
+function Inint_AJAX() {
+   try { return new ActiveXObject("Msxml2.XMLHTTP");  } catch(e) {} //IE
+   try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch(e) {} //IE
+   try { return new XMLHttpRequest();          } catch(e) {} //Native Javascript
+   alert("XMLHttpRequest not supported");
+   return null;
+};
+
+function dochange(src, val) {
+     var req = Inint_AJAX();
+     req.onreadystatechange = function () { 
+          if (req.readyState==4) {
+               if (req.status==200) {
+                    document.getElementById(src).innerHTML=req.responseText; //retuen value
+               } 
+          }
+     };
+     req.open("GET", "state.php?data="+src+"&val="+val); //make connection
+     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=iso-8859-1"); // set Header
+     req.send(null); //send value
+}
+
+window.onLoad=dochange('states', -1);         // value in first dropdown
+</script>
+
+<script type="text/javascript">
+function Inint_AJAX() {
+   try { return new ActiveXObject("Msxml2.XMLHTTP");  } catch(e) {} //IE
+   try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch(e) {} //IE
+   try { return new XMLHttpRequest();          } catch(e) {} //Native Javascript
+   alert("XMLHttpRequest not supported");
+   return null;
+};
+
+function dochange2(src, val) {
+     var req = Inint_AJAX();
+     req.onreadystatechange = function () { 
+          if (req.readyState==4) {
+               if (req.status==200) {
+                    document.getElementById(src).innerHTML=req.responseText; //retuen value
+               } 
+          }
+     };
+     req.open("GET", "serviceajax.php?data="+src+"&val="+val); //make connection
+     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=iso-8859-1"); // set Header
+     req.send(null); //send value
+}
+
+window.onLoad=dochange2('services', -1);         // value in first dropdown
+</script>
 
 
 </body>

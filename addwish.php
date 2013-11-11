@@ -1,16 +1,26 @@
+
+
+
+
+
 <?php 
        include("connect_sql.php");
        
        $lu=40;
-       $u=$_REQUEST['see'];
        $startdate=$_REQUEST["startdate"];
        $enddate=$_REQUEST["enddate"];
        $starttime=$_REQUEST["starttime"];
        $endtime=$_REQUEST["endtime"];
 
-       $sid=$_REQUEST["sid"];
+       $type=$_REQUEST["services"];
+       $subtype=$_REQUEST["subservices"];
        $state=$_REQUEST["states"];
        $city=$_REQUEST["cities"];
+       $price=$_REQUEST["price"];
+       $description=$_REQUEST["description"];
+
+       date_default_timezone_set("Asia/Kolkata"); 
+       $timestamp=date("Y-m-d H:i:s");
        
 
        // echo $starttime;
@@ -23,7 +33,7 @@
 
        $daystring="0000000";
        foreach ($_GET['days'] as $selectedOption){
-              echo $selectedOption."\n";
+              //echo $selectedOption."\n";
               if($selectedOption=="Monday"){
                      $daystring[0]=1;
               }
@@ -48,15 +58,15 @@
 
 
        }
-       //echo $daystring;
+       //echo $price;
 
-       $sql = "SELECT \"Price\" from \"Provides\" where \"ServiceID\"=$sid and \"ServiceProviderUserID\" = $u;";
+       $sql = "SELECT \"ServiceID\" from \"Service\" where \"Type\"='$type' and \"SubType\" = '$subtype';";
        $query = pg_query($db, $sql);
        while ($row = pg_fetch_row($query)) {
-              $price=$row[0];
+              $sid=$row[0];
        }
 
-     //  echo $sql;
+     // echo $sql;
 
        $sql = "SELECT \"RegionID\" from \"Location\" where \"StateName\"='$state' and \"CityName\" = '$city';";
        $query = pg_query($db, $sql);
@@ -64,27 +74,16 @@
               $rid=$row[0];
        }
 
-    //   echo $sql;
+      //echo $sql;
        
-       $sql = "INSERT INTO \"Appointment\" (\"RegionID\",\"ServiceID\", \"CustomerUserID\", \"ServiceProviderUserID\",\"Price\", \"Days\", \"StartDate\", \"EndDate\", \"StartTime\", \"EndTime\", \"Status\") Values (".$rid.",".$sid.",".$lu.",".$u.",".$price.",'".$daystring."','".$startdate."','".$enddate."','".$starttime."','".$endtime."','Pending');";
+       $sql = "INSERT INTO \"Wish\" (\"RegionID\",\"ServiceID\", \"CustomerUserID\",\"MaximumPrice\", \"Days\", \"StartDate\", \"EndDate\", \"StartTime\", \"EndTime\", \"Description\", \"Timestamp\") Values (".$rid.",".$sid.",".$lu.",".$price.",'".$daystring."','".$startdate."','".$enddate."','".$starttime."','".$endtime."','".$description."','".$timestamp."');";
        $query = pg_query($db, $sql);
-
-     //  echo $sql;
-
-     //  header("Location:moreservices.php?sid=$sid&see=$u");
-       //   die();
-       
-
-
-       
-
-
-       //$sql = "INSERT INTO \"Review\" (\"Rating\",\"ServiceID\", \"CustomerUserID\", \"ServiceProviderUserID\",\"Content\", \"Timestamp\") Values (".$rating.",".$sid.",".$lu.",".$u.",'".$content."', '".$timestamp."');";
-       //$query = pg_query($db, $sql);
 
        //echo $sql;
 
-       header("Location:moreservices.php?sid=$sid&see=$u");
-	die();
+     
+
+     header("Location:wishlist.php");
+	 die();
        
 ?>

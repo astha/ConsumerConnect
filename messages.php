@@ -141,7 +141,7 @@
                   $sql = "SELECT * from \"Users\" where \"UserID\" = '$rec'";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
-                  $rfn = $row[3];
+                  $rfn = $row[3]." ".$row[4];
                   $rpic = $row[6];
                   //echo $rfn;
                   //echo "\n";
@@ -153,12 +153,12 @@
                   }
                   echo "<table class=\"table table-bordered table-striped\">
                   <tbody><tr>
-                  <td style=\"width: 50px;\">
+                  <td class=\"span2\">
 
 
 
-                  <a style=\"background-color:white\"  href=\"$rpic\" class=\"cboxElement\"><img src=\"$rpic\"  width=\"50px\" height=\"50px\"></a><br>
-
+                  <a style=\"background-color:white\"  href=\"$rpic\" class=\"cboxElement\"><img src=\"$rpic\"  width=\"80px\" height=\"80px\"></a><br>
+                  <br>$rfn
                   </td><td class=\"span5\">";
 
 

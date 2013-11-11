@@ -462,14 +462,7 @@
                     </div>
                   
                     
-                  <div class="control-group">
-                    <label class="control-label" for="appendedPrependedInput">Description</label>
-                    <div class="controls">
-
-                      <textarea name="description" class="autogrow span4" style="height:80px;" placeholder="Add details..."></textarea>
-
-                    </div>
-                  </div>
+                 
  <div class="control-group">
 
                   <?php     

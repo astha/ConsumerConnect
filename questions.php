@@ -183,7 +183,10 @@ echo "<table class=\"table table-bordered table-striped\">
                       $ts1 = $row[3];
                       $convertedTime = ($timeAgoObject -> convert_datetime($ts1)); // Convert Date Time
                       $time1 = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
-                                   
+                      $sql = "Select Avg(\"Rating\") from \"Review\" where \"ServiceProviderUserID\" = $spid";
+                      $query = pg_query($db, $sql);
+                      $row = pg_fetch_row($query);
+                      $rat = $row[0];
                       echo "<p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
                     <i class=\"icon-check\"></i>
                     $des1<br>
@@ -192,11 +195,7 @@ echo "<table class=\"table table-bordered table-striped\">
                   </p>
                 </td>
                 <td style=\"width:110px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$fn $ln</font><br>
-                  <font style=\"float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                  font-size: 12px; line-height: 1.28;\">Dinesh Pharmacy</font><br>
-                  <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                  font-size: 11px; line-height: 1.28;\">Medical (Chemist)</font><br>
-                  <div id=\"half\" data-score=\"3.3\" class=\"pull-right\"></div></td>
+                  <div id=\"half\" data-score=\"$rat\" class=\"pull-right\"></div></td>
 
                   <td style=\"width: 100px;\">
                     <a style=\"background-color:white\" title=\"User5\" href=\"images/user5.png\" class=\"cboxElement\"><img src=\"images/user5.png\" alt=\"User5\"></a></td>

@@ -36,3 +36,12 @@ a.gallerypic:hover span.zoom-icon{
   margin-left:20px;
 
 }
+
+#results{
+    list-style-type: none;
+    font-weight:bold;
+    padding-top:5px;
+    padding-bottom:5px;
+    text-align: left;
+  }
+}

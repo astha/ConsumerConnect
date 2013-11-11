@@ -1,14 +1,14 @@
 <?php
-	session_start();
-	
-	$expire=time()+60*60*24;
-	setcookie("webpage","cons.php", $expire);
-	
-	if (!isset($_SESSION['userID'])){
-		header("Location:index.php");
-		die();
-	}
-	
+session_start();
+
+$expire=time()+60*60*24;
+setcookie("webpage","cons.php", $expire);
+
+if (!isset($_SESSION['userID'])){
+  header("Location:index.php");
+  die();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en"><head>
@@ -46,7 +46,7 @@
 
 <script type="text/javascript">
 function signOut() {
-    $.get("clearAll.php");
+  $.get("clearAll.php");
 }
 function yHandler(){
   // Watch video for line by line explanation of the code
@@ -78,11 +78,14 @@ window.onscroll = yHandler;
       <div class="span3" style="min-width:278px;"><a href="cons.php"><img src="./images/logo.gif" width="270px" height="40px" style="float: left;"></a></div>
       <img class="span2">
       <div class="nav-collapse in collapse" style="height: auto;">
-        <form class="navbar-form pull-left">
+        <!-- <form class="navbar-form pull-left">
           <input class="span4" type="text" placeholder="Find Users...">
           <button type="submit" class="btn">Search</button>
+        </form> -->
+        <form class="navbar-form pull-left">
+          <input type="text" class="span4" autocomplete="off" id="searchFriend" placeholder="Find Users...">
+          <ul id="results"></ul>
         </form>
-
         <span>
           <ul class="nav pull-right">
            <li class="dropdown">
@@ -122,50 +125,106 @@ window.onscroll = yHandler;
       </div><!--/span-->
       <!-- left menu ends -->
       
-<div id="wrap">
+      <div id="wrap">
 
-      <div id="content" class="span8">
-        <!-- content starts -->
+        <div id="content" class="span8">
+          <!-- content starts -->
 
-<div class="row-fluid sortable ui-sortable" style="text-shadow:none;">
-          <div class="box">
-            <div class="box-header well" data-original-title="">
-             <h2>Friends' Reviews </h2>
-             <div class="box-icon">
-              <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-              <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+          <div class="row-fluid sortable ui-sortable" style="text-shadow:none;">
+            <div class="box">
+              <div class="box-header well" data-original-title="">
+               <h2>Friends' Reviews </h2>
+               <div class="box-icon">
+                <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+                <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+              </div>
             </div>
-          </div>
-          <div class="box-content" style="display: block;">
-            
-            <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
-             <?php
-            include("connect_sql.php");
+            <div class="box-content" style="display: block;">
+
+              <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
+              <?php
+              include("connect_sql.php");
             include_once("classes/develop_php_library.php"); // Include the class library
             $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
               // Query your database here and get timestamp
-              $sql = "SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15') order by \"Timestamp\" desc";
- 
-              //echo $sql;
-            
-              $query1 = pg_query($db, $sql);
-       
-              if (!$query1) {
-                //echo "An error occurred.\n";
-               exit;
+
+
+
+
+            $countsql = "SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15') order by \"Timestamp\" desc";
+            $per_page = 10;         // number of results to show per page
+             $query3 = pg_query($db, $countsql);
+            $total_results = pg_num_rows($query3);
+            // echo $total_results;
+            $total_pages = ceil($total_results / $per_page);//total pages we going to have
+
+            if (isset($_GET['page'])) {
+              $show_page = $_GET['page']; //current page
+              if ($show_page > 0 && $show_page <= $total_pages) {
+                $start = ($show_page - 1) * $per_page;
+                $end = $start + $per_page;
+              } else {
+        // error - show first set of results
+                $start = 0;              
+                $end = $per_page;
               }
-              else {
-                //echo "No Error!";
-              }
-             
-              while ($row = pg_fetch_row($query1)) {
-                  $content = $row[3];
-                  $rating = $row[4];
-                  $ts = $row[5];
+            } else {
+    // if page isn't set, show first set of results
+              $start = 0;
+              $end = $per_page;
+            }
+// display pagination
+           
+// echo $total_results;
+
+// $k = 1;
+$pagLink = "<ul class=\"pagination pull-right\">";
+if ($show_page>1){
+$k = $show_page - 1;
+ $pagLink .= "<li><a href=cons.php?page=".$k.">&laquo</a></li>";
+
+}
+else {
+ $pagLink .= "<li class=\"disabled\"><a href=\"#\">&laquo</a></li>";
+}
+for ($i=1; $i<=$total_pages; $i++) {  
+    // echo "astha";
+              $pagLink .= "<li><a href=cons.php?page=".$i.">".$i."</a></li>";  
+};  
+if ($show_page<$total_pages){
+$k = $show_page + 1;
+ $pagLink .= "<li><a href=cons.php?page=".$k.">&raquo</a></li>";
+
+}
+else {
+ $pagLink .= "<li class=\"disabled\"><a href=\"#\">&raquo</a></li>";
+}
+echo $pagLink . "</ul>"; 
+
+// BAS LIMIT KA DEKHNA HAI, THIS IS CODE FOR PAGINTATION
+
+            $sql = "SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15') order by \"Timestamp\" desc limit $per_page offset $start";
+
+            $query1 = pg_query($db, $sql);
+
+
+
+            // if (!$query1) {
+            //   echo "An error occurred.\n";
+            //   exit;
+            // }
+            // else {
+            //   echo "No Error!";
+            // }
+
+            while ($row = pg_fetch_row($query1)) {
+              $content = $row[3];
+              $rating = $row[4];
+              $ts = $row[5];
                   //$ts = "2010-01-30 20:19:18";
                   $convertedTime = ($timeAgoObject -> convert_datetime($ts)); // Convert Date Time
                   $time = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
-              
+
                   $spid = $row[6];
                   $sid = $row[1];
                   $cid = $row[2];
@@ -192,119 +251,120 @@ window.onscroll = yHandler;
                   $cu= $row[0];
                   $cd = $row[1];
 
-        
+
 
                   $ratio = $cu/$cd;
-                   
+
                   if ($ratio < 1){
-                      $ratimage = "images/J.jpeg";
+                    $ratimage = "images/J.jpeg";
                   }
                   elseif ($ratio < 2){
-                      $ratimage = "images/Q.jpeg";
+                    $ratimage = "images/Q.jpeg";
                   }
                   elseif ($ratio < 3){
-                      $ratimage = "images/K.jpeg";
+                    $ratimage = "images/K.jpeg";
                   }
                   else{
-                      $ratimage = "images/A.jpeg";
+                    $ratimage = "images/A.jpeg";
                   }
                   echo "<table class=\"table table-bordered table-striped\">
-            <tbody><tr>
-              
-              <td style=\"width: 100px; height: 100px;\">
+                  <tbody><tr>
+
+                  <td style=\"width: 100px; height: 100px;\">
 
 
 
-                <a style=\"background-color:white\" title=\"User1\" href=\"images/user4.png\" class=\"cboxElement\"><img src=\"images/user4.png\" alt=\"User4\" width=\"100\" height=\"100\"></a></td>
-                <td class=\"span4\"><font class=\"user-name\">$cfn $cln</font><br>
+                  <a style=\"background-color:white\" title=\"User1\" href=\"images/user4.png\" class=\"cboxElement\"><img src=\"images/user4.png\" alt=\"User4\" width=\"100\" height=\"100\"></a></td>
+                  <td class=\"span4\"><font class=\"user-name\">$cfn $cln</font><br>
 
 
                   <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                   font-size: 11px; line-height: 1.28;\">$time</font><br>
                   <img src=$ratimage width=40px height=70px>
-                </td>
+                  </td>
 
 
 
-                <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$spfn $spln</font><br>
+                  <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$spfn $spln</font><br>
                   
                   <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                   font-size: 11px; line-height: 1.28;\">$type ($stype)</font></td>
 
                   <td style=\"width: 100px;\">
-                    <a style=\"background-color:white\" title=\"User3\" href=\"images/user8.png\" class=\"cboxElement\"><img src=\"images/user8.png\" alt=\"User8\" width=\"100\" height=\"100%\"></a></td></tr><tr></tr>
-                    <tr><td colspan=\"4\" style=\"width: 100%;\">
-                     
-                        <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
+                  <a style=\"background-color:white\" title=\"User3\" href=\"images/user8.png\" class=\"cboxElement\"><img src=\"images/user8.png\" alt=\"User8\" width=\"100\" height=\"100%\"></a></td></tr><tr></tr>
+                  <tr><td colspan=\"4\" style=\"width: 100%;\">
 
-                     <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $cu</div>
-                     <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $cd</div>
-                     <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
-                   </td>
-                 </tr></tbody></table>";
+                  <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
 
-                 }
+                  <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $cu</div>
+                  <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $cd</div>
+                  <br>
+                  <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
+                  </td>
+                  </tr></tbody></table>";
+
+                }
                   //$sql = "SELECT \"Review\".\"ReviewID\", sum(\"TypeOfVote\") from \"Review\",\"Vote\" where \"Review\".\"ReviewID\"=\"Vote\".\"ReviewID\" and \"Review\".\"CustomerUserID\"= \"Vote\".\"CustomerUserID\" and \"Review\".\"CustomerUserID\"=53 group by \"Review\".\"ReviewID\";
-                  
-
-        ?>
-                     
-                     <!-- </div> -->
-
-                   </div>
-                 </div><!--/span-->
-
-               </div>
 
 
-                    <div class="row-fluid sortable ui-sortable" style="text-shadow:none; float:top;">
-          <div class="box">
-            <div class="box-header well" data-original-title="">
-             <h2>My Questions</h2>
-             <div class="box-icon">
-              <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-              <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
-            </div>
+                ?>
+
+                <!-- </div> -->
+
+              </div>
+            </div><!--/span-->
+
           </div>
-          <div class="box-content" style="display: block;">
-            <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
-            <?php
-               
+
+
+          <div class="row-fluid sortable ui-sortable" style="text-shadow:none; float:top;">
+            <div class="box">
+              <div class="box-header well" data-original-title="">
+               <h2>My Questions</h2>
+               <div class="box-icon">
+                <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+                <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+              </div>
+            </div>
+            <div class="box-content" style="display: block;">
+              <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
+              <?php
+
               include("connect_sql.php");
               $sql = "SELECT * from \"QandA\" where \"CustomerUserID\"= '40'";
- 
+
               $query1 = pg_query($db, $sql);
               
               if (!$query1) {
                 //echo "An error occurred.\n";
                exit;
-              }
-              else {
+             }
+             else {
                 //echo "No Error!";
-              }
-              while ($row = pg_fetch_row($query1)) {
-                  $spid = $row[1];
-                  $qid = $row[2];
-                  $sql = "SELECT \"Description\",\"Timestamp\" from \"Question\" where \"QuestionID\"= '$qid'";
-                  $query = pg_query($db, $sql);
-                  $row = pg_fetch_row($query);
-                  $des = $row[0];
-                  $ts = $row[1];
+             }
+             while ($row = pg_fetch_row($query1)) {
+              $spid = $row[1];
+              $qid = $row[2];
+              $sql = "SELECT \"Description\",\"Timestamp\" from \"Question\" where \"QuestionID\"= '$qid'";
+              $query = pg_query($db, $sql);
+              $row = pg_fetch_row($query);
+              $des = $row[0];
+              $ts = $row[1];
                   $convertedTime = ($timeAgoObject -> convert_datetime($ts)); // Convert Date Time
                   $time = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
-              
-
-echo "<table class=\"table table-bordered table-striped\">
-              <tbody><tr>
 
 
-                <td>
+                  echo "<table class=\"table table-bordered table-striped\">
+                  <tbody><tr>
+
+
+                  <td>
 
                   <p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
-                    <i class=\"icon-question-sign\"></i>
-                    $des<br>
-                    <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 11px; line-height: 1.28;\">$time</font>
+                  <i class=\"icon-question-sign\"></i>
+                  $des<br>
+                  <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                  font-size: 11px; line-height: 1.28;\">$time</font>
 
                   </p>";
                   
@@ -318,92 +378,70 @@ echo "<table class=\"table table-bordered table-striped\">
                   $sql = "SELECT * from \"Answer\" where \"QuestionID\"= '$qid' order by \"Timestamp\" desc";
                   $query = pg_query($db, $sql);
                   while ($row = pg_fetch_row($query)) {
-                      $des1 = $row[2];
-                      $ts1 = $row[3];
+                    $des1 = $row[2];
+                    $ts1 = $row[3];
                       $convertedTime = ($timeAgoObject -> convert_datetime($ts1)); // Convert Date Time
                       $time1 = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
-              
-                     
+
+
                       echo "<p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
-                    <i class=\"icon-check\"></i>
-                    $des1<br>
-                    <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 11px; line-height: 1.28;\">$time1</font>
-                  </p>
-                </td>
-                <td style=\"width:110px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$fn $ln</font><br>
-                  <font style=\"float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                  font-size: 12px; line-height: 1.28;\">Dinesh Pharmacy</font><br>
-                  <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                  font-size: 11px; line-height: 1.28;\">Medical (Chemist)</font><br>
-                  <div id=\"half\" data-score=\"3.3\" class=\"pull-right\"></div></td>
+                      <i class=\"icon-check\"></i>
+                      $des1<br>
+                      <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                      font-size: 11px; line-height: 1.28;\">$time1</font>
+                      </p>
+                      </td>
+                      <td style=\"width:110px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$fn $ln</font><br>
+                      <font style=\"float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                      font-size: 12px; line-height: 1.28;\">Dinesh Pharmacy</font><br>
+                      <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                      font-size: 11px; line-height: 1.28;\">Medical (Chemist)</font><br>
+                      <div id=\"half\" data-score=\"3.3\" class=\"pull-right\"></div></td>
 
-                  <td style=\"width: 100px;\">
-                    <a style=\"background-color:white\" title=\"User5\" href=\"images/user5.png\" class=\"cboxElement\"><img src=\"images/user5.png\" alt=\"User5\"></a></td>
+                      <td style=\"width: 100px;\">
+                      <a style=\"background-color:white\" title=\"User5\" href=\"images/user5.png\" class=\"cboxElement\"><img src=\"images/user5.png\" alt=\"User5\"></a></td>
 
-                  ";
-
-
-                  } 
-                  echo "</tr></tbody></table>";
-              }
-            ?>
-
-            
-                    <!-- </div> -->
-
-                  </div>
-                </div><!--/span-->
-
-      </div><!--/row -->
+                      ";
 
 
-      <!-- content ends -->
-    </div>
-  </div>
+                    } 
+                    echo "</tr></tbody></table>";
+                  }
+                  ?>
 
 
+                  <!-- </div> -->
 
-    <div class="span2 main-menu-span">
-      <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
-        <ul class="nav nav-tabs nav-stacked main-menu">
-          <!-- <li class="nav-header hidden-tablet">Main</li> -->
-          <li style="margin-left: -2px;"><a class="ajax-link" href="services.php"><i class="icon-random"></i><span class="hidden-tablet"> Services</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.php"><span class="hidden-tablet"><i class="icon-play"></i> Doctor</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.php"><span class="hidden-tablet"><i class="icon-play"></i> Salon</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="questions.php"><span class="hidden-tablet"><i class="icon-play"></i> Mechanic</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.php"><span class="hidden-tablet"><i class="icon-play"></i> Plumber</span></a></li>
-          <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.php"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li>
-        </ul>
-        <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
-      </div><!--/.well -->
-    </div>
+                </div>
+              </div><!--/span-->
 
-  </div><!--/fluid-row-->
+            </div><!--/row -->
+
+
+            <!-- content ends -->
+          </div>
+        </div>
 
 
 
+        <div class="span2 main-menu-span">
+          <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
+            <ul class="nav nav-tabs nav-stacked main-menu">
+              <!-- <li class="nav-header hidden-tablet">Main</li> -->
+              <li style="margin-left: -2px;"><a class="ajax-link" href="services.php"><i class="icon-random"></i><span class="hidden-tablet"> Services</span></a></li>
+              <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.php"><span class="hidden-tablet"><i class="icon-play"></i> Doctor</span></a></li>
+              <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.php"><span class="hidden-tablet"><i class="icon-play"></i> Salon</span></a></li>
+              <li style="margin-left: -2px;"><a class="ajax-link" href="questions.php"><span class="hidden-tablet"><i class="icon-play"></i> Mechanic</span></a></li>
+              <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.php"><span class="hidden-tablet"><i class="icon-play"></i> Plumber</span></a></li>
+              <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.php"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li>
+            </ul>
+            <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
+          </div><!--/.well -->
+        </div>
 
+      </div><!--/fluid-row-->
 
-
-
-  <div class="modal hide fade" id="myModal" style="display: none;">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬&nbsp;ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬&nbsp;ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â</button>
-      <h3>Settings</h3>
-    </div>
-    <div class="modal-body">
-      <p>Here settings can be configured...</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#" class="btn" data-dismiss="modal">Close</a>
-      <a href="#" class="btn btn-primary">Save changes</a>
-    </div>
-  </div>
-
-
-
-</div><!--/.fluid-container-->
+    </div><!--/.fluid-container-->
 
   <!-- external javascript
   ================================================== -->
@@ -480,7 +518,7 @@ echo "<table class=\"table table-bordered table-striped\">
   <script src="js/charisma.js"></script>
   <!-- to specify the rating ids -->
   <script src="js/rating.js"></script>
-
+  <script src="js/liveSearch.js"></script>
 
 </body>
 </html>

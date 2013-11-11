@@ -1,3 +1,10 @@
+<?php 
+       include("connect_sql.php");
+       $lu=45;
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -109,10 +116,10 @@
           <div class="box-content" style="display: block;">
 
             <?php
-            include("connect_sql.php");
+            
                 include_once("classes/develop_php_library.php"); // Include the class library
                 $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
-                $sql = "SELECT DISTINCT \"ReceiverCustomerUserID\" from \"Message\" where \"SenderCustomerUserID\"='45'";
+                $sql = "SELECT DISTINCT \"ReceiverCustomerUserID\" from \"Message\" where \"SenderCustomerUserID\"='$lu'";
 
 
                 //echo $sql;
@@ -138,7 +145,7 @@
                   $rpic = $row[6];
                   //echo $rfn;
                   //echo "\n";
-                  $sql = "SELECT * from \"Message\" where (\"SenderCustomerUserID\"='45' and \"ReceiverCustomerUserID\"= '$rec') or (\"SenderCustomerUserID\"='$rec' and \"ReceiverCustomerUserID\"= '45') order by \"Timestamp\" desc";
+                  $sql = "SELECT * from \"Message\" where (\"SenderCustomerUserID\"='$lu' and \"ReceiverCustomerUserID\"= '$rec') or (\"SenderCustomerUserID\"='$rec' and \"ReceiverCustomerUserID\"= '$lu') order by \"Timestamp\" desc";
                   $query = pg_query($db, $sql);
 
                   if ($rpic == "") {
@@ -150,7 +157,7 @@
 
 
 
-                  <a style=\"background-color:white\" title=\"User1\" href=\"$rpic\" class=\"cboxElement\"><img src=\"$rpic\" alt=\"User1\" width=\"50px\" height=\"50px\"></a><br>
+                  <a style=\"background-color:white\"  href=\"$rpic\" class=\"cboxElement\"><img src=\"$rpic\"  width=\"50px\" height=\"50px\"></a><br>
 
                   </td><td class=\"span5\">";
 
@@ -170,7 +177,8 @@
 
                          $con = $row[2];
                          $rec = $row[3];
-                         if ($sen == 45){
+                         if ($sen == $lu){
+                          $other=$rec;
                           echo "<font style=\"color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                           font-size: 12px; line-height: 1.28;\">Me :</font>
                           <font style=\"color: #000; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
@@ -179,7 +187,8 @@
                           font-size: 11px; line-height: 1.28;\">$time</font><br>
                           ";
                         }
-                        else if ($rec == 45) {
+                        else if ($rec == $lu) {
+                          $other=$sen;
                           echo "<font style=\"color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                           font-size: 12px; line-height: 1.28;\">$rfn :</font>
                           <font style=\"color: #000; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
@@ -191,8 +200,13 @@
 
                       }
 
-                      echo "<textarea class=\"autogrow span8\" style=\"height:40px;\" placeholder=\"Send a Reply\"></textarea>
-                      <button type=\"submit\" class=\"btn\">Send</button></tr>
+                      echo "<form action=\"sendmessage.php\">
+                      <input type=\"hidden\" name=\"sid\" value=$lu>
+                      <input type=\"hidden\" name=\"rid\" value=$other>
+                      <textarea name=\"content\" class=\"autogrow span8\" style=\"height:40px;\" placeholder=\"Send a Reply\"></textarea>
+                      <button type=\"submit\" class=\"btn\">Send</button>
+                      </form>
+                      </tr>
                       </tbody></table>";
                     }
 

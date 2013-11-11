@@ -56,7 +56,7 @@
               $price=$row[0];
        }
 
-       echo $sql;
+     //  echo $sql;
 
        $sql = "SELECT \"RegionID\" from \"Location\" where \"StateName\"='$state' and \"CityName\" = '$city';";
        $query = pg_query($db, $sql);
@@ -64,12 +64,12 @@
               $rid=$row[0];
        }
 
-       echo $sql;
+    //   echo $sql;
        
        $sql = "INSERT INTO \"Appointment\" (\"RegionID\",\"ServiceID\", \"CustomerUserID\", \"ServiceProviderUserID\",\"Price\", \"Days\", \"StartDate\", \"EndDate\", \"StartTime\", \"EndTime\", \"Status\") Values (".$rid.",".$sid.",".$lu.",".$u.",".$price.",'".$daystring."','".$startdate."','".$enddate."','".$starttime."','".$endtime."','Pending');";
        $query = pg_query($db, $sql);
 
-       echo $sql;
+     //  echo $sql;
 
      //  header("Location:moreservices.php?sid=$sid&see=$u");
        //   die();
@@ -84,7 +84,7 @@
 
        //echo $sql;
 
-       //header("Location:moreservices.php?sid=$sid&see=$u");
-	//   die();
+       header("Location:moreservices.php?sid=$sid&see=$u");
+	die();
        
 ?>

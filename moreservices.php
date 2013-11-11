@@ -488,7 +488,7 @@
 
                 
                   <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Add Wish</button>
+                    <button type="submit" class="btn btn-primary">Request Appointment</button>
                   </div>
                 </fieldset>
               </form>

@@ -137,6 +137,7 @@
 
                   $spid = $row[6];
                   $sid = $row[1];
+                  $rid = $row[0];
                   $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '5'";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
@@ -160,6 +161,15 @@
                   $row = pg_fetch_row($query);
                   $cu= $row[0];
                   $cd = $row[1];
+                  $sql = "SELECT count(*) from \"Vote\" where \"ReviewID\"=$rid and \"CustomerUserID\"='5'and \"TypeOfVote\"=1";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $totalup= $row[0];
+                  $sql = "SELECT count(*) from \"Vote\" where \"ReviewID\"=$rid and \"CustomerUserID\"='5' and \"TypeOfVote\"=-1";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $totaldown= $row[0];
+
 
 
                   $ratio = $cu/$cd;
@@ -212,8 +222,8 @@
                      
                         <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
 
-                     <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> 90</div>
-                     <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> 66</div>
+                     <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $totalup</div>
+                     <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $totaldown</div>
                      <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
                    </td>
                  </tr></tbody></table>";

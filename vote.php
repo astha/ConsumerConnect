@@ -1,46 +1,33 @@
-
-
 <?php
+include("connect_sql.php");
 
-   $file = fopen("reviews.csv","r");
-   $host        = "host=localhost";
-   $port        = "port=5432";
-   $dbname      = "dbname=postgres";
-   $credentials = "user=postgres password=postgres";
+// $rid = $_GET['rid'];
+// $cid = $_GET['cid'];
+// $vbid = $_GET['vbid'];
+// $t = $_GET['tv'];
 
-   $db = pg_connect( "$host $port $dbname $credentials"  );
-   if(!$db){
-      echo "Error : Unable to open database\n";
-   } else {
-      echo "Opened database successfully\n";
-   }
-   
-   
-   
-   $i=0;
-//while(! feof($file))  {
-while(!($i==50000)){
-  $serviceID=rand(0,400);
-  $customerID=rand(0,58);
-  $reviewID=rand(0,180);
-  $type=rand(0,1);
-  if($type==0){
-  	$type='false';
-  }
-  else{
-  	$type='true';
-  }
-  
-  
-  $query="INSERT INTO \"Vote\" (\"ReviewID\", \"ServiceID\", \"VotedByCustomerUserID\",\"TypeOfVote\") VALUES ({$reviewID}, {$serviceID}, {$customerID}, '{$type}');";
-  echo $query;
-  pg_query($db, $query);
+// $rid = pg_escape_string($rid);
+// $cid = pg_escape_string($cid);
+// $vbid = pg_escape_string($vbid);
+// $t = pg_escape_string($t);
 
-  
-  $i=$i+1;
-}
+// if ($t == 'up') $val =1;
+// else $val = -1;
+$display = 999;
+echo $display;
 
-//echo $data;
+/*
+$sql = "INSERT into \"Vote\" values ($rid,$cid,$vbid,$val)";
+$query = pg_query($db, $sql);
+if (!$query) {
+                echo "An error occurred.\n";
+               exit;
+              }
+              else {
+                echo "No Error!";
+              }
 
-fclose($file);
+$display = 999;
+echo $display;
+*/
 ?>

@@ -125,13 +125,13 @@ function signOut() {
             </div>
           </div>
           <div class="box-content" style="display: block;">
-            
+
             <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
             <?php
             include("connect_sql.php");
              include_once("classes/develop_php_library.php"); // Include the class library
             $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
-           
+
             $sql = "SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15') order by \"Timestamp\" desc";
             
               //echo $sql;
@@ -152,10 +152,12 @@ function signOut() {
             $ts = $row[5];
             $convertedTime = ($timeAgoObject -> convert_datetime($ts)); // Convert Date Time
             $time = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
-              
+
             $spid = $row[6];
             $sid = $row[1];
             $cid = $row[2];
+            $rid = $row[0];
+
             $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '$cid'";
             $query = pg_query($db, $sql);
             $row = pg_fetch_row($query);
@@ -178,6 +180,15 @@ function signOut() {
             $row = pg_fetch_row($query);
             $cu= $row[0];
             $cd = $row[1];
+            $sql = "SELECT count(*) from \"Vote\" where \"ReviewID\"=$rid and \"CustomerUserID\"=$cid and \"TypeOfVote\"=1";
+            $query = pg_query($db, $sql);
+            $row = pg_fetch_row($query);
+            $totalup= $row[0];
+            $sql = "SELECT count(*) from \"Vote\" where \"ReviewID\"=$rid and \"CustomerUserID\"=$cid and \"TypeOfVote\"=-1";
+            $query = pg_query($db, $sql);
+            $row = pg_fetch_row($query);
+            $totaldown= $row[0];
+
 
 
             $ratio = $cu/$cd;
@@ -223,8 +234,8 @@ function signOut() {
             
             <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
 
-            <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $cu</div>
-            <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $cd</div>
+            <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $totalup</div>
+            <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $totaldown</div><br>
             <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
             </td>
             </tr></tbody></table>";

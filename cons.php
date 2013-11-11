@@ -83,7 +83,7 @@ window.onscroll = yHandler;
           <button type="submit" class="btn">Search</button>
         </form> -->
         <form class="navbar-form pull-left">
-          <input type="text" class="span4 search-query" autocomplete="off" id="searchFriend" placeholder="Find Users...">
+          <input type="text" class="span4" autocomplete="off" id="searchFriend" placeholder="Find Users...">
           <ul id="results"></ul>
         </form>
         <span>
@@ -147,48 +147,75 @@ window.onscroll = yHandler;
             include_once("classes/develop_php_library.php"); // Include the class library
             $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
               // Query your database here and get timestamp
+
+
+
+
             $countsql = "SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15') order by \"Timestamp\" desc";
-            $per_page = 5;         // number of results to show per page
-            $result = mysql_query("SELECT * FROM countries");
-            $total_results = mysql_num_rows($result);
+            $per_page = 10;         // number of results to show per page
+             $query3 = pg_query($db, $countsql);
+            $total_results = pg_num_rows($query3);
+            // echo $total_results;
             $total_pages = ceil($total_results / $per_page);//total pages we going to have
 
-//             if (isset($_GET['page'])) {
-//               $show_page = $_GET['page']; //current page
-//               if ($show_page > 0 && $show_page <= $total_pages) {
-//                 $start = ($show_page - 1) * $per_page;
-//                 $end = $start + $per_page;
-//               } else {
-//         // error - show first set of results
-//                 $start = 0;              
-//                 $end = $per_page;
-//               }
-//             } else {
-//     // if page isn't set, show first set of results
-//               $start = 0;
-//               $end = $per_page;
-//             }
-// // display pagination
-//             $page = intval($_GET['page']);
-//             $tpages=$total_pages;
-//             if ($page <= 0)
-//               $page = 1;
-//             $firstrow = ($page - 1) * 10;
+            if (isset($_GET['page'])) {
+              $show_page = $_GET['page']; //current page
+              if ($show_page > 0 && $show_page <= $total_pages) {
+                $start = ($show_page - 1) * $per_page;
+                $end = $start + $per_page;
+              } else {
+        // error - show first set of results
+                $start = 0;              
+                $end = $per_page;
+              }
+            } else {
+    // if page isn't set, show first set of results
+              $start = 0;
+              $end = $per_page;
+            }
+// display pagination
+           
+// echo $total_results;
 
+// $k = 1;
+$pagLink = "<ul class=\"pagination pull-right\">";
+if ($show_page>1){
+$k = $show_page - 1;
+ $pagLink .= "<li><a href=cons.php?page=".$k.">&laquo</a></li>";
+
+}
+else {
+ $pagLink .= "<li class=\"disabled\"><a href=\"#\">&laquo</a></li>";
+}
+for ($i=1; $i<=$total_pages; $i++) {  
+    // echo "astha";
+              $pagLink .= "<li><a href=cons.php?page=".$i.">".$i."</a></li>";  
+};  
+if ($show_page<$total_pages){
+$k = $show_page + 1;
+ $pagLink .= "<li><a href=cons.php?page=".$k.">&raquo</a></li>";
+
+}
+else {
+ $pagLink .= "<li class=\"disabled\"><a href=\"#\">&raquo</a></li>";
+}
+echo $pagLink . "</ul>"; 
 
 // BAS LIMIT KA DEKHNA HAI, THIS IS CODE FOR PAGINTATION
 
-            $sql = "SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15') order by \"Timestamp\" desc LIMIT 10";
+            $sql = "SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15') order by \"Timestamp\" desc limit $per_page offset $start";
 
             $query1 = pg_query($db, $sql);
 
-            if (!$query1) {
-              echo "An error occurred.\n";
-              exit;
-            }
-            else {
-              echo "No Error!";
-            }
+
+
+            // if (!$query1) {
+            //   echo "An error occurred.\n";
+            //   exit;
+            // }
+            // else {
+            //   echo "No Error!";
+            // }
 
             while ($row = pg_fetch_row($query1)) {
               $content = $row[3];
@@ -271,6 +298,7 @@ window.onscroll = yHandler;
 
                   <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $cu</div>
                   <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $cd</div>
+                  <br>
                   <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
                   </td>
                   </tr></tbody></table>";
@@ -412,28 +440,6 @@ window.onscroll = yHandler;
         </div>
 
       </div><!--/fluid-row-->
-
-
-
-
-
-
-
-      <div class="modal hide fade" id="myModal" style="display: none;">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬&nbsp;ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬&nbsp;ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â</button>
-          <h3>Settings</h3>
-        </div>
-        <div class="modal-body">
-          <p>Here settings can be configured...</p>
-        </div>
-        <div class="modal-footer">
-          <a href="#" class="btn" data-dismiss="modal">Close</a>
-          <a href="#" class="btn btn-primary">Save changes</a>
-        </div>
-      </div>
-
-
 
     </div><!--/.fluid-container-->
 

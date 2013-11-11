@@ -4,7 +4,7 @@
 
 //Output HTML Formating
 $html = '';
-$html .= '<li class="result">';
+$html .= '<li class="results">';
 $html .= '<img src="PHOTO" width="25px" height="25px">';
 $html .= '<a href="consprofile.php?see=USERID"><font class=\"user-name\">';
 $html .= '  NAME SURNAM';
@@ -17,7 +17,7 @@ $search_string = $_POST['query'];
 // echo $search_string;
 // Check Length More Than One Character
 if (strlen($search_string) >= 1 && $search_string !== ' ') {
-	$sql = "SELECT \"UserID\", \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"FirstName\" like '%$search_string%' or \"LastName\" like '%$search_string%' limit 5";
+	$sql = "SELECT \"UserID\", \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where LOWER(\"FirstName\") like LOWER('%$search_string%') or LOWER(\"LastName\") like LOWER('%$search_string%') or LOWER(CONCAT(\"FirstName\",\"LastName\")) like LOWER('%$search_string%')limit 5";
 	//$sql = "SELECT \"FirstName\" from \"Users\" where \"FirstName\" = 'Aaloka'";
                   //$query = pg_query($db, $sql);
                   //$row = pg_fetch_row($query);

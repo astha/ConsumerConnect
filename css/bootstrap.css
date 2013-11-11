@@ -4987,7 +4987,8 @@ input[type="submit"].btn.btn-mini {
 }
 
 .pagination {
-  margin: 20px 0;
+  margin-bottom: 20px;
+  margin-top: 0px;
 }
 
 .pagination ul {

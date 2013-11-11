@@ -40,9 +40,8 @@ a.gallerypic:hover span.zoom-icon{
 #results{
     list-style-type: none;
     font-weight:bold;
-    font-size:16px;
     padding-top:5px;
     padding-bottom:5px;
     text-align: left;
-    background: $fffddd;
   }
+}

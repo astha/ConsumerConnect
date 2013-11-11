@@ -26,7 +26,7 @@ $(document).ready(function() {
       $("ul#results").fadeOut();
     }else{
       $("ul#results").fadeIn();
-      $(this).data('timer', setTimeout(search, 100));
+      $(this).data('timer', setTimeout(search, 1));
     };
   });
 });

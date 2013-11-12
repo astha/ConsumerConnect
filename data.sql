@@ -18,6 +18,12 @@ SET search_path = public, pg_catalog;
 COPY "Question" ("QuestionID", "Description", "Timestamp") FROM stdin;
 0	Why dont you extend the services 24 by 7?	2013-06-02 22:00:00
 1	What oil do you use for your chocolate cookies? Is it bad for heart patients?	2013-06-08 15:00:00
+8	How are you?	2013-11-11 00:38:46
+9	How is Deepali?	2013-11-11 00:42:48
+10	How is Astha?	2013-11-11 00:43:27
+11	How is Anmol?	2013-10-11 00:44:15
+12	How are you?	2013-11-11 01:02:49
+13	How is evreyone?	2013-11-11 01:50:49
 \.
 
 
@@ -973,19 +979,7 @@ COPY "ServiceProvider" ("UserID", "Webpage") FROM stdin;
 --
 
 COPY "Appointment" ("CustomerUserID", "ServiceID", "ServiceProviderUserID", "RegionID", "Price", "Status", "StartDate", "EndDate", "Days", "StartTime", "EndTime") FROM stdin;
-21	116	14	11	429	Pending	2013-01-04	2013-04-04	1011100	19:00:00	23:00:00
-51	8	33	24	508	Pending	2013-01-07	2013-05-08	1011010	04:30:00	21:00:00
-52	121	57	40	561	Confirmed	2013-01-01	2013-09-01	1001110	09:30:00	12:30:00
-51	239	19	33	965	Pending	2013-07-06	2013-07-09	1010110	08:00:00	14:30:00
-3	38	5	19	462	Pending	2013-03-08	2013-07-02	1111000	00:00:00	16:00:00
-27	22	14	48	385	Pending	2013-01-01	2013-07-02	0101011	08:30:00	11:30:00
-52	202	36	2	633	Confirmed	2013-01-02	2013-04-01	0011011	06:30:00	16:00:00
-54	0	33	17	825	Pending	2013-03-05	2013-04-01	1101100	04:00:00	12:30:00
-46	53	4	38	669	Confirmed	2013-02-05	2013-05-06	0110011	09:30:00	11:30:00
-51	212	15	41	516	Pending	2013-08-02	2013-08-07	0011110	15:00:00	21:00:00
-15	98	15	4	793	Pending	2013-01-09	2013-04-06	1011001	03:30:00	13:00:00
-23	148	34	19	878	Cancelled	2013-04-08	2013-07-05	1110010	08:00:00	23:30:00
-9	2	9	35	725	Pending	2013-02-05	2013-08-01	0110101	15:30:00	22:00:00
+40	179	30	37	346	Confirmed	2013-11-05	2013-11-09	0011000	15:00:00	17:30:00
 \.
 
 
@@ -1074,6 +1068,7 @@ COPY "Wish" ("WishID", "CustomerUserID", "Description", "MaximumPrice", "StartDa
 157	23	\N	295	2013-05-08	2013-02-06	0011011	13:00:00	15:30:00	169	10	2013-09-04 01:00:00
 158	22	\N	725	2013-09-05	2013-07-01	1011001	07:00:00	16:30:00	81	12	2013-09-03 19:00:00
 161	6	\N	988	2013-05-08	2013-09-09	1110001	11:30:00	12:30:00	145	48	2013-07-07 05:00:00
+3	40	Food!	100	2013-11-27	2013-11-30	0011000	00:45:15	01:45:15	371	292	2013-11-12 00:44:07
 163	46	\N	417	2013-06-08	2013-09-02	1011010	02:00:00	20:30:00	371	15	2013-08-04 17:00:00
 166	50	\N	835	2013-09-08	2013-08-06	1110001	09:30:00	19:30:00	87	49	2013-04-02 13:00:00
 173	45	\N	587	2013-05-07	2013-08-08	0011011	00:30:00	20:00:00	146	43	2013-05-09 12:00:00
@@ -1105,6 +1100,7 @@ COPY "Wish" ("WishID", "CustomerUserID", "Description", "MaximumPrice", "StartDa
 235	9	\N	845	2013-06-08	2013-04-07	1001101	03:00:00	03:30:00	374	1	2013-08-04 21:00:00
 237	5	\N	387	2013-04-06	2013-08-09	1000111	19:00:00	08:00:00	87	22	2013-09-05 05:00:00
 241	26	\N	204	2013-04-02	2013-02-05	0011101	02:30:00	02:30:00	57	1	2013-07-06 07:00:00
+4	40	Astha!!!!!!!!	100	2013-11-05	2013-11-13	0101000	00:45:30	03:45:30	373	143	2013-11-12 00:46:18
 244	11	\N	790	2013-07-08	2013-07-08	1010011	16:30:00	04:00:00	101	17	2013-09-01 00:00:00
 245	3	\N	943	2013-01-09	2013-06-01	1110010	22:30:00	18:30:00	15	15	2013-03-04 17:00:00
 248	15	\N	971	2013-03-07	2013-07-04	1010110	05:30:00	21:30:00	399	7	2013-07-03 14:00:00
@@ -1136,6 +1132,7 @@ COPY "Wish" ("WishID", "CustomerUserID", "Description", "MaximumPrice", "StartDa
 313	24	\N	480	2013-05-02	2013-08-06	0001111	13:30:00	16:00:00	38	40	2013-02-04 07:00:00
 321	34	\N	640	2013-04-09	2013-06-08	0111100	16:00:00	12:00:00	165	14	2013-09-05 21:00:00
 322	54	\N	365	2013-09-06	2013-05-08	1010101	09:00:00	13:00:00	145	19	2013-06-05 08:00:00
+5	49	Hiiii!	100	2013-11-01	2013-11-14	0110000	01:15:00	02:15:00	371	21	2013-11-12 01:10:40
 327	6	\N	883	2013-03-09	2013-04-09	1110001	15:00:00	03:00:00	193	16	2013-09-05 19:00:00
 336	3	\N	335	2013-03-01	2013-01-06	0010111	16:30:00	13:30:00	105	50	2013-07-09 13:00:00
 337	31	\N	960	2013-05-04	2013-05-01	1110010	16:30:00	08:00:00	24	4	2013-03-07 05:00:00
@@ -1951,6 +1948,8 @@ SELECT pg_catalog.setval('"Location_RegionID_seq"', 1, false);
 
 COPY "Message" ("SenderCustomerUserID", "Timestamp", "Content", "ReceiverCustomerUserID") FROM stdin;
 11	2013-09-03 19:00:00	Hey! I saw your ad for Math tutor. Is Ronak not doing good in studies?	22
+45	2013-11-11 23:20:13	Hey Shona!!	41
+45	2013-11-11 23:40:33	Just saw you!!\r\n	22
 50	2013-02-01 13:00:00	Hey! I saw your ad for Math tutor. Is Ronak not doing good in studies?	38
 51	2013-03-07 23:00:00	Hey! I saw your ad for Math tutor. Is Ronak not doing good in studies?	50
 27	2013-05-05 13:00:00	Hey! I saw your ad for Math tutor. Is Ronak not doing good in studies?	58
@@ -1979,6 +1978,7 @@ COPY "Message" ("SenderCustomerUserID", "Timestamp", "Content", "ReceiverCustome
 3	2013-07-03 18:00:00	Hey! I saw your ad for Math tutor. Is Ronak not doing good in studies?	52
 33	2013-03-02 15:00:00	Hey! I saw your ad for Math tutor. Is Ronak not doing good in studies?	53
 41	2013-02-02 06:00:00	Hey! I saw your ad for Math tutor. Is Ronak not doing good in studies?	31
+45	2013-11-11 23:20:35	Hi Ram!!	22
 3	2013-02-09 20:00:00	Hey! I saw your ad for Math tutor. Is Ronak not doing good in studies?	38
 46	2013-01-06 20:00:00	Hey! I saw your ad for Math tutor. Is Ronak not doing good in studies?	33
 45	2013-09-04 18:00:00	Hey! I saw your ad for Math tutor. Is Ronak not doing good in studies?	46
@@ -2013,13 +2013,11 @@ SELECT pg_catalog.setval('"Message_SenderCustomerUserID_seq"', 1, false);
 --
 
 COPY "Provides" ("ServiceProviderUserID", "ServiceID", "RegionID", "Days", "StartTime", "EndTime", "Name", "Price", "Discount", "Description") FROM stdin;
-54	9	9	0101011	21:00:00	23:00:00	Canara Bank	874	0	\N
-15	411	26	0011110	17:00:00	20:00:00	HallMark Gift Shop	952	0	\N
-30	387	15	0011011	12:30:00	13:30:00	Wellness Pharmacy	393	10	All the products are sold 24*7.
-30	386	15	11011	16:00:00	18:00:00	Wellness Pharmacy	800	0	Medical Prescription is needed to avail this service.
-30	200	15	1100000	16:00:00	18:00:00	Florence Wedding Planners	500	0	Specialises in Hand Made Wedding/Anniversary Invitation Cards.
-5	390	7	0100111	12:30:00	14:00:00	Malhotra Diagnostic Labs	400	0	Malhotra Diagnostic Labs prides itself in being at the forefront of modern medical pathology practice. Every aspect of our investigation is performed under an umbrella of strict quality control using the most advanced accurate and reliable equipment. The laboratory is organised into departments that can be called upon to contribute their specialised skills and knowledge to any investigation.
-24	386	21	1001001	19:00:00	20:30:00	Pushpendra Clinics	750	0	Offers Radiology and Pathology Services
+36	9	38	1011001	08:30:00	23:00:00	Canara Bank	828	0	\N
+5	387	37	0111010	09:00:00	16:30:00	Wellness Pharmacy	346	0	\N
+5	386	37	0111010	09:00:00	16:30:00	Wellness Pharmacy	346	0	\N
+30	386	37	0111010	09:00:00	16:30:00	Malhotra Dental Clinics	346	0	\N
+30	179	37	0101010	08:00:00	16:30:00	Lucky Auto Repairs	346	0	\N
 \.
 
 
@@ -2049,6 +2047,12 @@ SELECT pg_catalog.setval('"Provides_ServiceProviderUserID_seq"', 1, false);
 --
 
 COPY "QandA" ("CustomerUserID", "ServiceProviderUserID", "QuestionID") FROM stdin;
+40	30	8
+40	30	9
+40	30	10
+40	30	11
+40	24	12
+40	30	13
 40	38	1
 4	49	1
 33	5	1
@@ -2086,7 +2090,7 @@ SELECT pg_catalog.setval('"QandA_ServiceProviderID_seq"', 1, false);
 -- Name: Question_QuestionID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"Question_QuestionID_seq"', 1, false);
+SELECT pg_catalog.setval('"Question_QuestionID_seq"', 13, true);
 
 
 --
@@ -2098,6 +2102,8 @@ COPY "Review" ("ReviewID", "ServiceID", "CustomerUserID", "Content", "Rating", "
 1	386	9	The service is really good.	3	2013-05-11 12:30:00	30
 2	145	57	I think I should write the service experience on this portal. The people here are very cooperative.	4	2013-06-01 08:00:00	8
 3	219	41	We have tried this type of service a few times before. The staff put customers on high pedestal. I would never recommend willing customers to try.	4	2013-09-02 05:00:00	31
+2	386	40	Hi Astha!	3	2013-11-11 01:46:27	24
+5	200	40	sxzcxc	3	2013-11-11 22:24:54	30
 10	377	58	I want to mention the experience via ConcumerConnect. The staff have a very good customer care.	4	2013-02-07 19:00:00	12
 12	125	27	These people are very irritating. I want to recommend people to go here.	2	2013-05-08 14:00:00	28
 13	194	34	We gave a try to this service provider a few times before. The staff are very cooperative. I would never recommend this service provider.	1	2013-03-09 02:00:00	45
@@ -2108,6 +2114,8 @@ COPY "Review" ("ReviewID", "ServiceID", "CustomerUserID", "Content", "Rating", "
 35	61	6	We have tried this type of service a few times before. The workers are not as good as they publicise. I would never recommend willing people to give them a chance.	1	2013-02-07 21:00:00	50
 38	245	26	I gave a try to this type of service a few times before. I should share the experience on this portal. The people here take pride in providing best service. I would stongly recommend willing customers to try.	5	2013-02-02 17:00:00	22
 45	376	51	I gave a try to this service provider many times in the past. The managers take pride in providing best service. I would recommend willing customers to try.	2	2013-05-03 06:00:00	54
+3	200	40	Good!	2	2013-11-11 01:51:37	30
+6	200	40	Hello mama!	3	2013-11-11 22:41:58	30
 64	241	50	I am using this portal to express my opinion about the service experience on this portal. The people here put customers on high pedestal.	0	2013-01-09 03:00:00	26
 65	13	51	We gave a try to this service provider never in the past. I am sharing the experience on this portal. The people here are very irritating. I highly recommend willing customers to try.	0	2013-02-01 10:00:00	0
 66	234	51	The people here give the best possible service. I would stongly recommend this service provider.	2	2013-07-07 22:00:00	56
@@ -2115,6 +2123,7 @@ COPY "Review" ("ReviewID", "ServiceID", "CustomerUserID", "Content", "Rating", "
 74	85	5	We have tried this service provider many times before. I should share the service experience on this portal. The managers have a very good customer care. I would recommend willing people to give them a chance.	1	2013-08-08 06:00:00	9
 85	208	50	I have experienced this type of service never before. I am writing the experience on this portal. The workers put customers on high pedestal. I would recommend willing customers to try.	1	2013-06-05 10:00:00	9
 86	216	4	I am using this portal to express my opinion about the service experience on this portal. These people are not as good as they publicise.	5	2013-09-04 13:00:00	11
+4	200	40	Not Good!	4	2013-11-11 01:53:52	30
 96	242	31	I have experienced this type of service a few times in the past. I should share the service review via ConcumerConnect. The managers put customers on high pedestal. I would never recommend willing customers to try.	2	2013-07-06 04:00:00	26
 98	101	3	We have experienced this service provider never in the past. The workers are not as good as they publicise. I would recommend willing people to give them a chance.	4	2013-07-08 13:00:00	45
 99	175	26	I should share the incident on this website. The people here are very irritating.	5	2013-06-09 08:00:00	18
@@ -2162,7 +2171,7 @@ SELECT pg_catalog.setval('"Review_CustomerUserID_seq"', 1, false);
 -- Name: Review_ReviewID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"Review_ReviewID_seq"', 1, true);
+SELECT pg_catalog.setval('"Review_ReviewID_seq"', 6, true);
 
 
 --
@@ -2462,7 +2471,7 @@ SELECT pg_catalog.setval('"Wish_ServiceID_seq"', 1, false);
 -- Name: Wish_WishID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"Wish_WishID_seq"', 1, false);
+SELECT pg_catalog.setval('"Wish_WishID_seq"', 5, true);
 
 
 --

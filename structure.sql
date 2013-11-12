@@ -1013,52 +1013,10 @@ ALTER SEQUENCE "Wish_WishID_seq" OWNED BY "Wish"."WishID";
 
 
 --
--- Name: CustomerUserID; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "Appointment" ALTER COLUMN "CustomerUserID" SET DEFAULT nextval('"Appointment_CustomerUserID_seq"'::regclass);
-
-
---
--- Name: ServiceID; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "Appointment" ALTER COLUMN "ServiceID" SET DEFAULT nextval('"Appointment_ServiceID_seq"'::regclass);
-
-
---
--- Name: ServiceProviderUserID; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "Appointment" ALTER COLUMN "ServiceProviderUserID" SET DEFAULT nextval('"Appointment_ServiceProviderUserID_seq"'::regclass);
-
-
---
--- Name: RegionID; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "Appointment" ALTER COLUMN "RegionID" SET DEFAULT nextval('"Appointment_RegionID_seq"'::regclass);
-
-
---
 -- Name: RegionID; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY "Location" ALTER COLUMN "RegionID" SET DEFAULT nextval('"Location_RegionID_seq"'::regclass);
-
-
---
--- Name: SenderCustomerUserID; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "Message" ALTER COLUMN "SenderCustomerUserID" SET DEFAULT nextval('"Message_SenderCustomerUserID_seq"'::regclass);
-
-
---
--- Name: ReceiverCustomerUserID; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "Message" ALTER COLUMN "ReceiverCustomerUserID" SET DEFAULT nextval('"Message_ReceiverCustomerUserID_seq"'::regclass);
 
 
 --
@@ -1157,7 +1115,7 @@ ALTER TABLE ONLY "Message"
 --
 
 ALTER TABLE ONLY "Provides"
-    ADD CONSTRAINT "Provides_pkey" PRIMARY KEY ("ServiceProviderUserID", "ServiceID", "RegionID", "Days", "StartTime");
+    ADD CONSTRAINT "Provides_pkey" PRIMARY KEY ("ServiceProviderUserID", "ServiceID", "RegionID");
 
 
 --

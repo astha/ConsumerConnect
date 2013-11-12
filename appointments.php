@@ -1,3 +1,9 @@
+<?php 
+       include("connect_sql.php");
+       $lu=40; 
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,77 +99,116 @@
 	<script src='js/fullcalendar.min.js'></script>
 
 
-	<script>
-
+<script type="text/javascript">
 	$(document).ready(function() {
 
-		var date = new Date();
-		var d = date.getDate();
-		var m = date.getMonth();
-		var y = date.getFullYear();
-		
-		$('#calendar').fullCalendar({
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'month,agendaWeek,agendaDay'
-			},
-			editable: false,
-			events: [
-			{
-				title: 'All Day Event',
-				start: new Date(y, m, 1)
-			},
-			{
-				title: 'Long Event',
-				start: new Date(y, m, d-5),
-				end: new Date(y, m, d-2)
-			},
-			{
-				id: 999,
-				title: 'Repeating Event',
-				start: new Date(y, m, d-3, 16, 0),
-				allDay: false
-			},
-			{
-				id: 999,
-				title: 'Repeating Event',
-				start: new Date(y, m, d+4, 16, 0),
-				allDay: false
-			},
-			{
-				title: 'Meeting',
-				start: new Date(y, m, d, 10, 30),
-				allDay: false
-			},
-			{
-				title: 'Lunch',
-				start: new Date(y, m, d, 12, 0),
-				end: new Date(y, m, d, 14, 0),
-				allDay: false
-			},
-			{
-				title: 'Birthday Party',
-				start: new Date(y, m, d+1, 19, 0),
-				end: new Date(y, m, d+1, 22, 30),
-				allDay: false
-			},
-			{
-				title: 'Click for Google',
-				start: new Date(y, m, 28),
-				end: new Date(y, m, 29),
-				url: 'http://google.com/'
-			}
-			]
-		});
+      var calendar = $('#calendar').fullCalendar({
+      defaultView: 'agendaWeek',
+      editable: true,
+        selectable: true,
+      //header and other values
+      select: function(start, end, allDay) {
+          endtime = $.fullCalendar.formatDate(end,'h:mm tt');
+          starttime = $.fullCalendar.formatDate(start,'ddd, MMM d, h:mm tt');
+          var mywhen = starttime + ' - ' + endtime;
+          $('#createEventModal #apptStartTime').val(start);
+          $('#createEventModal #apptEndTime').val(end);
+          $('#createEventModal #apptAllDay').val(allDay);
+          $('#createEventModal #when').text(mywhen);
+          $('#createEventModal').modal('show');
+       }
+    });
 
+  $('#submitButton').on('click', function(e){
+    // We don't want this to act as a link so cancel the link action
+    e.preventDefault();
+
+    doSubmit();
+  });
+
+  function doSubmit(){
+    $("#createEventModal").modal('hide');
+    console.log($('#apptStartTime').val());
+    console.log($('#apptEndTime').val());
+    console.log($('#apptAllDay').val());
+    alert("form submitted");
+        
+    $("#calendar").fullCalendar('renderEvent',
+        {
+            title: $('#patientName').val(),
+            start: new Date($('#apptStartTime').val()),
+            end: new Date($('#apptEndTime').val()),
+            allDay: ($('#apptAllDay').val() == "true"),
+        },
+        true);
+   }
 });
+</script>
 
+ <script type="text/javascript">
+function Inint_AJAX() {
+   try { return new ActiveXObject("Msxml2.XMLHTTP");  } catch(e) {} //IE
+   try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch(e) {} //IE
+   try { return new XMLHttpRequest();          } catch(e) {} //Native Javascript
+   alert("XMLHttpRequest not supported");
+   return null;
+};
+
+function dochange() {
+     var req = Inint_AJAX();
+     req.onreadystatechange = function () { 
+          if (req.readyState==4) {
+               if (req.status==200) {
+
+               		//alert(req.responseText);
+                    var obj = eval(req.responseText);
+                    //alert(req.responseText);
+                    for(var i in obj){
+ 						 var startDate = obj[i].startDate;
+ 						 var startTime = obj[i].startTime;
+ 						 var endTime = obj[i].endTime;
+ 						 var caption1 = obj[i].caption1;
+
+ 						 startTime= startDate+" "+startTime;
+ 						 endTime= startDate+" "+endTime;
+
+ 						 $("#calendar").fullCalendar('renderEvent',
+        				{
+            				title: caption1,
+            				start: new Date(startTime),
+            				end: new Date(endTime),
+            				allDay: false,
+        },
+        true);
+ 						 //alert(startDate);
+
+					}
+					//alert(obj.startDate); // 12345
+
+
+        //             $("#calendar").fullCalendar('renderEvent',
+        // {
+        //     title: $('#patientName').val(),
+        //     start: new Date($('#apptStartTime').val()),
+        //     end: new Date($('#apptEndTime').val()),
+        //     allDay: ($('#apptAllDay').val() == "true"),
+        // },
+        // true);
+               } 
+          }
+     };
+     req.open("GET", "loadCalendar.php?data"); //make connection
+     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=iso-8859-1"); // set Header
+     req.send(null); //send value
+}
+
+window.onLoad=dochange();     
 </script>
 
 </head>
 <body>
 	<body class="">
+
 		<!-- topbar starts -->
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner">
@@ -258,5 +303,64 @@
 						</div>
 					</div>
 
+					<div id="createEventModal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+        <h3 id="myModalLabel1">Create Appointment</h3>
+    </div>
+    <div class="modal-body">
+    <form id="createAppointmentForm" class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="inputPatient">Patient:</label>
+            <div class="controls">
+                <input type="text" name="patientName" id="patientName" tyle="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source="[&quot;Value 1&quot;,&quot;Value 2&quot;,&quot;Value 3&quot;]">
+                  <input type="hidden" id="apptStartTime"/>
+                  <input type="hidden" id="apptEndTime"/>
+                  <input type="hidden" id="apptAllDay" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="when">When:</label>
+            <div class="controls controls-row" id="when" style="margin-top:5px;">
+            </div>
+        </div>
+    </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
+    </div>
+</div>
+  
+
+
 				</body>
+
+
+				<script type="text/javascript">
+function Inint_AJAX() {
+   try { return new ActiveXObject("Msxml2.XMLHTTP");  } catch(e) {} //IE
+   try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch(e) {} //IE
+   try { return new XMLHttpRequest();          } catch(e) {} //Native Javascript
+   alert("XMLHttpRequest not supported");
+   return null;
+};
+
+function dochange(src, val) {
+     var req = Inint_AJAX();
+     req.onreadystatechange = function () { 
+          if (req.readyState==4) {
+               if (req.status==200) {
+                    document.getElementById(src).innerHTML=req.responseText; //retuen value
+               } 
+          }
+     };
+     req.open("GET", "state.php?data="+src+"&val="+val); //make connection
+     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=iso-8859-1"); // set Header
+     req.send(null); //send value
+}
+
+window.onLoad=dochange('states', -1);         // value in first dropdown
+</script>
+
 				</html>

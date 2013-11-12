@@ -1,3 +1,11 @@
+<?php 
+       
+       $lu=49;
+       
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -116,7 +124,7 @@
             include_once("classes/develop_php_library.php"); // Include the class library
             $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
               // Query your database here and get timestamp
-              $sql = "SELECT * from \"Wish\" where \"CustomerUserID\"='49' order by \"Timestamp\" desc";
+              $sql = "SELECT * from \"Wish\" where \"CustomerUserID\"='$lu' order by \"Timestamp\" desc";
  
               //echo $sql;
             
@@ -145,7 +153,7 @@
                   $ts= $row[11];
                   $convertedTime = ($timeAgoObject -> convert_datetime($ts)); // Convert Date Time
                   $time = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
-                  $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '49'";
+                  $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '$lu'";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
               
@@ -160,7 +168,7 @@
                  
                   $type = $row[0];
                   $stype = $row[1];
-                  $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = '49'";
+                  $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = '$lu'";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
                    
@@ -222,7 +230,7 @@
                 </td>
               </tr>
             </table><table class=\"table table-bordered\"><tbody> ";
-                  $sql = "SELECT * from \"Bids\" where \"WishID\" = '$wid' and \"CustomerUserID\" = '49'";
+                  $sql = "SELECT * from \"Bids\" where \"WishID\" = '$wid' and \"CustomerUserID\" = '$lu'";
                   $query2 = pg_query($db, $sql);
                   
                   while ($row = pg_fetch_row($query2)) {

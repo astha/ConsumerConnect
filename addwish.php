@@ -6,7 +6,7 @@
 <?php 
        include("connect_sql.php");
        
-       $lu=40;
+       $lu=49;
        $startdate=$_REQUEST["startdate"];
        $enddate=$_REQUEST["enddate"];
        $starttime=$_REQUEST["starttime"];

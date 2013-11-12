@@ -1,6 +1,30 @@
 <?php 
        
        $lu=49;
+
+       function findDays($days)
+        {
+
+        $result="";
+        if($days[0]=='1'){
+          $result=$result. "Sun ";
+          
+        }
+        if($days[1]=='1')
+          $result=$result."Mon ";
+        if($days[2]=='1')
+          $result=$result."Tue ";
+        if($days[3]=='1')
+          $result=$result. "Wed ";
+        if($days[4]=='1')
+          $result=$result."Thu ";
+        if($days[5]=='1')
+          $result=$result."Fri ";
+        if($days[6]=='1')
+          $result=$result."Sat ";
+
+        return $result;
+      }
        
 ?>
 
@@ -125,7 +149,7 @@
             $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
               // Query your database here and get timestamp
               $sql = "SELECT * from \"Wish\" where \"CustomerUserID\"='$lu' order by \"Timestamp\" desc";
- 
+              
               //echo $sql;
             
               $query1 = pg_query($db, $sql);
@@ -194,6 +218,8 @@
                   else{
                       $ratimage = "images/A.jpeg";
                   }
+
+                  $daystring=findDays($days);
                   echo "<table class=\"table table-bordered table-striped\" style=\" margin-bottom:2px\"> 
              <tbody><tr>
               <td style=\"width: 100px; height: 100px;\">
@@ -217,7 +243,7 @@
                   <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                   font-size: 11px; line-height: 1.28;\">$city, $state</font><br>
                   <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                  font-size: 11px; line-height: 1.28;\">$st-$et Everyday</font><br>
+                  font-size: 11px; line-height: 1.28;\">$st-$et $daystring</font><br>
                   <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                   font-size: 11px; line-height: 1.28;\">Maximum Price: $mp</font></td>
 

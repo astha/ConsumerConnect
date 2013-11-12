@@ -5,21 +5,21 @@
 
         $result="";
         if($days[0]=='1'){
-          $result=$result. "Mon ";
+          $result=$result. "Sun ";
           
         }
         if($days[1]=='1')
-          $result=$result."Tue ";
+          $result=$result."Mon ";
         if($days[2]=='1')
-          $result=$result."Wed ";
+          $result=$result."Tue ";
         if($days[3]=='1')
-          $result=$result. "Thu ";
+          $result=$result. "Wed ";
         if($days[4]=='1')
-          $result=$result."Fri ";
+          $result=$result."Thu ";
         if($days[5]=='1')
-          $result=$result."Sat ";
+          $result=$result."Fri ";
         if($days[6]=='1')
-          $result=$result."Sun ";
+          $result=$result."Sat ";
 
         return $result;
       }

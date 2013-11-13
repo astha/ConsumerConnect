@@ -1,10 +1,15 @@
+<!DOCTYPE html>
+
+<?php
+include_once("checksession.php");
+?>
+
 <?php 
-       include("connect_sql.php");
-       $lu=40; 
+include("connect_sql.php");
+$lu=40; 
 ?>
 
 
-<!DOCTYPE html>
 <html>
 <head>
 	<link id="bs-css" href="css/bootstrap-cerulean.css" rel="stylesheet">
@@ -92,60 +97,71 @@
 	<script src="js/jquery.uploadify-3.1.min.js"></script>
 	<!-- history.js for cross-browser state change on ajax -->
 	<script src="js/jquery.history.js"></script>
-	  <!-- to specify the rating ids -->
-  <script src="js/rating.js"></script>
-
+	<!-- to specify the rating ids -->
+	<script src="js/rating.js"></script>
+	<script src="js/liveSearch.js"></script>
+  
 	<script src="js/charisma.js"></script>
 	<script src='js/fullcalendar.min.js'></script>
 
 
-<script type="text/javascript">
+	<script type="text/javascript">
+	
+	function signOut() {
+		$.get("clearAll.php");
+	}
+
 	$(document).ready(function() {
 
-      var calendar = $('#calendar').fullCalendar({
-      defaultView: 'agendaWeek',
-      editable: true,
-        selectable: true,
+		var calendar = $('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			defaultView: 'agendaWeek',
+			editable: true,
+			selectable: true,
       //header and other values
       select: function(start, end, allDay) {
-          endtime = $.fullCalendar.formatDate(end,'h:mm tt');
-          starttime = $.fullCalendar.formatDate(start,'ddd, MMM d, h:mm tt');
-          var mywhen = starttime + ' - ' + endtime;
-          $('#createEventModal #apptStartTime').val(start);
-          $('#createEventModal #apptEndTime').val(end);
-          $('#createEventModal #apptAllDay').val(allDay);
-          $('#createEventModal #when').text(mywhen);
-          $('#createEventModal').modal('show');
-       }
-    });
+      	endtime = $.fullCalendar.formatDate(end,'h:mm tt');
+      	starttime = $.fullCalendar.formatDate(start,'ddd, MMM d, h:mm tt');
+      	var mywhen = starttime + ' - ' + endtime;
+      	$('#createEventModal #apptStartTime').val(start);
+      	$('#createEventModal #apptEndTime').val(end);
+      	$('#createEventModal #apptAllDay').val(allDay);
+      	$('#createEventModal #when').text(mywhen);
+      	$('#createEventModal').modal('show');
+      }
+  });
 
-  $('#submitButton').on('click', function(e){
+		$('#submitButton').on('click', function(e){
     // We don't want this to act as a link so cancel the link action
     e.preventDefault();
 
     doSubmit();
-  });
-
-  function doSubmit(){
-    $("#createEventModal").modal('hide');
-    console.log($('#apptStartTime').val());
-    console.log($('#apptEndTime').val());
-    console.log($('#apptAllDay').val());
-    alert("form submitted");
-        
-    $("#calendar").fullCalendar('renderEvent',
-        {
-            title: $('#patientName').val(),
-            start: new Date($('#apptStartTime').val()),
-            end: new Date($('#apptEndTime').val()),
-            allDay: ($('#apptAllDay').val() == "true"),
-        },
-        true);
-   }
 });
+
+		function doSubmit(){
+			$("#createEventModal").modal('hide');
+			console.log($('#apptStartTime').val());
+			console.log($('#apptEndTime').val());
+			console.log($('#apptAllDay').val());
+			alert("form submitted");
+
+			$("#calendar").fullCalendar('renderEvent',
+			{
+				title: $('#patientName').val(),
+				start: new Date($('#apptStartTime').val()),
+				end: new Date($('#apptEndTime').val()),
+				allDay: ($('#apptAllDay').val() == "true"),
+			},
+			true);
+		}
+	});
 </script>
 
- <script type="text/javascript">
+<script type="text/javascript">
 function Inint_AJAX() {
    try { return new ActiveXObject("Msxml2.XMLHTTP");  } catch(e) {} //IE
    try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch(e) {} //IE
@@ -155,34 +171,34 @@ function Inint_AJAX() {
 };
 
 function dochange() {
-     var req = Inint_AJAX();
-     req.onreadystatechange = function () { 
-          if (req.readyState==4) {
-               if (req.status==200) {
+	var req = Inint_AJAX();
+	req.onreadystatechange = function () { 
+		if (req.readyState==4) {
+			if (req.status==200) {
 
                		//alert(req.responseText);
-                    var obj = eval(req.responseText);
+               		var obj = eval(req.responseText);
                     //alert(req.responseText);
                     for(var i in obj){
- 						 var startDate = obj[i].startDate;
- 						 var startTime = obj[i].startTime;
- 						 var endTime = obj[i].endTime;
- 						 var caption1 = obj[i].caption1;
+                    	var startDate = obj[i].startDate;
+                    	var startTime = obj[i].startTime;
+                    	var endTime = obj[i].endTime;
+                    	var caption1 = obj[i].caption1;
 
- 						 startTime= startDate+" "+startTime;
- 						 endTime= startDate+" "+endTime;
+                    	startTime= startDate+" "+startTime;
+                    	endTime= startDate+" "+endTime;
 
- 						 $("#calendar").fullCalendar('renderEvent',
-        				{
-            				title: caption1,
-            				start: new Date(startTime),
-            				end: new Date(endTime),
-            				allDay: false,
-        },
-        true);
+                    	$("#calendar").fullCalendar('renderEvent',
+                    	{
+                    		title: caption1,
+                    		start: new Date(startTime),
+                    		end: new Date(endTime),
+                    		allDay: false,
+                    	},
+                    	true);
  						 //alert(startDate);
 
-					}
+ 						}
 					//alert(obj.startDate); // 12345
 
 
@@ -194,16 +210,16 @@ function dochange() {
         //     allDay: ($('#apptAllDay').val() == "true"),
         // },
         // true);
-               } 
-          }
-     };
+} 
+}
+};
      req.open("GET", "loadCalendar.php?data"); //make connection
      req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=iso-8859-1"); // set Header
      req.send(null); //send value
-}
+ }
 
-window.onLoad=dochange();     
-</script>
+ window.onLoad=dochange();     
+ </script>
 
 </head>
 <body>
@@ -221,8 +237,8 @@ window.onLoad=dochange();
 				<img class="span2">
 				<div class="nav-collapse in collapse" style="height: auto;">
 					<form class="navbar-form pull-left">
-						<input class="span4" type="text" placeholder="Find Users...">
-						<button type="submit" class="btn">Search</button>
+						<input type="text" class="span4" autocomplete="off" id="searchFriend" placeholder="Find Users...">
+						<ul id="results"></ul>
 					</form>
 
 					<span>
@@ -233,7 +249,7 @@ window.onLoad=dochange();
 									<li><a href="#"><i class="icon-share"></i> Switch To</a></li>
 									<li><a href="#"><i class="icon-pencil"></i> Edit Profile</a></li>
 									<li class="divider"></li>
-									<li><a href="#"><i class="icon-off"></i> Sign Out</a></li>
+									<li><a href="index.php" onclick="signOut();"><i class="icon-off"></i> Sign Out</a></li>
 								</ul>
 							</li>
 						</ul>
@@ -245,24 +261,9 @@ window.onLoad=dochange();
 			<div class="container-fluid">
 				<div class="row-fluid">
 
-					<!-- left menu starts -->
-					<div class="span2 main-menu-span">
-						<div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; padding:0px; margin-left: 10px; height: 219px;">
-							<ul class="nav nav-tabs nav-stacked main-menu">
-								<!-- <li class="nav-header hidden-tablet">Main</li> -->
-								<li style="margin-left: -2px;"><a class="ajax-link" href="cons.html"><i class="icon-home"></i><span class="hidden-tablet"> Home</span></a></li>
-								<li style="margin-left: -2px;"><a class="ajax-link" href="messages.html"><i class="icon-envelope"></i><span class="hidden-tablet"> Messages</span></a></li>
-								<li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.html"><i class="icon-star"></i><span class="hidden-tablet"> My Reviews</span></a></li>
-								<li style="margin-left: -2px;"><a class="ajax-link" href="friends.html"><i class="icon-user"></i><span class="hidden-tablet"> My Friends</span></a></li>
-								<li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.html"><i class="icon-star-empty"></i><span class="hidden-tablet"> Friends' Reviews</span></a></li>
-								<li style="margin-left: -2px;"><a class="ajax-link" href="questions.html"><i class="icon-question-sign"></i><span class="hidden-tablet"> My Questions</span></a></li>
-								<li style="margin-left: -2px;"><a class="ajax-link" href="appointments.html"><i class="icon-calendar"></i><span class="hidden-tablet"> Appointments</span></a></li>
-								<li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.html"><i class="icon-gift"></i><span class="hidden-tablet"> Wishlist</span></a></li>
-							</ul>
-							<!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
-						</div><!--/.well -->
-					</div><!--/span-->
-					<!-- left menu ends -->
+					 <?php 
+      include_once("conssidebar.php");
+      ?>
 
 
 					<div id="content" class="span8">
@@ -287,58 +288,48 @@ window.onLoad=dochange();
 								</div>
 							</div>
 						</div>
-						<div class="span2 main-menu-span">
-							<div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
-								<ul class="nav nav-tabs nav-stacked main-menu">
-									<!-- <li class="nav-header hidden-tablet">Main</li> -->
-									<li style="margin-left: -2px;"><a class="ajax-link" href="services.html"><i class="icon-random"></i><span class="hidden-tablet"> Services</span></a></li>
-									<li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.html"><span class="hidden-tablet"><i class="icon-play"></i> Doctor</span></a></li>
-									<li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.html"><span class="hidden-tablet"><i class="icon-play"></i> Salon</span></a></li>
-									<li style="margin-left: -2px;"><a class="ajax-link" href="questions.html"><span class="hidden-tablet"><i class="icon-play"></i> Mechanic</span></a></li>
-									<li style="margin-left: -2px;"><a class="ajax-link" href="plumber.html"><span class="hidden-tablet"><i class="icon-play"></i> Plumber</span></a></li>
-									<li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.html"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li>
-								</ul>
-								<!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
-							</div><!--/.well -->
-						</div>
+						
+       <?php
+    include_once("consrightsidebar.php");
+    ?>
 					</div>
 
 					<div id="createEventModal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-        <h3 id="myModalLabel1">Create Appointment</h3>
-    </div>
-    <div class="modal-body">
-    <form id="createAppointmentForm" class="form-horizontal">
-        <div class="control-group">
-            <label class="control-label" for="inputPatient">Patient:</label>
-            <div class="controls">
-                <input type="text" name="patientName" id="patientName" tyle="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source="[&quot;Value 1&quot;,&quot;Value 2&quot;,&quot;Value 3&quot;]">
-                  <input type="hidden" id="apptStartTime"/>
-                  <input type="hidden" id="apptEndTime"/>
-                  <input type="hidden" id="apptAllDay" />
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="when">When:</label>
-            <div class="controls controls-row" id="when" style="margin-top:5px;">
-            </div>
-        </div>
-    </form>
-    </div>
-    <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-        <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
-    </div>
-</div>
-  
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+							<h3 id="myModalLabel1">Create Appointment</h3>
+						</div>
+						<div class="modal-body">
+							<form id="createAppointmentForm" class="form-horizontal">
+								<div class="control-group">
+									<label class="control-label" for="inputPatient">Patient:</label>
+									<div class="controls">
+										<input type="text" name="patientName" id="patientName" tyle="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source="[&quot;Value 1&quot;,&quot;Value 2&quot;,&quot;Value 3&quot;]">
+										<input type="hidden" id="apptStartTime"/>
+										<input type="hidden" id="apptEndTime"/>
+										<input type="hidden" id="apptAllDay" />
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="when">When:</label>
+									<div class="controls controls-row" id="when" style="margin-top:5px;">
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+							<button type="submit" class="btn btn-primary" id="submitButton">Save</button>
+						</div>
+					</div>
+
 
 
 				</body>
 
 
 				<script type="text/javascript">
-function Inint_AJAX() {
+				function Inint_AJAX() {
    try { return new ActiveXObject("Msxml2.XMLHTTP");  } catch(e) {} //IE
    try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch(e) {} //IE
    try { return new XMLHttpRequest();          } catch(e) {} //Native Javascript
@@ -347,20 +338,20 @@ function Inint_AJAX() {
 };
 
 function dochange(src, val) {
-     var req = Inint_AJAX();
-     req.onreadystatechange = function () { 
-          if (req.readyState==4) {
-               if (req.status==200) {
+	var req = Inint_AJAX();
+	req.onreadystatechange = function () { 
+		if (req.readyState==4) {
+			if (req.status==200) {
                     document.getElementById(src).innerHTML=req.responseText; //retuen value
-               } 
-          }
-     };
+                } 
+            }
+        };
      req.open("GET", "state.php?data="+src+"&val="+val); //make connection
      req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=iso-8859-1"); // set Header
      req.send(null); //send value
-}
+ }
 
 window.onLoad=dochange('states', -1);         // value in first dropdown
 </script>
 
-				</html>
+</html>

@@ -20,15 +20,15 @@
    $i=0;
 while(! ($i==5000))
   {
-  $f1customerID=rand(0,58);
-  $f2customerID=rand(0,58);
+  $f1customerID=rand(0,110);
+  $f2customerID=rand(0,110);
   
  
-
+  if ($f1customerID != $f2customerID){
   $query="INSERT INTO \"Follows\" (\"FollowerCustomerUserID\",  \"FollowedCustomerUserID\") VALUES ({$f2customerID},{$f1customerID});";
   echo $query;
   pg_query($db, $query);
-
+}
   
   $i=$i+1;
 }

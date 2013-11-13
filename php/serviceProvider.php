@@ -18,15 +18,18 @@
    
    $i=0;
 
-while(!($i==40))
+while(!($i==70))
   {
   
 
-  $userID=rand(0,58);
+  $userID=rand(0,100);
   $webpage=str_shuffle('abcdef');
-  $webpage="www.{$webpage}.com";
  
-  
+ $query = "Select \"LoginID\" from \"Users\" where \"UserID\"=$userID";
+  $name = pg_query($db,$query);
+  $row = pg_fetch_row($name);
+  $webpage = $row[0];
+   $webpage="www.{$webpage}.com";
   $query="INSERT INTO \"ServiceProvider\" (\"UserID\", \"Webpage\") VALUES ({$userID}, '{$webpage}');";
   echo $query;
   pg_query($db, $query);

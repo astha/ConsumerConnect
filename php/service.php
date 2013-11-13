@@ -2,7 +2,7 @@
 
 <?php
 
-   $file = fopen("services.csv","r");
+   $file = fopen("../data/services.csv","r");
    $host        = "host=localhost";
    $port        = "port=5432";
    $dbname      = "dbname=postgres";

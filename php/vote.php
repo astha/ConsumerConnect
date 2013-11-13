@@ -19,21 +19,21 @@
    
    $i=0;
 //while(! feof($file))  {
-while(!($i==50000)){
-  $serviceID=rand(0,400);
-  $customerID=rand(0,58);
-  $reviewID=rand(0,180);
+while(!($i==5000000)){
+  $serviceID=rand(0,100);
+  $customerID=rand(0,100);
+  $reviewID=rand(14000,15000);
   $type=rand(0,1);
   if($type==0){
-  	$type='false';
+  	$type=1;
   }
   else{
-  	$type='true';
+  	$type=-1;
   }
   
   
-  $query="INSERT INTO \"Vote\" (\"ReviewID\", \"ServiceID\", \"VotedByCustomerUserID\",\"TypeOfVote\") VALUES ({$reviewID}, {$serviceID}, {$customerID}, '{$type}');";
-  echo $query;
+  $query="INSERT INTO \"Vote\" (\"ReviewID\", \"CustomerUserID\", \"VotedByCustomerUserID\",\"TypeOfVote\") VALUES ({$reviewID}, {$serviceID}, {$customerID}, $type);";
+  // echo $query;
   pg_query($db, $query);
 
   

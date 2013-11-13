@@ -22,24 +22,46 @@
 while(!($i==40))
   {
   
-  $userID=rand(0,58);
+  $userID=rand(1,50);
   $regionID=rand(0,400);
   
-  $up=rand(0,500);
-  $down=rand(0,500);
   
   $mm=rand(1,9);
   $dd=rand(1,9);
-  $date="2013-0{$mm}-0{$dd}";
+  $date="1990-0{$mm}-0{$dd}";
   
   
-  $query="INSERT INTO \"Customer\" (\"UserID\", \"DOB\", \"CumulativeUpVotes\", \"CumulativeDownVotes\" , \"RegionID\") VALUES ({$userID}, '{$date}', {$up}, {$down}, {$regionID});";
+  $query="INSERT INTO \"Customer\" (\"UserID\", \"Gender\", \"DOB\",  \"RegionID\") VALUES ({$userID}, 'Female', '{$date}',  {$regionID});";
   echo $query;
   pg_query($db, $query);
 
   
   $i=$i+1;
 }
+
+  
+   $i=0;
+
+while(!($i==40))
+  {
+  
+  $userID=rand(55,110);
+  $regionID=rand(0,400);
+  
+  
+  $mm=rand(1,9);
+  $dd=rand(1,9);
+  $date="1985-0{$mm}-0{$dd}";
+  
+  
+  $query="INSERT INTO \"Customer\" (\"UserID\", \"Gender\" ,\"DOB\",  \"RegionID\") VALUES ({$userID}, 'Male', '{$date}',  {$regionID});";
+  echo $query;
+  pg_query($db, $query);
+
+  
+  $i=$i+1;
+}
+
 //echo $data;
 
 fclose($file);

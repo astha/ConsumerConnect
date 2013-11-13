@@ -2,7 +2,7 @@
 
 <?php
 
-   $file = fopen("location.csv","r");
+   $file = fopen("../data/location.csv","r");
    $host        = "host=localhost";
    $port        = "port=5432";
    $dbname      = "dbname=postgres";
@@ -27,7 +27,7 @@ while(! feof($file))
   $state= $record[1];
   $country='India';
   
-  $query="INSERT INTO \"Location\" (\"RegionID\", \"CityName\" , \"StateName\", \"CountryName\") VALUES ({$i}, '{$city}', '{$state}' , '{$country}');";
+  $query="INSERT INTO \"Location\" (\"RegionID\", \"CityName\" , \"StateName\") VALUES ({$i}, '{$city}', '{$state}' );";
   echo $query;
   pg_query($db, $query);
 

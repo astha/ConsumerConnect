@@ -1,7 +1,7 @@
 
 
 <?php
-
+ $file = fopen("../data/messages.txt","r");
   // $file = fopen("services.csv","r");
    $host        = "host=localhost";
    $port        = "port=5432";
@@ -18,15 +18,23 @@
    
    
    $i=0;
-while(! ($i==5000))
+while(! ($i==50000))
   {
-  $customerID=rand(0,58);
+  $customerID=rand(0,100);
   $serviceProviderID=rand(0,400);
   $wishID=rand(0,400);
-  $bidValue=rand(0,500);
+  $bidValue=rand(300,500);
  
+ if (feof($file)){
+  fclose($file);
+ $file = fopen("../data/messages.txt","r");
+ }
+  $description=fgets($file);
+  // echo $description;
+  $k = fgets($file);
 
-  $query="INSERT INTO \"Bids\" (\"WishID\", \"CustomerUserID\", \"ServiceProviderUserID\", \"BidValue\") VALUES ({$wishID},{$customerID}, {$serviceProviderID},{$bidValue});";
+
+  $query="INSERT INTO \"Bids\" (\"WishID\", \"CustomerUserID\", \"ServiceProviderUserID\", \"BidValue\", \"Details\") VALUES ({$wishID},{$customerID}, {$serviceProviderID},{$bidValue}, '{$description}');";
   echo $query;
   pg_query($db, $query);
 

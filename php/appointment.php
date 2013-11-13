@@ -20,10 +20,10 @@
    $i=0;
 while(! ($i==500))
   {
-  $customerID=rand(0,58);
-  $serviceProviderID=rand(0,58);
+  $customerID=rand(0,100);
+  $serviceProviderID=rand(0,100);
   $serviceID=rand(0,400);
-  $regionID=rand(0,50);
+  $regionID=rand(0,400);
   $price=rand(200,1000);
   if($customerID%3==0){
   	$status='Pending';
@@ -37,11 +37,11 @@ while(! ($i==500))
   
   $mm=rand(1,9);
   $dd=rand(1,9);
-  $startDate="2013-0{$mm}-0{$dd}";
+  $startDate="2014-0{$mm}-0{$dd}";
   
   $mm=rand(1,9);
   $dd=rand(1,9);
-  $endDate="2013-0{$mm}-0{$dd}";
+  $endDate="2014-0{$mm}-0{$dd}";
   
   $days=str_shuffle('0011110');
   
@@ -53,13 +53,17 @@ while(! ($i==500))
   $min=rand(0,1)*30;
   $endTime="{$hours}:{$min}:00";
  
-
+$query = "Select count(*) from \"Provides\" where \"RegionID\"=$regionID and \"ServiceID\" = $serviceID and \"ServiceProviderUserID\"=$serviceProviderID";
+  $astha = pg_query($db, $query);
+  $k = pg_fetch_row($astha);
+  echo $k[0];
+  if ($k[0] != 0){
   $query="INSERT INTO \"Appointment\" (\"CustomerUserID\", \"ServiceID\", \"ServiceProviderUserID\", \"RegionID\", \"Price\",\"Status\", \"StartDate\",\"EndDate\",\"Days\",\"StartTime\",\"EndTime\") VALUES ({$customerID}, {$serviceID}, {$serviceProviderID}, {$regionID} , {$price}, '{$status}', '{$startDate}' , '{$endDate}', '{$days}', '{$startTime}' , '{$endTime}' );";
-  echo $query;
+   echo $query;
   pg_query($db, $query);
-
-  
-  $i=$i+1;
+ $i=$i+2;
+  }
+ 
 }
 //echo $data;
 

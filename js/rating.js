@@ -1,3 +1,7 @@
+    function signOut() {
+    $.get("clearAll.php");
+}
+
     $(function() {
 
      $('div#star').raty({

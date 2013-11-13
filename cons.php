@@ -1,149 +1,47 @@
-<?php
-session_start();
-
-$expire=time()+60*60*24;
-setcookie("webpage","cons.php", $expire);
-
-if (!isset($_SESSION['userID'])){
-  header("Location:index.php");
-  die();
-}
-
-?>
 <!DOCTYPE html>
+
+<?php
+include_once("checksession.php");
+?>
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link id="bs-css" href="css/bootstrap-cerulean.css" rel="stylesheet">
 
 <title>Customer Home - ConsumerConnect </title>
-<link rel="icon" type="image/png" href="favicon.ico">
-<link href="css/my.css" rel="stylesheet">
-<link href="css/bootstrap-responsive.css" rel="stylesheet">
-<link href="css/charisma-app.css" rel="stylesheet">
-<link href="css/jquery-ui-1.8.21.custom.css" rel="stylesheet">
-<link href="css/fullcalendar.css" rel="stylesheet">
-<link href="css/fullcalendar.print.css" rel="stylesheet" media="print">
-<link href="css/chosen.css" rel="stylesheet">
-<link href="css/uniform.default.css" rel="stylesheet">
-<link href="css/colorbox.css" rel="stylesheet">
-<link href="css/jquery.cleditor.css" rel="stylesheet">
-<link href="css/jquery.noty.css" rel="stylesheet">
-<link href="css/noty_theme_default.css" rel="stylesheet">
-<link href="css/elfinder.min.css" rel="stylesheet">
-<link href="css/elfinder.theme.css" rel="stylesheet">
-<link href="css/jquery.iphone.toggle.css" rel="stylesheet">
-<link href="css/opa-icons.css" rel="stylesheet">
-<link href="css/uploadify.css" rel="stylesheet">
+<?php
+include_once("consnavbar.php");
+?>
 
-<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-<link href="css/bootstrap-responsive.css" rel="stylesheet" media="screen">
-<link href="css/bootstrap.css" rel="stylesheet" media="screen">
+<!-- topbar ends -->
+<div class="container-fluid">
+  <div class="row-fluid">
+
+    <!-- left menu starts -->
+    <?php
+    include_once("conssidebar.php");
+    ?>
 
 
-<!-- <link href="css/reset.css" rel="stylesheet"> -->
+    <div id="wrap">
 
-<script type="text/javascript">
-function signOut() {
-  $.get("clearAll.php");
-}
-function yHandler(){
-  // Watch video for line by line explanation of the code
-  // http://www.youtube.com/watch?v=eziREnZPml4
-  var wrap = document.getElementById('wrap');
-  var contentHeight = wrap.offsetHeight;
-  var yOffset = window.pageYOffset; 
-  var y = yOffset + window.innerHeight;
-  if(y >= contentHeight){
-    // Ajax call to get more dynamic data goes here
-    wrap.innerHTML += '<div class="newData"></div>';
-  }
-}
-window.onscroll = yHandler;
-</script>
-<style>
-</style>
-</head>
+      <div id="content" class="span8">
+        <!-- content starts -->
 
-<body class="">
-  <!-- topbar starts -->
-  <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-      <!-- <div class="container-fluid"> -->
-      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <div class="span3" style="min-width:278px;"><a href="cons.php"><img src="./images/logo.gif" width="270px" height="40px" style="float: left;"></a></div>
-      <img class="span2">
-      <div class="nav-collapse in collapse" style="height: auto;">
-        <!-- <form class="navbar-form pull-left">
-          <input class="span4" type="text" placeholder="Find Users...">
-          <button type="submit" class="btn">Search</button>
-        </form> -->
-        <form class="navbar-form pull-left">
-          <input type="text" class="span4" autocomplete="off" id="searchFriend" placeholder="Find Users...">
-          <ul id="results"></ul>
-        </form>
-        <span>
-          <ul class="nav pull-right">
-           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i> Settings <b class="caret"></b></a>
-            <ul class="dropdown-menu" align="left">
-              <li><a href="#"><i class="icon-share"></i> Switch To</a></li>
-              <li><a href="#"><i class="icon-pencil"></i> Edit Profile</a></li>
-              <li class="divider"></li>
-              <li><a href="index.php" onclick="signOut();"><i class="icon-off"></i> Sign Out</a></li>
-            </ul>
-          </li>
-        </ul>
-      </span></div>
-    </div>
-    <!-- </div> -->
-  </div>
-  <!-- topbar ends -->
-  <div class="container-fluid">
-    <div class="row-fluid">
-
-      <!-- left menu starts -->
-      <div class="span2 main-menu-span">
-        <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; padding:0px; margin-left: 10px; height: 219px;">
-          <ul class="nav nav-tabs nav-stacked main-menu">
-            <!-- <li class="nav-header hidden-tablet">Main</li> -->
-            <li style="margin-left: -2px;"><a class="ajax-link" href="cons.php"><i class="icon-home"></i><span class="hidden-tablet"> Home</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="messages.php"><i class="icon-envelope"></i><span class="hidden-tablet"> Messages</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.php"><i class="icon-star"></i><span class="hidden-tablet"> My Reviews</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="friends.php"><i class="icon-user"></i><span class="hidden-tablet"> My Friends</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.php"><i class="icon-star-empty"></i><span class="hidden-tablet"> Friends' Reviews</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="questions.php"><i class="icon-question-sign"></i><span class="hidden-tablet"> My Questions</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.php"><i class="icon-calendar"></i><span class="hidden-tablet"> Appointments</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.php"><i class="icon-gift"></i><span class="hidden-tablet"> Wishlist</span></a></li>
-          </ul>
-          <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
-        </div><!--/.well -->
-      </div><!--/span-->
-      <!-- left menu ends -->
-      
-      <div id="wrap">
-
-        <div id="content" class="span8">
-          <!-- content starts -->
-
-          <div class="row-fluid sortable ui-sortable" style="text-shadow:none;">
-            <div class="box">
-              <div class="box-header well" data-original-title="">
-               <h2>Friends' Reviews </h2>
-               <div class="box-icon">
-                <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-                <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
-              </div>
+        <div class="row-fluid sortable ui-sortable" style="text-shadow:none;">
+          <div class="box">
+            <div class="box-header well" data-original-title="">
+             <h2>Friends' Reviews </h2>
+             <div class="box-icon">
+              <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+              <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
             </div>
-            <div class="box-content" style="display: block;">
+          </div>
+          <div class="box-content" style="display: block;">
 
-              <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
-              <?php
-              include("connect_sql.php");
+            <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
+            <?php
+            include("connect_sql.php");
             include_once("classes/develop_php_library.php"); // Include the class library
             $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
               // Query your database here and get timestamp
@@ -151,61 +49,9 @@ window.onscroll = yHandler;
 
 
 
-            $countsql = "SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15') order by \"Timestamp\" desc";
-            $per_page = 10;         // number of results to show per page
-             $query3 = pg_query($db, $countsql);
-            $total_results = pg_num_rows($query3);
-            // echo $total_results;
-            $total_pages = ceil($total_results / $per_page);//total pages we going to have
-
-            if (isset($_GET['page'])) {
-              $show_page = $_GET['page']; //current page
-              if ($show_page > 0 && $show_page <= $total_pages) {
-                $start = ($show_page - 1) * $per_page;
-                $end = $start + $per_page;
-              } else {
-        // error - show first set of results
-                $start = 0;              
-                $end = $per_page;
-              }
-            } else {
-    // if page isn't set, show first set of results
-              $start = 0;
-              $end = $per_page;
-            }
-// display pagination
-           
-// echo $total_results;
-
-// $k = 1;
-$pagLink = "<ul class=\"pagination pull-right\">";
-if ($show_page>1){
-$k = $show_page - 1;
- $pagLink .= "<li><a href=cons.php?page=".$k.">&laquo</a></li>";
-
-}
-else {
- $pagLink .= "<li class=\"disabled\"><a href=\"#\">&laquo</a></li>";
-}
-for ($i=1; $i<=$total_pages; $i++) {  
-    // echo "astha";
-              $pagLink .= "<li><a href=cons.php?page=".$i.">".$i."</a></li>";  
-};  
-if ($show_page<$total_pages){
-$k = $show_page + 1;
- $pagLink .= "<li><a href=cons.php?page=".$k.">&raquo</a></li>";
-
-}
-else {
- $pagLink .= "<li class=\"disabled\"><a href=\"#\">&raquo</a></li>";
-}
-echo $pagLink . "</ul>"; 
-
-// BAS LIMIT KA DEKHNA HAI, THIS IS CODE FOR PAGINTATION
-
-            $sql = "SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15') order by \"Timestamp\" desc limit $per_page offset $start";
-
-            $query1 = pg_query($db, $sql);
+             include 'paging.php';
+            $sql = paging_function('page',"cons.php","SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15') order by \"Timestamp\" desc");
+         $query1 = pg_query($db, $sql);
 
 
 
@@ -217,10 +63,10 @@ echo $pagLink . "</ul>";
             //   echo "No Error!";
             // }
 
-            while ($row = pg_fetch_row($query1)) {
-              $content = $row[3];
-              $rating = $row[4];
-              $ts = $row[5];
+         while ($row = pg_fetch_row($query1)) {
+          $content = $row[3];
+          $rating = $row[4];
+          $ts = $row[5];
                   //$ts = "2010-01-30 20:19:18";
                   $convertedTime = ($timeAgoObject -> convert_datetime($ts)); // Convert Date Time
                   $time = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
@@ -228,6 +74,7 @@ echo $pagLink . "</ul>";
                   $spid = $row[6];
                   $sid = $row[1];
                   $cid = $row[2];
+                  $rid = $row[0];
                   $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '$cid'";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
@@ -250,6 +97,14 @@ echo $pagLink . "</ul>";
                   $row = pg_fetch_row($query);
                   $cu= $row[0];
                   $cd = $row[1];
+                   $sql = "SELECT count(*) from \"Vote\" where \"ReviewID\"=$rid and \"CustomerUserID\"='$cid'and \"TypeOfVote\"=1";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $totalup= $row[0];
+                  $sql = "SELECT count(*) from \"Vote\" where \"ReviewID\"=$rid and \"CustomerUserID\"='$cid' and \"TypeOfVote\"=-1";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $totaldown= $row[0];
 
 
 
@@ -275,7 +130,7 @@ echo $pagLink . "</ul>";
 
 
                   <a style=\"background-color:white\" title=\"User1\" href=\"images/user4.png\" class=\"cboxElement\"><img src=\"images/user4.png\" alt=\"User4\" width=\"100\" height=\"100\"></a></td>
-                  <td class=\"span4\"><font class=\"user-name\">$cfn $cln</font><br>
+                  <td class=\"span4\"><font class=\"user-name\"><a href =\"consprofile.php?see=$cid\">$cfn $cln</a></font><br>
 
 
                   <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
@@ -296,8 +151,8 @@ echo $pagLink . "</ul>";
 
                   <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
 
-                  <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $cu</div>
-                  <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $cd</div>
+                  <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $totalup</div>
+                  <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $totaldown</div>
                   <br>
                   <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
                   </td>
@@ -424,20 +279,10 @@ echo $pagLink . "</ul>";
 
 
 
-        <div class="span2 main-menu-span">
-          <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
-            <ul class="nav nav-tabs nav-stacked main-menu">
-              <!-- <li class="nav-header hidden-tablet">Main</li> -->
-              <li style="margin-left: -2px;"><a class="ajax-link" href="services.php"><i class="icon-random"></i><span class="hidden-tablet"> Services</span></a></li>
-              <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.php"><span class="hidden-tablet"><i class="icon-play"></i> Doctor</span></a></li>
-              <li style="margin-left: -2px;"><a class="ajax-link" href="friendreviews.php"><span class="hidden-tablet"><i class="icon-play"></i> Salon</span></a></li>
-              <li style="margin-left: -2px;"><a class="ajax-link" href="questions.php"><span class="hidden-tablet"><i class="icon-play"></i> Mechanic</span></a></li>
-              <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.php"><span class="hidden-tablet"><i class="icon-play"></i> Plumber</span></a></li>
-              <li style="margin-left: -2px;"><a class="ajax-link" href="wishlist.php"><span class="hidden-tablet"><i class="icon-list"></i> More Services</span></a></li>
-            </ul>
-            <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
-          </div><!--/.well -->
-        </div>
+       <?php
+    include_once("consrightsidebar.php");
+    ?>
+
 
       </div><!--/fluid-row-->
 

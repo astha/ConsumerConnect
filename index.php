@@ -6,7 +6,6 @@ if (isset($_COOKIE["userID"])){
 	header("Location:".$webpage);
 	die();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -116,8 +115,8 @@ if (isset($_COOKIE["userID"])){
 					<i class="icon-font icon-large"></i>
 				</p>
 				<p class="field">
-				 <input name="lastName" id="lastName" type="text" placeholder="Last Name">	
-				 <i class="icon-bold icon-large"></i>
+					<input name="lastName" id="lastName" type="text" placeholder="Last Name">	
+					<i class="icon-bold icon-large"></i>
 				</p>
 				<p class="field">
 					<input id="username" type="text" name="login" placeholder="Username">

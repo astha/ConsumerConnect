@@ -16,6 +16,7 @@
      
      if ($data=='states') {  // first dropdown
            echo "<select name='states' onChange=\"dochange('cities', this.value)\">\n"; 
+           echo "<option value='0'>Choose state</option>\n";   
            $result=pg_query($db,"select distinct \"StateName\" from \"Location\" order by \"StateName\";");
            while($row=pg_fetch_array($result)){
                 echo "<option value=\"$row[0]\" >$row[0]</option> \n" ;
@@ -24,7 +25,7 @@
      else if ($data=='cities') { // second dropdown
           //echo "Yoo";
            echo "<select name='cities'>\n";
-          // echo "<option value='0'>====choose cities ====</option>\n";    
+           echo "<option value='0'>Choose city</option>\n";    
           // echo "<option>Go</option>"  ;                     
           $result=pg_query($db,"SELECT \"CityName\" FROM \"Location\" WHERE \"StateName\" = '$val' ORDER BY \"CityName\"; ");
            while($row=pg_fetch_array($result)){

@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 
 <?php
-include_once("checksession.php");
+//include_once("checksession.php");
+$userID=1;
 ?>
 
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link id="bs-css" href="css/bootstrap-cerulean.css" rel="stylesheet">
+
+<script type="text/javascript">
+function sp(){
+  document.getElementsByName("profile")[0].value = 'sp';
+}
+
+function customer(){
+  document.getElementsByName("profile")[0].value = 'customer';
+}
+</script>
+
 
 <title>Edit Profile - ConsumerConnect </title>
   <?php 
@@ -18,7 +30,19 @@ include_once("checksession.php");
 
        <?php 
       include_once("conssidebar.php");
+      include_once("connect_sql.php");
+      $result=pg_query($db,"select * from \"Users\" where \"UserID\" = $userID;");
+           while($row=pg_fetch_array($result)){
+               $password=$row[2];
+               $firstname=$row[3];
+               $lastname=$row[4];
+               $emailID=$row[5];
+               $photograph=$row[6];
+               $contactno=$row[7];
+           }
       ?>
+
+
       
 
       <div id="content" class="span8">
@@ -40,13 +64,17 @@ include_once("checksession.php");
               <tbody>
                 <tr>
                   <td>
-                    <form role="form" class="form-horizontal">
+                    <form role="form" class="form-horizontal" action="ep.php">
                       <fieldset>
+                        
+
+                        <input type="hidden" name="profile">
+
                         <div class="control-group">
                           <label class="control-label" for="selectError2">Your Name</label>
                           <div class="controls">
-                            <input class="input-xlarge focused span6" id="firstName" type="text" value="Rashmi" >
-                            <input class="input-xlarge focused span6" id="lastName" type="text" value="Sharma">
+                            <?php echo "<input class=\"input-xlarge focused span6\" name=\"firstname\" id=\"firstName\" type=\"text\" value=\"$firstname\" >
+                            <input class=\"input-xlarge focused span6\" name=\"lastname\" id=\"lastName\" type=\"text\" value=\"$lastname\">";?>
 
                           </div>
                         </div>
@@ -54,7 +82,21 @@ include_once("checksession.php");
                         <div class="control-group">
                           <label class="control-label" for="number">Contact Number</label>
                           <div class="controls">
-                            <input id="number" size="16" type="text" value="9413382711">
+                           <?php echo "<input id=\"number\" size=\"16\" type=\"text\" name=\"contactno\" value=\"$contactno\">"; ?>
+                          </div>
+                        </div>
+
+                        <div class="control-group">
+                          <label class="control-label" for="number">EMailID</label>
+                          <div class="controls">
+                           <?php echo "<input id=\"emailID\" size=\"16\" type=\"text\" name=\"emailID\" value=\"$emailID\">"; ?>
+                          </div>
+                        </div>
+
+                        <div class="control-group">
+                          <label class="control-label" for="number">Password</label>
+                          <div class="controls">
+                           <?php echo "<input id=\"password\" name=\"password\" size=\"16\" type=\"password\" value=\"$password\">"; ?>
                           </div>
                         </div>
 
@@ -66,75 +108,145 @@ include_once("checksession.php");
                           </div>
                         </div>  
 
-                        <div class="controls">
-                          <h5 >
-                            For Your Customer Profile
-                          </h5>
-                        </div>
-                        <br>
-
-                        <div class="control-group">
-
-                          <label class="control-label">Select Country</label>
-                          <div class="controls">
-                            <select name="country" onchange="getState(this.value)"><option>India</option><option value="1">USA</option><option value="2">India</option> <option value="3">Canada</option> </select>
-                          </div>
-                        </div>
-
-                        <div class="control-group">
-
-                          <label class="control-label">Select State</label>
-                          <div class="controls">
-                            <select name="state"><option>Rajasthan</option> </select>
-                          </div>
-                        </div>
-
-                        <div class="control-group">
-
-                          <label class="control-label">Select City</label>
-                          <div class="controls">
-                            <select name="city"><option>Jaipur</option> </select>
-                          </div>
-                        </div>
-
-                        <div class="control-group">
-                          <label class="control-label" >Gender</label>
+                        
 
 
-                          <div class="controls">
-                            <label class="radio">
-                              <input type="radio" name="gender" id="male" value="option1">
+                        
+
+                        <div id="pinfo">
+                        <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse1" onclick="customer();">
+                <div>
+                  <h3>Customer Profile</h3>
+                </div>
+              </a>
+            </div>
+            <div id="collapse1" class="accordion-body  collapse" style="height: 0px;">
+              <div class="accordion-inner">
+                  <?php
+
+                  $result=pg_query($db,"select * from \"Customer\" where \"UserID\" = $userID;");
+           while($row=pg_fetch_array($result)){
+               $dob=$row[1];
+               $cu =$row[2];
+               $cd=$row[3];
+               $rid=$row[4];
+               $gender=$row[5];
+    }
+
+    $result=pg_query($db,"select * from \"Location\" where \"RegionID\" = $rid;");
+           while($row=pg_fetch_array($result)){
+               $city=$row[1];
+               $state =$row[2];
+               
+    }
+
+                   echo "<div class=\"control-group\">";
+     echo " <label class=\"control-label\">States</label> <div class=\"controls\">
+ <font id=\"states\"><select>\n";
+     echo "<option value='$state'>$state</option> \n" ;
+     echo "</select></font></div> 
+\n";
+     
+     echo " <label class=\"control-label\">Cities</label> <div class=\"controls\"><font id=cities><select>\n";
+     echo "<option value='$city'></option> \n" ;
+     echo "</select></font></div>\n";
+
+echo "</div>";
+if($gender=='Female'){
+  echo "
+                        <div class=\"control-group\">
+                          <label class=\"control-label\" >Gender</label>
+
+
+                          <div class=\"controls\">
+                            <label class=\"radio\">
+                            
+                              <input type=\"radio\" name=\"gender\" id=\"male\" value=\"male\">
                               Male
                             </label>
-                            <div style="clear:both"></div>
-                            <label class="radio">
-                              <input type="radio" name="gender" id="female" value="option2" checked>
+                            <div style=\"clear:both\"></div>
+                            <label class=\"radio\">
+                              <input type=\"radio\" name=\"gender\" id=\"female\" value=\"female\" checked>
                               Female
                             </label>
                           </div>
-                        </div>
+                        </div>";
+              }
+  else{echo "
+                        <div class=\"control-group\">
+                          <label class=\"control-label\" >Gender</label>
 
-                        <div class="control-group">
 
-                          <label class="control-label">Date of Birth</label>
-                          <div class="controls">
-                            <input type="text" class="input-xlarge datepicker span6" id="dob" value="25/02/1984">
+                          <div class=\"controls\">
+                            <label class=\"radio\">
+                            
+                              <input type=\"radio\" name=\"gender\" id=\"male\" value=\"male\" checked>
+                              Male
+                            </label>
+                            <div style=\"clear:both\"></div>
+                            <label class=\"radio\">
+                              <input type=\"radio\" name=\"gender\" id=\"female\" value=\"female\">
+                              Female
+                            </label>
+                          </div>
+                        </div>";}
+
+                   echo" <div class=\"control-group\">
+
+                          <label class=\"control-label\">Date of Birth</label>
+                          <div class=\"controls\">
+                            <input type=\"text\" class=\"input-xlarge datepicker span6\" name=\"dob\" id=\"dob\" value=\"$dob\">
 
                           </div>
+                        </div>";
+
+
+                  ?>
+
+
+                  
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse2" onclick="sp();">
+                <div>
+                  <h3>Service Provider Profile</h3>
+                </div>
+              </a>
+            </div>
+            <div id="collapse2" class="accordion-body  collapse" style="height: 0px;">
+              <div class="accordion-inner">
+                  <?php
+
+                  $result=pg_query($db,"select * from \"ServiceProvider\" where \"UserID\" = $userID;");
+           while($row=pg_fetch_array($result)){
+               $webpage=$row[1];
+            }
+
+
+                   echo "
+                        <div class=\"control-group\">
+                          <label class=\"control-label\" for=\"number\">WebPage</label>
+                          <div class=\"controls\">
+                            <input id=\"number\" size=\"16\" type=\"text\" name=\"webpage\" value=\"$webpage\">
+                          </div>
+                        </div>";
+
+                  ?>
+                  
+              </div>
+            </div>
+          </div>
+
+
                         </div>
 
-                        <div class="controls">
-                          <h5 >
-                            For Your Service Provider Profile
-                          </h5>
-                        </div>
-                        <br>
-                        <div class="control-group">
-                          <label class="control-label" for="number">WebPage</label>
-                          <div class="controls">
-                            <input id="number" size="16" type="text" value="www.rashmiarts.com">
-                          </div>
-                        </div>
+                       
 
 
                         <div class="form-actions">
@@ -241,6 +353,41 @@ include_once("checksession.php");
 
 
 <script src="js/liveSearch.js"></script>
+
+
+
+<script type="text/javascript">
+function Inint_AJAX() {
+   try { return new ActiveXObject("Msxml2.XMLHTTP");  } catch(e) {} //IE
+   try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch(e) {} //IE
+   try { return new XMLHttpRequest();          } catch(e) {} //Native Javascript
+   alert("XMLHttpRequest not supported");
+   return null;
+};
+
+function dochange(src, val) {
+    console.log(src);
+    console.log(val);
+     var req = Inint_AJAX();
+     req.onreadystatechange = function () { 
+          if (req.readyState==4) {
+               if (req.status==200) {
+                    console.log(document.getElementById('pinfo').innerHTML);
+                    document.getElementById(src).innerHTML=req.responseText; //retuen value
+               } 
+          }
+     };
+     req.open("GET", "state.php?data="+src+"&val="+val); //make connection
+     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=iso-8859-1"); // set Header
+     req.send(null); //send value
+}
+
+
+
+window.onLoad=dochange('states', -1);         // value in first dropdown
+//window.onLoad(init());
+</script>
+
   
 </body>
 </html>

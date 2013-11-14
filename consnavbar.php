@@ -49,7 +49,9 @@
          <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i> Settings <b class="caret"></b></a>
           <ul class="dropdown-menu" align="left">
-            <!-- <li><a href="#"><i class="icon-share"></i> Switch To</a></li> -->
+            <li><a href="serve.php"><i class="icon-share"></i> Switch To Service Provider</a></li>
+            <li><a href="cons.php"><i class="icon-share"></i> Switch To Consumer</a></li>
+            
             <li><a href="editprofile.php"><i class="icon-pencil"></i> Edit Profile</a></li>
             <li class="divider"></li>
             <li><a href="index.php" onclick="signOut();"><i class="icon-off"></i> Sign Out</a></li>

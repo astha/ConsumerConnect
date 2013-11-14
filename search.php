@@ -4,10 +4,10 @@
 
 //Output HTML Formating
 $html = '';
-$html .= '<li class="results">';
-$html .= '<img src="PHOTO" width="25px" height="25px">';
-$html .= '<a href="consprofile.php?see=USERID"><font class=\"user-name\">';
-$html .= '  NAME SURNAM';
+$html .= '<li class="results1">';
+$html .= '<a href="consprofile.php?see=USERID">';
+$html .= '<img src="PHOTO" width="25px" height="25px" style="margin:2px"><font class=\"user-name\">';
+$html .= 'NAME SURNAM</font>';
 $html .= '</a>';
 $html .= '</li>';
 
@@ -30,8 +30,8 @@ if (strlen($search_string) >= 1 && $search_string !== ' ') {
 	
 		while($row = pg_fetch_row($query)){
 			// $output = $row[0];
-			$output = str_replace('PHOTO', $row[4], $html);
-			$output = str_replace('NAME', $row[1], $html);
+			$output = str_replace('PHOTO', $row[3], $html);
+			$output = str_replace('NAME', $row[1], $output);
 			$output = str_replace('SURNAM', $row[2], $output);
 			$output = str_replace('USERID',$row[0],$output);
 			echo "$output";

@@ -19,6 +19,9 @@
 <link href="css/opa-icons.css" rel="stylesheet">
 <link href="css/uploadify.css" rel="stylesheet">
 
+<link href="css/bootstrap-timepicker.css" rel="stylesheet" media="screen">
+<link href="css/bootstrap-timepicker.min.css" rel="stylesheet" media="screen">
+
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
 <link href="css/bootstrap-responsive.css" rel="stylesheet" media="screen">

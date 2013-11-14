@@ -7,9 +7,12 @@
           echo"
           <a class=\"ajax-link\" href=\"/servicequestions.php?see=$u\"><li class=\"nav-header hidden-tablet\" style=\"padding-top:10px;\">Questions</li></a>
           <a class=\"ajax-link\" href=\"/serviceprovider.php?see=$u\"><li class=\"nav-header hidden-tablet\" style=\"padding-top:10px;\">Reviews</li></a>";
-          
+           $sql = "SELECT \"FirstName\" from \"Users\" where \"UserID\"= $u";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $name = $row[0];
+                echo "  <li class=\"nav-header hidden-tablet\" style=\"padding-top:10px;\">$name's Services</li>"
           ?>
-          <li class="nav-header hidden-tablet" style="padding-top:10px;">My Services</li>
           <hr style="margin:0px;">
           <hr style="margin:0px;">
 
@@ -24,7 +27,7 @@
                         $typesql = "SELECT \"SubType\",\"Service\".\"ServiceID\" from \"Service\",\"Provides\" where \"ServiceProviderUserID\" = $u and \"Provides\".\"ServiceID\"=\"Service\".\"ServiceID\" and \"Type\" = '". $row[0] . "';";
                         $typequery = pg_query($db, $typesql);
                         while ($typerow = pg_fetch_row($typequery)) {
-                          echo "<li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"/moreservices.php?sid=$typerow[1]&see=$u\"><span class=\"hidden-tablet\"><i class=\"icon-play\"></i><font style=\"color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                          echo "<li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"/moreservices.php?sid=$typerow[1]&see=$u\"><span class=\"hidden-tablet\"><i class=\"icon-play\"></i> <font style=\"color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                           font-size: 12px; line-height: 1.28;\">$typerow[0]</font></span></a></li>";
                         }
                       }

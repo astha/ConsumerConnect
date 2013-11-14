@@ -177,9 +177,9 @@ include_once("consnavbar.php");
 
                 </tr><tr></tr>
                 <tr><td colspan=\"4\" style=\"width: 100%;\">
-                  <div class=\"btn btn-danger pull-right enabled vbtn\"><i class=\"icon-trash\"></i> Remove wish</div>
+                  <a href=\"removewish.php?wid=$wid&cid=$lu\"><div class=\"btn btn-danger pull-right enabled vbtn\"><i class=\"icon-trash\"></i> Remove wish</div></a>
                     <br>
-                  <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\"> I urgently need a tutor for my 10 year old son, who needs help with his Grade 5 Mathematics. Anyone willing can put a bid over here, and I will contact you accordingly. The selection of tutor will be solely based on his/her skills and sufficient salary would be provided as long as results are satisfactory. Please provide some details while putting a bid.<br>
+                  <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$des<br>
                   </p>
                 </td>
               </tr>
@@ -199,7 +199,10 @@ include_once("consnavbar.php");
                     $spln = $row[1];
                     $sppic = $row[2];
                   
-                  
+                  $sql = "SELECT \"Rating\" from \"ServiceProvider\" where \"UserID\" = '$spid'";
+                    $query = pg_query($db, $sql);
+                    $row = pg_fetch_row($query);
+                    $rating = $row[0];
                     echo "<tr>
 
 
@@ -216,10 +219,10 @@ include_once("consnavbar.php");
 
 
                 </td>
-                <td style=\"width:115px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href=\"serviceprovider?see=$spid\">$spfn $spln</a></font><br>
+                <td style=\"width:115px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href=\"serviceprovider.php?see=$spid\">$spfn $spln</a></font><br>
                   <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                   font-size: 11px; line-height: 1.28;\">&#8377 $bid per appt.</font>
-                  <div id=\"half\" data-score=\"3.3\" class=\"pull-right\"></div>
+                  <div id=\"half\" data-score=$rating class=\"pull-right\"></div>
 
                   <br>
                 </td>

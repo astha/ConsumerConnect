@@ -289,9 +289,7 @@ function dochange() {
 							</div>
 						</div>
 						
-       <?php
-    include_once("consrightsidebar.php");
-    ?>
+     
 					</div>
 
 					<div id="createEventModal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">

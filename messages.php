@@ -142,9 +142,7 @@
 
 
    
-       <?php
-    include_once("consrightsidebar.php");
-    ?>
+      
   </div><!--/fluid-row-->
 
 

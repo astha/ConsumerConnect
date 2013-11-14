@@ -132,7 +132,7 @@ $lu = $userID;
 
 
 
-                <a style=\"background-color:white\" title=\"User1\" href=\"images/user4.png\" class=\"cboxElement\"><img src=\"images/user4.png\" alt=\"User4\" width=\"100\" height=\"100\"></a></td>
+                <a style=\"background-color:white\" title=\"User1\" href=$cpic class=\"cboxElement\"><img src=$cpic alt=\"User4\" width=\"100\" height=\"100\"></a></td>
                 <td class=\"span4\"><font class=\"user-name\"><a href =\"index.php\">$cfn $cln</a></font><br>
 
 
@@ -143,19 +143,19 @@ $lu = $userID;
 
 
 
-                <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href=\"serviceprovider?see=$spid\">$spfn $spln</a></font><br>
+                <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href=\"serviceprovider.php?see=$spid\">$spfn $spln</a></font><br>
                   
                   <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                   font-size: 11px; line-height: 1.28;\">$type ($stype)</font></td>
 
                   <td style=\"width: 100px;\">
-                    <a style=\"background-color:white\" title=\"User3\" href=\"images/user8.png\" class=\"cboxElement\"><img src=\"images/user8.png\" alt=\"User8\" width=\"100\" height=\"100%\"></a></td></tr><tr></tr>
+                    <a style=\"background-color:white\" title=\"User3\" href=$sppic class=\"cboxElement\"><img src=$sppic alt=\"User8\" width=\"100\" height=\"100%\"></a></td></tr><tr></tr>
                     <tr><td colspan=\"4\" style=\"width: 100%;\">
                      
                         <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
 
                      <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $totalup</div>
-                     <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $totaldown</div>
+                     <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $totaldown</div><br>
                      <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
                    </td>
                  </tr></tbody></table>";
@@ -175,9 +175,7 @@ $lu = $userID;
 
 
           
-       <?php
-    include_once("consrightsidebar.php");
-    ?>
+      
 
         </div><!--/fluid-row-->
 

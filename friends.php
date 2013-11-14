@@ -2,6 +2,7 @@
 
 <?php
 include_once("checksession.php");
+$lu = $userID;
 ?>
 
 <html lang="en"><head>
@@ -44,7 +45,7 @@ include_once("checksession.php");
                
               include("connect_sql.php");
               include 'paging.php';
-              $sql = "SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15' order by \"FollowedCustomerUserID\"";
+              $sql = "SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= $lu order by \"FollowedCustomerUserID\"";
  
               $sql = paging_function('page',"friends.php",$sql);
               $query1 = pg_query($db, $sql);
@@ -97,7 +98,7 @@ include_once("checksession.php");
                 <tr>
 
                   <td style=\"width: 100px; height: 100px;\">
-                    <a style=\"background-color:white\" title=\"User3\" href=\"images/user3.png\" class=\"cboxElement\"><img src=\"images/user3.png\" alt=\"User3\" width=\"100\" height=\"100\"></a></td>
+                    <a style=\"background-color:white\" title=\"User3\" href=$cpic class=\"cboxElement\"><img src=$cpic alt=\"User3\" width=\"100\" height=\"100\"></a></td>
                     <td class=\"span4\"><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href =\"consprofile.php?see=$followed\">$cfn $cln</a></font><br>
                       <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                       font-size: 11px; line-height: 1.28;\">32 years old</font><br>

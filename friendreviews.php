@@ -93,15 +93,11 @@ $lu = $userID;
             $row = pg_fetch_row($query);
             $cu= $row[0];
             $cd = $row[1];
-            $sql = "SELECT count(*) from \"Vote\" where \"ReviewID\"=$rid and \"CustomerUserID\"=$cid and \"TypeOfVote\"=1";
-            $query = pg_query($db, $sql);
-            $row = pg_fetch_row($query);
-            $totalup= $row[0];
-            $sql = "SELECT count(*) from \"Vote\" where \"ReviewID\"=$rid and \"CustomerUserID\"=$cid and \"TypeOfVote\"=-1";
-            $query = pg_query($db, $sql);
-            $row = pg_fetch_row($query);
-            $totaldown= $row[0];
-
+               $sql = "SELECT \"UpVotes\", \"DownVotes\" from \"Review\" where \"ReviewID\"=$rid and \"CustomerUserID\"='$cid'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $totalup= $row[0];
+                  $totaldown= $row[1];
 
 
             if ($cd != 0) $ratio = $cu/$cd;

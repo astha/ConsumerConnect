@@ -23,7 +23,7 @@ include_once("consnavbar.php");
 
       <!-- left menu starts -->
       <?php
-    include_once("conssidebar.php");
+    include_once("serveleftsidebar.php");
       ?>
       <!-- left menu ends -->
       
@@ -108,19 +108,19 @@ echo "<table class=\"table table-bordered table-striped\">
                         font-size: 11px; line-height: 1.28;\">$time1</font>
                       </p>";
                       
-                      echo "<form action=\"addanswer.php\">
+                     
+
+
+
+
+                  } 
+                  echo "<form action=\"addanswer.php\">
                       <input type=\"hidden\" name=\"qid\" value=$qid>
                       <textarea name=\"content\" class=\"autogrow span8\" style=\"height:40px;\" placeholder=\"Add answer\"></textarea>
                       <button type=\"submit\" class=\"btn\">Send</button>
                       </form>
                       </tr>
                       </tbody></table>";
-
-
-
-
-                  } 
-                  echo "</tr></tbody></table>";
               }
             ?>
 
@@ -132,9 +132,6 @@ echo "<table class=\"table table-bordered table-striped\">
       <!-- content ends -->
     </div>
 
-<?php
-         include_once("serviceprovidersidebar.php");
-    ?>
 
 
    

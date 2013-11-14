@@ -2,8 +2,7 @@
 
 <?php
 include_once("checksession.php");
-?>
-<?php 
+
        
        $lu=$userID;
 
@@ -48,9 +47,10 @@ include_once("consnavbar.php");
     <div class="row-fluid">
 
       <!-- left menu starts -->
-     <?php 
-      include_once("conssidebar.php");
-     ?>      
+      <?php
+     
+       include_once("serveleftsidebar.php");
+      ?> 
 
       <div id="content" class="span8">
         <!-- content starts -->
@@ -61,7 +61,7 @@ include_once("consnavbar.php");
           <div class="row-fluid sortable ui-sortable" style="text-shadow:none;">
             <div class="box">
               <div class="box-header well" data-original-title="">
-               <h2>Add a Service</h2>
+               <h2>Add New Service</h2>
                <div class="box-icon">
                 <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
                 <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>

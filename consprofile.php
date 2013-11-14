@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 
 <?php 
-       include_once("checksession.php");
-       include("connect_sql.php");
-       $u=$_REQUEST['see'];
-       
+include_once("checksession.php");
+include("connect_sql.php");
+$u=$_REQUEST['see'];
+
 ?>
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,112 +25,112 @@ include_once("consnavbar.php");
 ?>
 
 
-  <!-- topbar ends -->
-  <div class="container-fluid">
-    <div class="row-fluid">
+<!-- topbar ends -->
+<div class="container-fluid">
+  <div class="row-fluid">
 
-      
-     <?php 
-      include_once("conssidebar.php");
-     ?>
-      
-      
 
-      <div id="content" class="span8">
-        <!-- content starts -->
+   <?php 
+   include_once("conssidebar.php");
+   ?>
+
+
+
+   <div id="content" class="span8">
+    <!-- content starts -->
+    <div class="row-fluid sortable ui-sortable" style="text-shadow:none;">
+      <div class="box">
+        <div class="box-header well" data-original-title="">
+         <h2>Profile Info</h2>
+         <div class="box-icon">
+          <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+          <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+        </div>
+      </div>
+      <div class="box-content" style="display: block;">
+        <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
+        <table class="table table-bordered table-striped">
+          <tbody>
+            <?php
+            $sql = "SELECT \"FirstName\", \"LastName\",\"EmailID\",\"ContactNumber\", \"Photograph\" from \"Users\" where \"UserID\" = '$u'";
+            $query = pg_query($db, $sql);
+            $row = pg_fetch_row($query);
+            $cfn = $row[0];
+            $cln = $row[1];
+            $cpic = $row[4];
+            $email = $row[2];
+            $contact = $row[3];
+            $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = '$u'";
+            $query = pg_query($db, $sql);
+            $row = pg_fetch_row($query);
+            $uv = $row[0];
+            $dv = $row[1];
+            $ratio = $uv/$dv;
+
+            if ($ratio < 1){
+              $ratimage = "images/J.jpeg";
+            }
+            elseif ($ratio < 2){
+              $ratimage = "images/Q.jpeg";
+            }
+            elseif ($ratio < 3){
+              $ratimage = "images/K.jpeg";
+            }
+            else{
+              $ratimage = "images/A.jpeg";
+            }
+
+
+
+            echo "
+
+            <tr>
+
+            <td style=\"width: 100px; height: 100px;\">
+            <a style=\"background-color:white\" title=\"User3\" href=$cpic class=\"cboxElement\"><img src=$cpic alt=\"User3\" width=\"100\" height=\"100\"></a></td>
+            <td class=\"span4\"><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$cfn $cln</font><br>
+            <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+            font-size: 11px; line-height: 1.28;\">32 years old</font><br>
+            <img src=$ratimage width=40px height=70px>
+            </td>
+            <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">Contact Details</font><br>
+            <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+            font-size: 11px; line-height: 1.28;\">$email</font><br>
+            <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+            font-size: 11px; line-height: 1.28;\">$contact</font><br>
+            <div class=\"dropdown pull-right\">
+            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">Options <b class=\"caret\"></b></a>
+            <ul class=\"dropdown-menu\" align=\"left\">
+            <li><a href=\"#\">Send Message</a></li>
+            <li><a href=\"#\">Unfriend</a></li>
+            </ul>
+            </li>
+            </td>
+
+
+            </tr>
+            "; ?>
+          </tbody></table>
+        </div> </div>
+
+
         <div class="row-fluid sortable ui-sortable" style="text-shadow:none;">
           <div class="box">
             <div class="box-header well" data-original-title="">
-             <h2>Profile Info</h2>
-             <div class="box-icon">
-              <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-              <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+              <?php
+              echo "<h2>$cfn's Reviews</h2>";
+              ?>
+              <div class="box-icon">
+                <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+                <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+              </div>
             </div>
-          </div>
-          <div class="box-content" style="display: block;">
-            <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
-            <table class="table table-bordered table-striped">
-              <tbody>
-<?php
-                $sql = "SELECT \"FirstName\", \"LastName\",\"EmailID\",\"ContactNumber\", \"Photograph\" from \"Users\" where \"UserID\" = '$u'";
-                  $query = pg_query($db, $sql);
-                  $row = pg_fetch_row($query);
-                  $cfn = $row[0];
-                  $cln = $row[1];
-                  $cpic = $row[4];
-                  $email = $row[2];
-                  $contact = $row[3];
-                  $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = '$u'";
-                  $query = pg_query($db, $sql);
-                  $row = pg_fetch_row($query);
-                  $uv = $row[0];
-                  $dv = $row[1];
-                  $ratio = $uv/$dv;
-                   
-                  if ($ratio < 1){
-                      $ratimage = "images/J.jpeg";
-                  }
-                  elseif ($ratio < 2){
-                      $ratimage = "images/Q.jpeg";
-                  }
-                  elseif ($ratio < 3){
-                      $ratimage = "images/K.jpeg";
-                  }
-                  else{
-                      $ratimage = "images/A.jpeg";
-                  }
-                  
-                  
-                 
-              echo "
-                
-                <tr>
-
-                  <td style=\"width: 100px; height: 100px;\">
-                    <a style=\"background-color:white\" title=\"User3\" href=$cpic class=\"cboxElement\"><img src=$cpic alt=\"User3\" width=\"100\" height=\"100\"></a></td>
-                    <td class=\"span4\"><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$cfn $cln</font><br>
-                      <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                      font-size: 11px; line-height: 1.28;\">32 years old</font><br>
-                      <img src=$ratimage width=40px height=70px>
-                    </td>
-                    <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">Contact Details</font><br>
-                      <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                      font-size: 11px; line-height: 1.28;\">$email</font><br>
-                      <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                      font-size: 11px; line-height: 1.28;\">$contact</font><br>
-                      <div class=\"dropdown pull-right\">
-                        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">Options <b class=\"caret\"></b></a>
-                        <ul class=\"dropdown-menu\" align=\"left\">
-                          <li><a href=\"#\">Send Message</a></li>
-                          <li><a href=\"#\">Unfriend</a></li>
-                        </ul>
-                      </li>
-                    </td>
-
-
-                  </tr>
-"; ?>
-</tbody></table>
-              </div> </div>
-
-
-              <div class="row-fluid sortable ui-sortable" style="text-shadow:none;">
-                <div class="box">
-                  <div class="box-header well" data-original-title="">
-                  <?php
-                  echo "<h2>$cfn's Reviews</h2>";
-                  ?>
-                   <div class="box-icon">
-                    <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-                    <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
-                  </div>
-                </div>
-                <div class="box-content" style="display: block;">
-                  <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
-                  <?php
+            <div class="box-content" style="display: block;">
+              <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
+              <?php
                    include_once("classes/develop_php_library.php"); // Include the class library
             $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
-           
+
             $sql = "SELECT * from \"Review\" where \"CustomerUserID\" = '$u' order by \"Timestamp\" desc";
             
               //echo $sql;
@@ -151,7 +151,7 @@ include_once("consnavbar.php");
             $ts = $row[5];
             $convertedTime = ($timeAgoObject -> convert_datetime($ts)); // Convert Date Time
             $time = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
-              
+
             $spid = $row[6];
             $sid = $row[1];
             $cid = $row[2];
@@ -186,7 +186,7 @@ include_once("consnavbar.php");
             $query = pg_query($db, $sql);
             $row = pg_fetch_row($query);
             $totaldown= $row[0];
-                        
+
 
             $ratio = $cu/$cd;
             
@@ -238,64 +238,64 @@ include_once("consnavbar.php");
             </tr></tbody></table>";
 
           } ?>
-                        </div>
-                            </div><!--/span-->
+        </div>
+      </div><!--/span-->
 
-                          </div>
-                          <!-- content ends -->
-                        </div>
+    </div>
+    <!-- content ends -->
+  </div>
 
-                        <div class="row-fluid sortable ui-sortable" style="text-shadow:none; float:top;">
-                          <div class="box">
-                            <div class="box-header well" data-original-title="">
-                             
-                             <?php
-                                echo "<h2>$cfn's Questions</h2>";
-                              ?>
-                  <div class="box-icon">
-                              <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-                              <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
-                            </div>
-                          </div>
-                          <div class="box-content" style="display: block;">
-                            <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
-                           <?php 
+  <div class="row-fluid sortable ui-sortable" style="text-shadow:none; float:top;">
+    <div class="box">
+      <div class="box-header well" data-original-title="">
+
+       <?php
+       echo "<h2>$cfn's Questions</h2>";
+       ?>
+       <div class="box-icon">
+        <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+        <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+      </div>
+    </div>
+    <div class="box-content" style="display: block;">
+      <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
+      <?php 
                             include_once("classes/develop_php_library.php"); // Include the class library
             $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
             
-              $sql = "SELECT * from \"Question\" where \"CustomerUserID\"= '$u'";
-      
-              $query1 = pg_query($db, $sql);
-              
-              if (!$query1) {
+            $sql = "SELECT * from \"Question\" where \"CustomerUserID\"= '$u'";
+
+            $query1 = pg_query($db, $sql);
+
+            if (!$query1) {
                 //echo "An error occurred.\n";
-               exit;
-              }
-              else {
+             exit;
+           }
+           else {
                 //echo "No Error!";
-              }
-              while ($row = pg_fetch_row($query1)) {
-                  $spid = $row[4];
-                  $qid = $row[0];
-                  $sql = "SELECT \"Description\",\"Timestamp\" from \"Question\" where \"QuestionID\"= '$qid'";
-                  $query = pg_query($db, $sql);
-                  $row = pg_fetch_row($query);
-                  $des = $row[0];
-                  $ts = $row[1];
+           }
+           while ($row = pg_fetch_row($query1)) {
+            $spid = $row[4];
+            $qid = $row[0];
+            $sql = "SELECT \"Description\",\"Timestamp\" from \"Question\" where \"QuestionID\"= '$qid'";
+            $query = pg_query($db, $sql);
+            $row = pg_fetch_row($query);
+            $des = $row[0];
+            $ts = $row[1];
                   $convertedTime = ($timeAgoObject -> convert_datetime($ts)); // Convert Date Time
                   $time = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
-              
-echo "<table class=\"bla bla table table-bordered table-striped\">
-              <tbody><tr>
+
+                  echo "<table class=\"bla bla table table-bordered table-striped\">
+                  <tbody><tr>
 
 
-                <td>
+                  <td>
 
                   <p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
-                    <i class=\"icon-question-sign\"></i>
-                    $des<br>
-                    <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 11px; line-height: 1.28;\">$time</font>
+                  <i class=\"icon-question-sign\"></i>
+                  $des<br>
+                  <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                  font-size: 11px; line-height: 1.28;\">$time</font>
 
                   </p>";
                   
@@ -305,52 +305,53 @@ echo "<table class=\"bla bla table table-bordered table-striped\">
                   $fn = $row[0];
                   $ln = $row[1];
                   $pic = $row[2];
+                  $sql = "SELECT \"Rating\" from \"ServiceProvider\" where \"UserID\" = '$spid'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $rating = $row[0];
 
                   $sql = "SELECT * from \"Answer\" where \"QuestionID\"= '$qid' order by \"Timestamp\" desc";
                   $query = pg_query($db, $sql);
                   while ($row = pg_fetch_row($query)) {
-                      $des1 = $row[2];
-                      $ts1 = $row[3];
+                    $des1 = $row[2];
+                    $ts1 = $row[3];
                       $convertedTime = ($timeAgoObject -> convert_datetime($ts1)); // Convert Date Time
                       $time1 = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
-                                   
+
                       echo "<p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
-                    <i class=\"icon-check\"></i>
-                    $des1<br>
-                    <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 11px; line-height: 1.28;\">$time1</font>
-                  </p>
-                
-                
-                  ";
+                      <i class=\"icon-check\"></i>
+                      $des1<br>
+                      <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                      font-size: 11px; line-height: 1.28;\">$time1</font>
+                      </p>
 
 
-                  } 
-                  echo"</td><td style=\"width:110px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$fn $ln</font><br>
-                  <font style=\"float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                  font-size: 12px; line-height: 1.28;\">TODO</font><br>
-                  <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                  font-size: 11px; line-height: 1.28;\">TODO</font><br>
-                  <div id=\"half\" data-score=\"3.3\" class=\"pull-right\"></div></td>
+                      ";
 
-                  <td style=\"width: 100px;\">
+
+                    } 
+                    echo"</td><td style=\"width:110px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$fn $ln</font><br>
+                   
+                    <div id=\"half\" data-score=$rating class=\"pull-right\"></div></td>
+
+                    <td style=\"width: 100px;\">
                     <a style=\"background-color:white\" title=\"User5\" href=\"images/user5.png\" class=\"cboxElement\"><img src=$pic alt=\"User5\"></a></td>";
 
-                  echo "</tr></tbody></table>";
-              } ?>
-                                <!-- </div> -->
+                    echo "</tr></tbody></table>";
+                  } ?>
+                  <!-- </div> -->
 
-                              </div>
-                            </div><!--/span-->
-                          </div>
+                </div>
+              </div><!--/span-->
+            </div>
 
 
 
-                        </div>                      
-     
-                      </div><!--/fluid-row-->
+          </div>                      
 
-                    </div><!--/.fluid-container-->
+        </div><!--/fluid-row-->
+
+      </div><!--/.fluid-container-->
 
   <!-- external javascript
   ================================================== -->
@@ -428,7 +429,7 @@ echo "<table class=\"bla bla table table-bordered table-striped\">
   <!-- to specify the rating ids -->
   <script src="js/rating.js"></script>
   
- <script src="js/liveSearch.js"></script>
+  <script src="js/liveSearch.js"></script>
 
 </body>
 </html>

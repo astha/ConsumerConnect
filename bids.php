@@ -1,8 +1,10 @@
+<!DOCTYPE html>
+
 <?php 
        include_once("checksession.php");
 
        include("connect_sql.php");
-       $lu=16;
+       $lu=$userID;
        
 
        function findDays($days)
@@ -31,95 +33,26 @@
 ?>
 
 
-<!DOCTYPE html>
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link id="bs-css" href="css/bootstrap-cerulean.css" rel="stylesheet">
 
 <title>My Bids - ConsumerConnect </title>
-<link rel="icon" type="image/png" href="favicon.ico">
-<link href="css/my.css" rel="stylesheet">
-<link href="css/bootstrap-responsive.css" rel="stylesheet">
-<link href="css/charisma-app.css" rel="stylesheet">
-<link href="css/jquery-ui-1.8.21.custom.css" rel="stylesheet">
-<link href="css/fullcalendar.css" rel="stylesheet">
-<link href="css/fullcalendar.print.css" rel="stylesheet" media="print">
-<link href="css/chosen.css" rel="stylesheet">
-<link href="css/uniform.default.css" rel="stylesheet">
-<link href="css/colorbox.css" rel="stylesheet">
-<link href="css/jquery.cleditor.css" rel="stylesheet">
-<link href="css/jquery.noty.css" rel="stylesheet">
-<link href="css/noty_theme_default.css" rel="stylesheet">
-<link href="css/elfinder.min.css" rel="stylesheet">
-<link href="css/elfinder.theme.css" rel="stylesheet">
-<link href="css/jquery.iphone.toggle.css" rel="stylesheet">
-<link href="css/opa-icons.css" rel="stylesheet">
-<link href="css/uploadify.css" rel="stylesheet">
-
-<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-<link href="css/bootstrap-responsive.css" rel="stylesheet" media="screen">
-<link href="css/bootstrap.css" rel="stylesheet" media="screen">
-
-<!-- <link href="css/reset.css" rel="stylesheet"> -->
-
-
-
-</head>
-
-<body class="">
-  <!-- topbar starts -->
-  <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-      <!-- <div class="container-fluid"> -->
-      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <div class="span3" style="min-width:278px;"><a href="index.html"><img src="./images/logo.gif" width="270px" height="40px" style="float: left;"></a></div>
-      <img class="span2">
-      <div class="nav-collapse in collapse" style="height: auto;">
-        <form class="navbar-form pull-left">
-          <input class="span4" type="text" placeholder="Find Users...">
-          <button type="submit" class="btn">Search</button>
-        </form>
-
-        <span>
-          <ul class="nav pull-right">
-           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i> Settings <b class="caret"></b></a>
-            <ul class="dropdown-menu" align="left">
-              <li><a href="#"><i class="icon-share"></i> Switch To</a></li>
-              <li><a href="#"><i class="icon-pencil"></i> Edit Profile</a></li>
-              <li class="divider"></li>
-              <li><a href="#"><i class="icon-off"></i> Sign Out</a></li>
-            </ul>
-          </li>
-        </ul>
-      </span></div>
-    </div>
-    <!-- </div> -->
-  </div>
+<?php
+     
+       include_once("consnavbar.php");
+      ?> 
+      
   <!-- topbar ends -->
   <div class="container-fluid">
     <div class="row-fluid">
 
       <!-- left menu starts -->
-      <div class="span2 main-menu-span">
-        <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; padding:0px; margin-left: 10px; height: 219px;">
-          <ul class="nav nav-tabs nav-stacked main-menu">
-            <!-- <li class="nav-header hidden-tablet">Main</li> -->
-            <li style="margin-left: -2px;"><a class="ajax-link" href="serviceprovider.html"><i class="icon-home"></i><span class="hidden-tablet"> Home</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="myreviews.html"><i class="icon-star"></i><span class="hidden-tablet"> Reviews</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="questions.html"><i class="icon-question-sign"></i><span class="hidden-tablet"> Questions</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="appointments.html"><i class="icon-calendar"></i><span class="hidden-tablet"> Appointments</span></a></li>
-            <li style="margin-left: -2px;"><a class="ajax-link" href="bids.html"><i class="icon-tag"></i><span class="hidden-tablet"> My Bids</span></a></li>
-          </ul>
-          <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
-        </div><!--/.well -->
-      </div><!--/span-->
-      <!-- left menu ends -->
+        <?php
+     
+       include_once("serveleftsidebar.php");
+      ?> 
       
 
       <div id="content" class="span8">
@@ -318,24 +251,7 @@
 
 
 
-        <div class="span2 main-menu-span">
-          <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
-            <ul class="nav nav-tabs nav-stacked main-menu">
-              <!-- <li class="nav-header hidden-tablet">Main</li> -->
-              <li class="nav-header hidden-tablet" style="padding-top:10px;">My Services</li>
-              <hr style="margin:0px;">
-              <hr style="margin:0px;">
-              <li class="nav-header hidden-tablet" style="margin-top:8px;"> Medical</li>
-              <li style="margin-left: -2px;"><a class="ajax-link" href="tutor.html"><span class="hidden-tablet"><i class="icon-play"></i> Pharmacy</span></a></li>
-              <li class="nav-header hidden-tablet" style="margin-top:8px;"> Home Tutor</li>
-              <li style="margin-left: -2px;"><a class="ajax-link" href="tutor.html"><span class="hidden-tablet"><i class="icon-play"></i> Mathematics</span></a></li>
-              <li style="margin-left: -2px;"><a class="ajax-link" href="tutor.html"><span class="hidden-tablet"><i class="icon-play"></i> Biology</span></a></li>
-              <li style="margin-left: -2px;"><a class="ajax-link" href="addservice.html"><span class="hidden-tablet"><i class="icon-plus-sign"></i> Add New Service</span></a></li>
-            </ul>
-            <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
-          </div><!--/.well -->
-        </div>
-
+        
       </div><!--/fluid-row-->
 
 

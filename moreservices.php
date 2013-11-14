@@ -151,6 +151,10 @@ include_once("consnavbar.php");
                   $content = $row1[3];
                   $rating = $row1[4];
                   $time = $row1[5];
+                  $upvotes = $row1[7];
+                  $downvotes = $row1[8];
+                  //echo $upvotes;
+                  //echo $downvotes;
                   $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '$cid'";
                   $query = pg_query($db, $sql);
                   $row1 = pg_fetch_row($query);
@@ -218,8 +222,8 @@ include_once("consnavbar.php");
                      
                         <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
 
-                     <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $cu</div>
-                     <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $cd</div><br><br>
+                     <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $upvotes</div>
+                     <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $downvotes</div><br><br>
                      <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
                    </td>
                  </tr>

@@ -2,7 +2,7 @@
 
 <?php
 
-  // $file = fopen("services.csv","r");
+   $file = fopen("../data/messages.txt","r");
    $host        = "host=localhost";
    $port        = "port=5432";
    $dbname      = "dbname=postgres";
@@ -18,38 +18,28 @@
    
    
    $i=0;
-while(!($i==10)){
-  $senderID=rand(0,58);
-  $receiverID=rand(0,58);
-  
-  $hours=rand(0,23);
+while(!($i==900)){
+  $senderID=rand(1,110);
+  $receiverID=rand(1,110);
+  if ($senderID != $receiverID){
+  $hours=rand(10,23);
   $mm=rand(1,9);
   $dd=rand(1,9);
-  $date="2013-0{$mm}-0{$dd}";
+  $yy=rand(2012,2013);
+  $date="{$yy}-0{$mm}-0{$dd}";
   $timestamp="{$hours}:00:00";
   $timestamp="{$date} {$timestamp}";
   
-  $description="Hey! I saw your ad for Math tutor. Is Ronak not doing good in studies?";
-  
+  $description=fgets($file);
+  // echo $description;
+  $k = fgets($file);
   $query="INSERT INTO \"Message\" (\"SenderCustomerUserID\",\"ReceiverCustomerUserID\", \"Content\", \"Timestamp\") VALUES ({$senderID}, {$receiverID}, '{$description}', '{$timestamp}');";
   echo $query;
   pg_query($db, $query);
 
   
-  $i=$i+1;
   
-  $hours=rand(0,23);
-  $mm=rand(1,9);
-  $dd=rand(1,9);
-  $date="2013-0{$mm}-0{$dd}";
-  $timestamp="{$hours}:00:00";
-  $timestamp="{$date} {$timestamp}";
-  
-  $description="What oil do you use for your chocolate cookies? Is it bad for heart patients?";
-  $query="INSERT INTO \"Question\" (\"QuestionID\", \"Content\", \"Timestamp\") VALUES ({$i}, '{$description}', '{$timestamp}');";
-  echo $query;
-  pg_query($db, $query);
-
+}
   
   $i=$i+1;
 }

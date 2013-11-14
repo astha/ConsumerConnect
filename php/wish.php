@@ -2,7 +2,7 @@
 
 <?php
 
-  // $file = fopen("services.csv","r");
+  $file = fopen("../data/messages.txt","r");
    $host        = "host=localhost";
    $port        = "port=5432";
    $dbname      = "dbname=postgres";
@@ -28,18 +28,18 @@ while(! ($i==500))
   $timestamp="{$hours}:00:00";
   $timestamp="{$date} {$timestamp}";
   
-  $customerID=rand(0,58);
+  $customerID=rand(0,100);
   $serviceID=rand(0,400);
   $regionID=rand(0,50);
   $maxprice=rand(200,1000);
   
   $mm=rand(1,9);
   $dd=rand(1,9);
-  $startDate="2013-0{$mm}-0{$dd}";
+  $startDate="2014-0{$mm}-0{$dd}";
   
   $mm=rand(1,9);
   $dd=rand(1,9);
-  $endDate="2013-0{$mm}-0{$dd}";
+  $endDate="2014-0{$mm}-0{$dd}";
   
   $days=str_shuffle('0011110');
   
@@ -51,8 +51,11 @@ while(! ($i==500))
   $min=rand(0,1)*30;
   $endTime="{$hours}:{$min}:00";
  
+  $description=fgets($file);
+  // echo $description;
+  $k = fgets($file);
 
-  $query="INSERT INTO \"Wish\" (\"Timestamp\", \"WishID\", \"CustomerUserID\", \"ServiceID\", \"MaximumPrice\", \"RegionID\", \"StartDate\",\"EndDate\",\"Days\",\"StartTime\",\"EndTime\") VALUES ('{$timestamp}', {$i},{$customerID}, {$serviceID},{$maxprice}, {$regionID} , '{$startDate}' , '{$endDate}', '{$days}', '{$startTime}' , '{$endTime}' );";
+  $query="INSERT INTO \"Wish\" (\"Description\" ,\"Timestamp\", \"WishID\", \"CustomerUserID\", \"ServiceID\", \"MaximumPrice\", \"RegionID\", \"StartDate\",\"EndDate\",\"Days\",\"StartTime\",\"EndTime\") VALUES ('{$description}','{$timestamp}', {$i},{$customerID}, {$serviceID},{$maxprice}, {$regionID} , '{$startDate}' , '{$endDate}', '{$days}', '{$startTime}' , '{$endTime}' );";
   echo $query;
   pg_query($db, $query);
 

@@ -131,7 +131,7 @@ include_once("consnavbar.php");
 
 
 
-                  <a style=\"background-color:white\" title=\"User1\" href=\"images/user4.png\" class=\"cboxElement\"><img src=\"images/user4.png\" alt=\"User4\" width=\"100\" height=\"100\"></a></td>
+                  <a style=\"background-color:white\" title=\"User1\" href=$cpic class=\"cboxElement\"><img src=$cpic alt=\"User4\" width=\"100\" height=\"100\"></a></td>
                   <td class=\"span4\"><font class=\"user-name\"><a href =\"consprofile.php?see=$cid\">$cfn $cln</a></font><br>
 
 
@@ -148,7 +148,7 @@ include_once("consnavbar.php");
                   font-size: 11px; line-height: 1.28;\">$type ($stype)</font></td>
 
                   <td style=\"width: 100px;\">
-                  <a style=\"background-color:white\" title=\"User3\" href=\"images/user8.png\" class=\"cboxElement\"><img src=\"images/user8.png\" alt=\"User8\" width=\"100\" height=\"100%\"></a></td></tr><tr></tr>
+                  <a style=\"background-color:white\" title=\"User3\" href=$sppic class=\"cboxElement\"><img src=$sppic alt=\"User8\" width=\"100\" height=\"100%\"></a></td></tr><tr></tr>
                   <tr><td colspan=\"4\" style=\"width: 100%;\">
 
                   <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
@@ -187,84 +187,85 @@ include_once("consnavbar.php");
               <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
               <?php
 
-              include("connect_sql.php");
-              $sql = "SELECT * from \"QandA\" where \"CustomerUserID\"= '40'";
+               include("connect_sql.php");
+               $sql = "SELECT * from \"Question\" where \"CustomerUserID\"= $lu";
 
               $query1 = pg_query($db, $sql);
               
+              echo $sql;
               if (!$query1) {
-                //echo "An error occurred.\n";
+                echo "An error occurred.\n";
                exit;
              }
              else {
                 //echo "No Error!";
              }
-             while ($row = pg_fetch_row($query1)) {
-              $spid = $row[1];
-              $qid = $row[2];
-              $sql = "SELECT \"Description\",\"Timestamp\" from \"Question\" where \"QuestionID\"= '$qid'";
-              $query = pg_query($db, $sql);
-              $row = pg_fetch_row($query);
-              $des = $row[0];
-              $ts = $row[1];
-                  $convertedTime = ($timeAgoObject -> convert_datetime($ts)); // Convert Date Time
-                  $time = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
+             //while ($row = pg_fetch_row($query1)) {
+             //  $spid = $row[4];
+             //  $qid = $row[0];
+             //  $sql = "SELECT \"Description\",\"Timestamp\" from \"Question\" where \"QuestionID\"= '$qid'";
+             //  $query = pg_query($db, $sql);
+             //  $row = pg_fetch_row($query);
+             //  $des = $row[0];
+             //  $ts = $row[1];
+             //      $convertedTime = ($timeAgoObject -> convert_datetime($ts)); // Convert Date Time
+             //      $time = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
 
 
-                  echo "<table class=\"table table-bordered table-striped\">
-                  <tbody><tr>
+             //      echo "<table class=\"table table-bordered table-striped\">
+             //      <tbody><tr>
 
 
-                  <td>
+             //      <td>
 
-                  <p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
-                  <i class=\"icon-question-sign\"></i>
-                  $des<br>
-                  <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                  font-size: 11px; line-height: 1.28;\">$time</font>
+             //      <p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
+             //      <i class=\"icon-question-sign\"></i>
+             //      $des<br>
+             //      <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+             //      font-size: 11px; line-height: 1.28;\">$time</font>
 
-                  </p>";
+             //      </p>";
                   
-                  $sql = "SELECT \"FirstName\",\"LastName\",\"Photograph\" from \"Users\" where \"UserID\"= '$spid'";
-                  $query = pg_query($db, $sql);
-                  $row = pg_fetch_row($query);
-                  $fn = $row[0];
-                  $ln = $row[1];
-                  $pic = $row[2];
+             //      $sql = "SELECT \"FirstName\",\"LastName\",\"Photograph\" from \"Users\" where \"UserID\"= '$spid'";
+             //      $query = pg_query($db, $sql);
+             //      $row = pg_fetch_row($query);
+             //      $fn = $row[0];
+             //      $ln = $row[1];
+             //      $pic = $row[2];
 
-                  $sql = "SELECT * from \"Answer\" where \"QuestionID\"= '$qid' order by \"Timestamp\" desc";
-                  $query = pg_query($db, $sql);
-                  while ($row = pg_fetch_row($query)) {
-                    $des1 = $row[2];
-                    $ts1 = $row[3];
-                      $convertedTime = ($timeAgoObject -> convert_datetime($ts1)); // Convert Date Time
-                      $time1 = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
-
-
-                      echo "<p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
-                      <i class=\"icon-check\"></i>
-                      $des1<br>
-                      <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                      font-size: 11px; line-height: 1.28;\">$time1</font>
-                      </p>
-                      </td>
-                      <td style=\"width:110px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$fn $ln</font><br>
-                      <font style=\"float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                      font-size: 12px; line-height: 1.28;\">Dinesh Pharmacy</font><br>
-                      <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                      font-size: 11px; line-height: 1.28;\">Medical (Chemist)</font><br>
-                      <div id=\"half\" data-score=\"3.3\" class=\"pull-right\"></div></td>
-
-                      <td style=\"width: 100px;\">
-                      <a style=\"background-color:white\" title=\"User5\" href=\"images/user5.png\" class=\"cboxElement\"><img src=\"images/user5.png\" alt=\"User5\"></a></td>
-
-                      ";
+             //      $sql = "SELECT * from \"Answer\" where \"QuestionID\"= '$qid' order by \"Timestamp\" desc";
+             //      $query = pg_query($db, $sql);
+             //      while ($row = pg_fetch_row($query)) {
+             //        $des1 = $row[2];
+             //        $ts1 = $row[3];
+             //          $convertedTime = ($timeAgoObject -> convert_datetime($ts1)); // Convert Date Time
+             //          $time1 = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
 
 
-                    } 
-                    echo "</tr></tbody></table>";
-                  }
-                  ?>
+             //          echo "<p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
+             //          <i class=\"icon-check\"></i>
+             //          $des1<br>
+             //          <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+             //          font-size: 11px; line-height: 1.28;\">$time1</font>
+             //          </p>
+             //          </td>
+             //          <td style=\"width:110px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$fn $ln</font><br>
+             //          <font style=\"float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+             //          font-size: 12px; line-height: 1.28;\">Dinesh Pharmacy</font><br>
+             //          <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+             //          font-size: 11px; line-height: 1.28;\">Medical (Chemist)</font><br>
+             //          <div id=\"half\" data-score=\"3.3\" class=\"pull-right\"></div></td>
+
+             //          <td style=\"width: 100px;\">
+             //          <a style=\"background-color:white\" title=\"User5\" href=\"images/user5.png\" class=\"cboxElement\"><img src=\"images/user5.png\" alt=\"User5\"></a></td>
+
+             //          ";
+
+
+             //        } 
+             //        echo "</tr></tbody></table>";
+             //      }
+             //      ?>
 
 
                   <!-- </div> -->
@@ -281,11 +282,7 @@ include_once("consnavbar.php");
 
 
 
-       <?php
-    include_once("consrightsidebar.php");
-    ?>
-
-
+     
       </div><!--/fluid-row-->
 
     </div><!--/.fluid-container-->

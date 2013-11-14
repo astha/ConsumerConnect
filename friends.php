@@ -43,11 +43,14 @@ include_once("checksession.php");
             <?php
                
               include("connect_sql.php");
-              $sql = "SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15'";
+              include 'paging.php';
+              $sql = "SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15' order by \"FollowedCustomerUserID\"";
  
+              $sql = paging_function('page',"friends.php",$sql);
+              $query1 = pg_query($db, $sql);
+              
               //echo $sql;
 
-              $query1 = pg_query($db, $sql);
               
               if (!$query1) {
                 //echo "An error occurred.\n";

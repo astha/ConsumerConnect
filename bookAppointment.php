@@ -1,7 +1,8 @@
 <?php 
+       include_once("checksession.php");
        include("connect_sql.php");
        
-       $lu=40;
+       $lu=$userID;
        $u=$_REQUEST['see'];
        $startdate=$_REQUEST["startdate"];
        $enddate=$_REQUEST["enddate"];

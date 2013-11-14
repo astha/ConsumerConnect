@@ -233,7 +233,7 @@ include_once("consnavbar.php");
 
             <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $totalup</div>
             <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $totaldown</div> <br>
-            <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
+            <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2psx;\">$content</p>
             </td>
             </tr></tbody></table>";
 
@@ -263,8 +263,8 @@ include_once("consnavbar.php");
                             include_once("classes/develop_php_library.php"); // Include the class library
             $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
             
-              $sql = "SELECT * from \"QandA\" where \"CustomerUserID\"= '$u'";
- 
+              $sql = "SELECT * from \"Question\" where \"CustomerUserID\"= '$u'";
+      
               $query1 = pg_query($db, $sql);
               
               if (!$query1) {

@@ -43,9 +43,11 @@ include_once("checksession.php");
             $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
 
             $sql = "SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15') order by \"Timestamp\" desc";
+            include 'paging.php';
             
-              //echo $sql;
-            
+            $sql = paging_function('page',"friendreviews.php",$sql);
+            $query1 = pg_query($db, $sql);
+              
             $query1 = pg_query($db, $sql);
             
             if (!$query1) {
@@ -101,8 +103,9 @@ include_once("checksession.php");
 
 
 
-            $ratio = $cu/$cd;
-            
+            if ($cd != 0) $ratio = $cu/$cd;
+            else $ratio= 0.5;
+                  
             if ($ratio < 1){
               $ratimage = "images/J.jpeg";
             }
@@ -133,7 +136,7 @@ include_once("checksession.php");
 
 
 
-            <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$spfn $spln</font><br>
+            <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href=\"serviceprovider?see=$spid\">$spfn $spln</a></font><br>
             
             <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
             font-size: 11px; line-height: 1.28;\">$type ($stype)</font></td>

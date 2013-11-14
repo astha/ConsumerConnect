@@ -2,6 +2,7 @@
 
 <?php
 include_once("checksession.php");
+$lu = $userID;
 ?>
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,9 +50,9 @@ include_once("consnavbar.php");
 
 
 
-             include 'paging.php';
-            $sql = paging_function('page',"cons.php","SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15') order by \"Timestamp\" desc");
-         $query1 = pg_query($db, $sql);
+            include 'paging.php';
+            $sql = paging_function('page',"cons.php","SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= $lu) order by \"Timestamp\" desc");
+            $query1 = pg_query($db, $sql);
 
 
 
@@ -108,7 +109,8 @@ include_once("consnavbar.php");
 
 
 
-                  $ratio = $cu/$cd;
+                  if ($cd != 0) $ratio = $cu/$cd;
+                  else $ratio= 0.5;
 
                   if ($ratio < 1){
                     $ratimage = "images/J.jpeg";
@@ -140,7 +142,7 @@ include_once("consnavbar.php");
 
 
 
-                  <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$spfn $spln</font><br>
+                  <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href=\"serviceprovider?see=$spid\">$spfn $spln</a></font><br>
                   
                   <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                   font-size: 11px; line-height: 1.28;\">$type ($stype)</font></td>

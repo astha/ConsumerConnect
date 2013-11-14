@@ -40,15 +40,15 @@ include_once("checksession.php");
            <?php
               
               include("connect_sql.php");
-               include_once("classes/develop_php_library.php"); // Include the class library
-            $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
+              include_once("classes/develop_php_library.php"); // Include the class library
+              $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
            
               $sql = "SELECT * from \"Review\" where \"CustomerUserID\"= '5' order by \"Timestamp\" desc";
  
-              //echo $sql;
-            
+              include 'paging.php';
+              $sql = paging_function('page',"myreviews.php",$sql);
               $query1 = pg_query($db, $sql);
-       
+              
               if (!$query1) {
                 //echo "An error occurred.\n";
                exit;
@@ -102,7 +102,8 @@ include_once("checksession.php");
 
 
 
-                  $ratio = $cu/$cd;
+                  if ($cd != 0) $ratio = $cu/$cd;
+                  else $ratio= 0.5;
                    
                   if ($ratio < 1){
                       $ratimage = "images/J.jpeg";
@@ -141,7 +142,7 @@ include_once("checksession.php");
 
 
 
-                <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$spfn $spln</font><br>
+                <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href=\"serviceprovider?see=$spid\">$spfn $spln</a></font><br>
                   
                   <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                   font-size: 11px; line-height: 1.28;\">$type ($stype)</font></td>

@@ -1,8 +1,9 @@
 <?php 
+       include_once("checksession.php");
        include("connect_sql.php");
        date_default_timezone_set("Asia/Kolkata"); 
 	   $timestamp=date("Y-m-d H:i:s");
-       $lu=40;
+       $lu=$userID;
        $u=$_REQUEST['see'];
        $content=$_REQUEST["content"];
 

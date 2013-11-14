@@ -1,101 +1,30 @@
+<!DOCTYPE html>
 <?php 
+       include_once("checksession.php");
+
        include("connect_sql.php");
        $u=$_REQUEST['see'];
-       $lu=40;
+       $lu=$userID;
        
 ?>
-
-
-<!DOCTYPE html>
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link id="bs-css" href="css/bootstrap-cerulean.css" rel="stylesheet">
 
 <title>Service Provider Home - ConsumerConnect </title>
-<link rel="icon" type="image/png" href="favicon.ico">
-<link href="css/my.css" rel="stylesheet">
-<link href="css/bootstrap-responsive.css" rel="stylesheet">
-<link href="css/charisma-app.css" rel="stylesheet">
-<link href="css/jquery-ui-1.8.21.custom.css" rel="stylesheet">
-<link href="css/fullcalendar.css" rel="stylesheet">
-<link href="css/fullcalendar.print.css" rel="stylesheet" media="print">
-<link href="css/chosen.css" rel="stylesheet">
-<link href="css/uniform.default.css" rel="stylesheet">
-<link href="css/colorbox.css" rel="stylesheet">
-<link href="css/jquery.cleditor.css" rel="stylesheet">
-<link href="css/jquery.noty.css" rel="stylesheet">
-<link href="css/noty_theme_default.css" rel="stylesheet">
-<link href="css/elfinder.min.css" rel="stylesheet">
-<link href="css/elfinder.theme.css" rel="stylesheet">
-<link href="css/jquery.iphone.toggle.css" rel="stylesheet">
-<link href="css/opa-icons.css" rel="stylesheet">
-<link href="css/uploadify.css" rel="stylesheet">
-
-<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-<link href="css/bootstrap-responsive.css" rel="stylesheet" media="screen">
-<link href="css/bootstrap.css" rel="stylesheet" media="screen">
-
-<!-- <link href="css/reset.css" rel="stylesheet"> -->
-
-
-
-</head>
-
-<body class="">
-  <!-- topbar starts -->
-  <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-      <!-- <div class="container-fluid"> -->
-      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <div class="span3" style="min-width:278px;"><a href="index.html"><img src="./images/logo.gif" width="270px" height="40px" style="float: left;"></a></div>
-      <img class="span2">
-      <div class="nav-collapse in collapse" style="height: auto;">
-        <form class="navbar-form pull-left">
-          <input class="span4" type="text" placeholder="Find Users...">
-          <button type="submit" class="btn">Search</button>
-        </form>
-
-        <span>
-          <ul class="nav pull-right">
-           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog"></i> Settings <b class="caret"></b></a>
-            <ul class="dropdown-menu" align="left">
-              <li><a href="#"><i class="icon-share"></i> Switch To</a></li>
-              <li><a href="#"><i class="icon-pencil"></i> Edit Profile</a></li>
-              <li class="divider"></li>
-              <li><a href="#"><i class="icon-off"></i> Sign Out</a></li>
-            </ul>
-          </li>
-        </ul>
-      </span></div>
-    </div>
-    <!-- </div> -->
-  </div>
-  <!-- topbar ends -->
+<?php
+include_once("consnavbar.php");
+?>
   <div class="container-fluid">
     <div class="row-fluid">
 
       <!-- left menu starts -->
+     
       <?php
-      echo "<div class=\"span2 main-menu-span\">
-        <div class=\"well nav-collapse sidebar-nav in collapse\" style=\"position:fixed; padding:0px; margin-left: 10px; height: 219px;\">
-          <ul class=\"nav nav-tabs nav-stacked main-menu\">
-            <!-- <li class=\"nav-header hidden-tablet\">Main</li> -->
-            <!-- <li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"serviceprovider.php\"><i class=\"icon-home\"></i><span class=\"hidden-tablet\"> Home</span></a></li> -->
-            <li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"serviceprovider.php?see=$u\"><i class=\"icon-star\"></i><span class=\"hidden-tablet\"> Reviews</span></a></li>
-            <li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"servicequestions.php?see=$u\"><i class=\"icon-question-sign\"></i><span class=\"hidden-tablet\"> Questions</span></a></li>
-            <li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"serviceappointments.php?see=$u\"><i class=\"icon-calendar\"></i><span class=\"hidden-tablet\"> Appointments</span></a></li>
-            <li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"servicebids.php?see=$u\"><i class=\"icon-tag\"></i><span class=\"hidden-tablet\"> Bids</span></a></li>
-          </ul>
-          <!-- <label id=\"for-is-ajax\" class=\"hidden-tablet\" for=\"is-ajax\"><div class=\"checker\" id=\"uniform-is-ajax\"><span><input id=\"is-ajax\" type=\"checkbox\" style=\"opacity: 0;\"></span></div> Ajax on menu</label> -->
-        </div><!--/.well -->
-      </div><!--/span-->";
-      ?>
+     
+       include_once("conssidebar.php");
+      ?> 
       <!-- left menu ends -->
       
 
@@ -229,49 +158,11 @@
       <!-- content ends -->
     </div>
 
+    <?php
+         include_once("serviceprovidersidebar.php");
+    ?>
 
-
-    <div class="span2 main-menu-span">
-      <div class="well nav-collapse sidebar-nav in collapse" style="position:fixed; margin-left: 10px; height: 219px; padding:0px">
-        <ul class="nav nav-tabs nav-stacked main-menu">
-          <!-- <li class="nav-header hidden-tablet">Main</li> -->
-          
-          <?php
-          echo"
-          <a class=\"ajax-link\" href=\"/servicequestions.php?see=$u\"><li class=\"nav-header hidden-tablet\" style=\"padding-top:10px;\">Questions</li></a>
-          <a class=\"ajax-link\" href=\"/serviceprovider.php?see=$u\"><li class=\"nav-header hidden-tablet\" style=\"padding-top:10px;\">Reviews</li></a>";
-          ?>
-          <li class="nav-header hidden-tablet" style="padding-top:10px;">My Services</li>
-          <hr style="margin:0px;">
-          <hr style="margin:0px;">
-
-          <?php 
-      
-                      $sql = "SELECT \"Service\".\"Type\" from \"Provides\",\"Service\" where \"ServiceProviderUserID\" = $u and \"Provides\".\"ServiceID\"=\"Service\".\"ServiceID\" group by \"Service\".\"Type\";";
-                      $query = pg_query($db, $sql);
-                      while ($row = pg_fetch_row($query)) {
-                        echo "<li class=\"nav-header hidden-tablet\" style=\"margin-top:8px;\">$row[0]</li>";
-
-
-                        $typesql = "SELECT \"SubType\",\"Service\".\"ServiceID\" from \"Service\",\"Provides\" where \"ServiceProviderUserID\" = $u and \"Provides\".\"ServiceID\"=\"Service\".\"ServiceID\" and \"Type\" = '". $row[0] . "';";
-                        $typequery = pg_query($db, $typesql);
-                        while ($typerow = pg_fetch_row($typequery)) {
-                          echo "<li style=\"margin-left: -2px;\"><a class=\"ajax-link\" href=\"/moreservices.php?sid=$typerow[1]&see=$u\"><span class=\"hidden-tablet\"><i class=\"icon-play\"></i><font style=\"color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                          font-size: 12px; line-height: 1.28;\">$typerow[0]</font></span></a></li>";
-                        }
-                      }
-                        
-                      
-          ?>
-
-
-          <li style="margin-left: -2px;"><a class="ajax-link" href=# data-toggle="modal" data-target="#myModal"><span class="hidden-tablet"><i class="icon-plus-sign"></i> Ask Question </span></a></li>
-
-        </ul>
-        <!-- <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><div class="checker" id="uniform-is-ajax"><span><input id="is-ajax" type="checkbox" style="opacity: 0;"></span></div> Ajax on menu</label> -->
-      </div><!--/.well -->
-    </div>
-
+    
   </div><!--/fluid-row-->
 
 
@@ -376,6 +267,8 @@
   <script src="js/charisma.js"></script>
   <!-- to specify the rating ids -->
   <script src="js/rating.js"></script>
+  <script src="js/liveSearch.js"></script>
+
   
 
 

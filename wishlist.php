@@ -74,7 +74,10 @@ include_once("consnavbar.php");
               // Query your database here and get timestamp
               $sql = "SELECT * from \"Wish\" where \"CustomerUserID\"='$lu' order by \"Timestamp\" desc";
               
-              //echo $sql;
+             include 'paging.php';
+            
+            $sql = paging_function('page',"wishlist.php",$sql);
+            
             
               $query1 = pg_query($db, $sql);
        
@@ -128,7 +131,8 @@ include_once("consnavbar.php");
                    
                   $city = $row[0];
                   $state = $row[1];
-                  $ratio = $cu/$cd;
+                  if ($cd != 0) $ratio = $cu/$cd;
+                  else $ratio= 0.5;
                    
                   if ($ratio < 1){
                       $ratimage = "images/J.jpeg";
@@ -212,7 +216,7 @@ include_once("consnavbar.php");
 
 
                 </td>
-                <td style=\"width:115px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$spfn $spln</font><br>
+                <td style=\"width:115px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href=\"serviceprovider?see=$spid\">$spfn $spln</a></font><br>
                   <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                   font-size: 11px; line-height: 1.28;\">&#8377 $bid per appt.</font>
                   <div id=\"half\" data-score=\"3.3\" class=\"pull-right\"></div>

@@ -46,7 +46,7 @@ function paging_function($field, $thispage, $countsql){
 
            for (; $i<=$end_page; $i++) {  
             if ($i == $show_page){
-              $pagLink .= "<li class=\"active\"><a href=cons.php?page=".$i.">".$i."</a></li>";  
+              $pagLink .= "<li class=\"active\"><a href=$thispage?$field=".$i.">".$i."</a></li>";  
 
             }
             else {

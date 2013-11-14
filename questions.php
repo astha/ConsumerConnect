@@ -107,7 +107,7 @@ echo "<table class=\"table table-bordered table-striped\">
                     font-size: 11px; line-height: 1.28;\">$time1</font>
                   </p>
                 </td>
-                <td style=\"width:110px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$fn $ln</font><br>
+                <td style=\"width:110px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href=\"serviceprovider?see=$spid\">$fn $ln</a></font><br>
                   <div id=\"half\" data-score=\"$rat\" class=\"pull-right\"></div></td>
 
                   <td style=\"width: 100px;\">

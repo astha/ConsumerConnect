@@ -46,19 +46,9 @@
                 include_once("classes/develop_php_library.php"); // Include the class library
                 $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
                 $sql = "SELECT DISTINCT \"ReceiverCustomerUserID\" from \"Message\" where \"SenderCustomerUserID\"='$lu'";
-
-
-                //echo $sql;
-
                 $query1 = pg_query($db, $sql);
-
-                if (!$query1) {
-                  //echo "An error occurred.\n";
-                  exit;
-                }
-                else {
-                  //echo "No Error!";
-                }
+              
+               
                 
                 while ($row = pg_fetch_row($query1)) {
                   $rec = $row[0];

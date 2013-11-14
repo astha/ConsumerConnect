@@ -58,6 +58,8 @@ $lu = $userID;
            else {
                 //echo "No Error!";
            }
+            $idup=-1;
+            $iddown=-1;
            
            while ($row = pg_fetch_row($query1)) {
             $content = $row[3];
@@ -93,11 +95,15 @@ $lu = $userID;
             $row = pg_fetch_row($query);
             $cu= $row[0];
             $cd = $row[1];
-               $sql = "SELECT \"UpVotes\", \"DownVotes\" from \"Review\" where \"ReviewID\"=$rid and \"CustomerUserID\"='$cid'";
-                  $query = pg_query($db, $sql);
-                  $row = pg_fetch_row($query);
-                  $totalup= $row[0];
-                  $totaldown= $row[1];
+            $sql = "SELECT count(*) from \"Vote\" where \"ReviewID\"=$rid and \"CustomerUserID\"=$cid and \"TypeOfVote\"=1";
+            $query = pg_query($db, $sql);
+            $row = pg_fetch_row($query);
+            $totalup= $row[0];
+            $sql = "SELECT count(*) from \"Vote\" where \"ReviewID\"=$rid and \"CustomerUserID\"=$cid and \"TypeOfVote\"=-1";
+            $query = pg_query($db, $sql);
+            $row = pg_fetch_row($query);
+            $totaldown= $row[0];
+
 
 
             if ($cd != 0) $ratio = $cu/$cd;
@@ -115,6 +121,8 @@ $lu = $userID;
             else{
               $ratimage = "images/A.jpeg";
             }
+            $idup=$idup+1;
+            $iddown=$iddown+1;
             echo "<table class=\"table table-bordered table-striped\">
             <tbody><tr>
             
@@ -144,8 +152,10 @@ $lu = $userID;
             
             <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
 
-            <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $totalup</div>
-            <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $totaldown</div><br>
+           <div class=\"btn btn-success enabled vbtn\" onclick=\"dochangeup($cid,$rid,$idup);\"><i class=\"icon-thumbs-up\"></i><font name=\"up\"> $totalup</font></div>
+
+                  
+           <div class=\"btn btn-danger enabled vbtn\" onclick=\"dochangedown($cid,$rid,$iddown);\"><i class=\"icon-thumbs-down\"></i> <font name=\"down\">$totaldown</font></div>
             <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
             </td>
             </tr></tbody></table>";
@@ -274,7 +284,47 @@ $lu = $userID;
   <script src="js/rating.js"></script>
   <script src="js/liveSearch.js"></script>
   
-  
+  <script type="text/javascript">
+function Inint_AJAX() {
+   try { return new ActiveXObject("Msxml2.XMLHTTP");  } catch(e) {} //IE
+   try { return new ActiveXObject("Microsoft.XMLHTTP"); } catch(e) {} //IE
+   try { return new XMLHttpRequest();          } catch(e) {} //Native Javascript
+   alert("XMLHttpRequest not supported");
+   return null;
+};
+
+function dochangeup(custID,rid,idup) {
+     var req = Inint_AJAX();
+     req.onreadystatechange = function () { 
+          if (req.readyState==4) {
+               if (req.status==200) {
+                   
+                    document.getElementsByName('up')[idup].innerHTML=req.responseText; //retuen value
+               } 
+          }
+     };
+     req.open("GET", "cumVotes.php?cid="+custID+"&val=up"+"&rid="+rid); //make connection
+     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=iso-8859-1"); // set Header
+     req.send(null); //send value
+}
+
+
+function dochangedown(custID,rid,iddown) {
+     var req = Inint_AJAX();
+     req.onreadystatechange = function () { 
+          if (req.readyState==4) {
+               if (req.status==200) {
+                    document.getElementsByName('down')[iddown].innerHTML=req.responseText; //retuen value
+               } 
+          }
+     };
+     req.open("GET", "cumVotes.php?cid="+custID+"&val=down"+"&rid="+rid);  //make connection
+     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=iso-8859-1"); // set Header
+     req.send(null); //send value
+}
+
+//window.onLoad=dochange('states', -1);         // value in first dropdown
+</script>
 
 
 

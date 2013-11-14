@@ -44,8 +44,8 @@ $lu = $userID;
               include_once("classes/develop_php_library.php"); // Include the class library
               $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
            
-              $sql = "SELECT * from \"Review\" where \"CustomerUserID\"= $lu order by \"Timestamp\" desc";
- 
+             // $sql = "SELECT * from \"Review\" where \"CustomerUserID\"= $lu order by \"Timestamp\" desc";
+ /*
               include 'paging.php';
               $sql = paging_function('page',"myreviews.php",$sql);
               $query1 = pg_query($db, $sql);
@@ -57,7 +57,17 @@ $lu = $userID;
               else {
                 //echo "No Error!";
               }
-             
+   */          
+
+            $sql = "DECLARE refcurs SCROLL CURSOR FOR SELECT * from \"Review\" where \"CustomerUserID\"= $lu order by \"Timestamp\" desc;FETCH FORWARD 10 FROM refcurs;";
+            $query1=pg_query($db, $sql);
+           if (!$query1) {
+              echo "An error occurred.\n";
+              exit;
+            }
+            else {
+              //echo "No Error!";
+            }
               while ($row = pg_fetch_row($query1)) {
                   $content = $row[3];
                   $rating = $row[4];

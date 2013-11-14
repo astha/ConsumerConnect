@@ -5,7 +5,7 @@ include_once("checksession.php");
 ?>
 <?php 
        
-       $lu=49;
+       $lu=$userID;
 
        function findDays($days)
         {
@@ -154,13 +154,13 @@ include_once("consnavbar.php");
 
 
 
-                <a style=\"background-color:white\" title=\"User4\" href=\"images/user4.png\" class=\"cboxElement\"><img src=\"images/user4.png\" alt=\"User4\" width=\"100\" height=\"100\"></a></td>
+                <a style=\"background-color:white\" title=\"User4\" href=$cpic class=\"cboxElement\"><img src=$cpic alt=\"User4\" width=\"100\" height=\"100\"></a></td>
                 <td class=\"span4\"><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href =\"index.php\">$cfn $cln</a></font><br>
 
 
                   <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                   font-size: 11px; line-height: 1.28;\">$time</font><br>
-                  <img src=\"images/Q.jpeg\" width=40px height=70px>
+                  <img src=$ratimage width=40px height=70px>
                 </td>
 
 
@@ -225,7 +225,7 @@ include_once("consnavbar.php");
                 </td>
 
                 <td style=\"width: 100px;\">
-                  <a style=\"background-color:white\" title=\"User5\" href=\"images/user5.png\" class=\"cboxElement\"><img src=\"images/user5.png\" alt=\"User5\"></a></td>
+                  <a style=\"background-color:white\" title=\"User5\" href=$sppic class=\"cboxElement\"><img src=$sppic alt=\"User5\"></a></td>
 
                 </tr>";
  
@@ -376,9 +376,6 @@ include_once("consnavbar.php");
 
 
 
-       <?php
-    include_once("consrightsidebar.php");
-    ?>
 
 </div><!--/fluid-row-->
 

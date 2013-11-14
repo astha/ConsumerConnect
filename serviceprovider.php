@@ -113,7 +113,7 @@ include_once("consnavbar.php");
 
 
                 <a style=\"background-color:white\" title=\"User1\" href=\"$cpic\" class=\"cboxElement\"><img src=\"$cpic\" alt=\"User4\" width=\"100\" height=\"100\"></a></td>
-                <td class=\"span4\"><font class=\"user-name\">$cfn $cln</font><br>
+                <td class=\"span4\"><font class=\"user-name\"><a href=\"consprofile.php?see=$cid\">$cfn $cln</a></font><br>
 
 
                   <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
@@ -123,7 +123,7 @@ include_once("consnavbar.php");
 
 
 
-                <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$spfn $spln</font><br>
+                <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href=\"serviceprovider?see=$spid\">$spfn $spln</a></font><br>
                   
                   <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                   font-size: 11px; line-height: 1.28;\">$type ($stype)</font></td>

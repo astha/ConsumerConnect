@@ -2,6 +2,7 @@
 
 <?php
 include_once("checksession.php");
+$lu = $userID;
 ?>
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,7 +47,7 @@ include_once("consnavbar.php");
               include_once("classes/develop_php_library.php"); // Include the class library
             $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
             
-              $sql = "SELECT * from \"QandA\" where \"CustomerUserID\"= '40'";
+              $sql = "SELECT * from \"Question\" where \"CustomerUserID\"= $lu";
  
               $query1 = pg_query($db, $sql);
               
@@ -58,8 +59,8 @@ include_once("consnavbar.php");
                 //echo "No Error!";
               }
               while ($row = pg_fetch_row($query1)) {
-                  $spid = $row[1];
-                  $qid = $row[2];
+                  $spid = $row[4];
+                  $qid = $row[0];
                   $sql = "SELECT \"Description\",\"Timestamp\" from \"Question\" where \"QuestionID\"= '$qid'";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
@@ -111,7 +112,7 @@ echo "<table class=\"table table-bordered table-striped\">
                   <div id=\"half\" data-score=\"$rat\" class=\"pull-right\"></div></td>
 
                   <td style=\"width: 100px;\">
-                    <a style=\"background-color:white\" title=\"User5\" href=\"images/user5.png\" class=\"cboxElement\"><img src=\"images/user5.png\" alt=\"User5\"></a></td>
+                    <a style=\"background-color:white\" title=\"User5\" href=$pic class=\"cboxElement\"><img src=$pic alt=\"User5\"></a></td>
 
                   ";
 
@@ -136,9 +137,6 @@ echo "<table class=\"table table-bordered table-striped\">
 
 
    
-       <?php
-    include_once("consrightsidebar.php");
-    ?>
   </div><!--/fluid-row-->
 
 

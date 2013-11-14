@@ -1,7 +1,8 @@
 <?php
 
+    include_once("checksession.php");
 
-    $lu=40;
+    $lu=$userID;
      //set IE read from page only not read from cache
      header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
      header ("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");

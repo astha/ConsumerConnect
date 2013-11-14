@@ -2,6 +2,7 @@
 
 <?php
 include_once("checksession.php");
+$lu = $userID;
 ?>
 
 <html lang="en"><head>
@@ -42,7 +43,7 @@ include_once("checksession.php");
              include_once("classes/develop_php_library.php"); // Include the class library
             $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
 
-            $sql = "SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= '15') order by \"Timestamp\" desc";
+            $sql = "SELECT * from \"Review\" where \"CustomerUserID\" in (SELECT \"FollowedCustomerUserID\" from \"Follows\" where \"FollowerCustomerUserID\"= $lu) order by \"Timestamp\" desc";
             include 'paging.php';
             
             $sql = paging_function('page',"friendreviews.php",$sql);
@@ -125,7 +126,7 @@ include_once("checksession.php");
 
 
 
-            <a style=\"background-color:white\" title=\"User1\" href=\"images/user4.png\" class=\"cboxElement\"><img src=\"images/user4.png\" alt=\"User4\" width=\"100\" height=\"100\"></a></td>
+            <a style=\"background-color:white\" title=\"User1\" href=$cpic class=\"cboxElement\"><img src=$cpic alt=\"User4\" width=\"100\" height=\"100\"></a></td>
             <td class=\"span4\"><font class=\"user-name\"><a href =\"consprofile.php?see=$cid\">$cfn $cln</a></font><br>
 
 
@@ -142,7 +143,7 @@ include_once("checksession.php");
             font-size: 11px; line-height: 1.28;\">$type ($stype)</font></td>
 
             <td style=\"width: 100px;\">
-            <a style=\"background-color:white\" title=\"User3\" href=\"images/user8.png\" class=\"cboxElement\"><img src=\"images/user8.png\" alt=\"User8\" width=\"100\" height=\"100%\"></a></td></tr><tr></tr>
+            <a style=\"background-color:white\" title=\"User3\" href=$sppic class=\"cboxElement\"><img src=$sppic alt=\"User8\" width=\"100\" height=\"100%\"></a></td></tr><tr></tr>
             <tr><td colspan=\"4\" style=\"width: 100%;\">
             
             <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
@@ -173,9 +174,7 @@ include_once("checksession.php");
 
 
   
-       <?php
-    include_once("consrightsidebar.php");
-    ?>
+  
 </div><!--/fluid-row-->
 
 

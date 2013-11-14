@@ -6,7 +6,7 @@ include_once("checksession.php");
 
 <?php 
 include("connect_sql.php");
-$lu=40; 
+$lu=$userID; 
 ?>
 
 
@@ -289,9 +289,7 @@ function dochange() {
 							</div>
 						</div>
 						
-       <?php
-    include_once("consrightsidebar.php");
-    ?>
+     
 					</div>
 
 					<div id="createEventModal" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">

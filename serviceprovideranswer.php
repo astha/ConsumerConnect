@@ -3,7 +3,6 @@
 <?php 
         include_once("checksession.php");
        include("connect_sql.php");
-       $u=$_REQUEST['see'];
        $lu=$userID;
        
 ?>
@@ -49,7 +48,7 @@ include_once("consnavbar.php");
                 <?php
                
               //include("connect_sql.php");
-              $sql = "SELECT * from \"Question\" where \"ServiceProviderUserID\"= '$u'";
+              $sql = "SELECT * from \"Question\" where \"ServiceProviderUserID\"= '$lu'";
  
               $query1 = pg_query($db, $sql);
               
@@ -107,10 +106,15 @@ echo "<table class=\"table table-bordered table-striped\">
                         $des1<br>
                         <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                         font-size: 11px; line-height: 1.28;\">$time1</font>
-                      </p>
+                      </p>";
                       
-                
-                    </td>";
+                      echo "<form action=\"addanswer.php\">
+                      <input type=\"hidden\" name=\"qid\" value=$qid>
+                      <textarea name=\"content\" class=\"autogrow span8\" style=\"height:40px;\" placeholder=\"Add answer\"></textarea>
+                      <button type=\"submit\" class=\"btn\">Send</button>
+                      </form>
+                      </tr>
+                      </tbody></table>";
 
 
 
@@ -139,27 +143,6 @@ echo "<table class=\"table table-bordered table-striped\">
   </div><!--/fluid-row-->
 
 
-
-
-
-
-
-  <div class="modal hide fade" id="myModal" style="display: none;">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬&nbsp;ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â</button>
-      <h3>Ask Question</h3>
-    </div>
-    <div class="modal-body">
-      <?php echo "<form action=\"askQuestion.php\"> 
-          <input type=\"text\" name=\"content\" placeholder=\"Ask question to this Service Provider\"><br>
-          <input type=\"hidden\" name=\"see\" value=\"$u\">
-          <input type=\"submit\" value=\"Submit\">
-          </form>"; ?>
-    </div>
-    <div class="modal-footer">
-      <a href="#" class="btn" data-dismiss="modal">Close</a>
-    </div>
-  </div>
 
 
 

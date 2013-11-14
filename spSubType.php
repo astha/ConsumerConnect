@@ -40,7 +40,7 @@
 
 <link id="bs-css" href="css/bootstrap-cerulean.css" rel="stylesheet">
 
-<title>Service Provider Home - ConsumerConnect </title>
+<title>Service Search Results - ConsumerConnect </title>
 <?php
 include_once("consnavbar.php");
 ?>

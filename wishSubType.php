@@ -40,7 +40,7 @@ $subtypeReq=$_REQUEST['subtype'];
 
 <link id="bs-css" href="css/bootstrap-cerulean.css" rel="stylesheet">
 
-<title>Service Provider Home - ConsumerConnect </title>
+<title>Wish Search Results - ConsumerConnect </title>
 <?php
 include_once("consnavbar.php");
 ?>
@@ -64,7 +64,7 @@ include_once("consnavbar.php");
       <div class="row-fluid sortable ui-sortable" style="text-shadow:none;">
         <div class="box">
           <div class="box-header well" data-original-title="">
-           <h2>Service Providers</h2>
+           <h2>Wishing Customers</h2>
            <div class="box-icon">
             <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
             <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
@@ -76,83 +76,141 @@ include_once("consnavbar.php");
           
           <?php 
           
-          $sql = "SELECT \"ServiceID\" from \"Service\" where \"Type\" ='".$typeReq."' and \"SubType\" ='".$subtypeReq."';";
-          $query = pg_query($db, $sql);
-          while ($row = pg_fetch_row($query)) {
-            $sqlprov = "SELECT * from \"Provides\" where \"ServiceID\" =". $row[0] . ";";
-                        //echo $sqlprov;
-            $queryprov = pg_query($db, $sqlprov);
-            while ($rowprov = pg_fetch_row($queryprov)) {
+        
 
-              $typesql = "SELECT \"Type\", \"SubType\" from \"Service\" where \"ServiceID\" = ". $row[0] . ";";
-              $typequery = pg_query($db, $typesql);
-              $type=pg_fetch_row($typequery);
+              //include("connect_sql.php");
+               $sql = "Select \"ServiceID\" from \"Service\"  where \"Type\" ='".$typeReq."' and \"SubType\" ='".$subtypeReq."'";
+              // $sql;
+            
+              $query1 = pg_query($db, $sql);
+              $s = pg_fetch_row($query1);
+              $sid = $s[0];
+               $sql = "SELECT * from \"Wish\" where \"ServiceID\"=$sid";
+ 
+              // echo $sql;
+            
+              $query = pg_query($db, $sql);
+       // /////
+       //        if (!$query) {
+       //          echo "An error occurred.\n";
+       //         // exit;
+       //        }
+       //        else {
+       //          echo "No Error!";
+       //        }
+             
+              while ($row = pg_fetch_row($query)) {
+                  
+                  // $query = pg_query($db, $sql);
+                  // $row = pg_fetch_row($query);
+                  $cid = $row[1];
+                  $des = $row[2];
+                  $price = $row[3];
+                  $startdate = $row[4];
+                  $enddate = $row[5];
+                  $days= $row[6];
+                  $daystr=findDays($days);
+                  $starttime= $row[7];
+                  $endtime= $row[8];
+                  $sid = $row[9];
+                  $rid = $row[10];
+                  $timestamp = $row[11];
 
-              $regionsql = "SELECT \"CityName\", \"StateName\" from \"Location\" where \"RegionID\" = ". $rowprov[2] . ";";
-              $regionquery = pg_query($db, $regionsql);
-              $region=pg_fetch_row($regionquery);
 
-              $namesql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = ". $rowprov[0] . ";";
-              $namequery = pg_query($db, $namesql);
-              $name=pg_fetch_row($namequery);
-              if($name[2]==""){
-                $name[2]='./people/basic.png';
-              }
+                   $sql = "SELECT \"Type\", \"SubType\" from \"Service\" where \"ServiceID\" = '$sid'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $type = $row[0];
+                  $stype = $row[1];
 
-              $result=findDays($rowprov[3]);
-              echo "<table class=\"table table-bordered table-striped\">
+                   $sql = "SELECT \"CityName\", \"StateName\" from \"Location\" where \"RegionID\" = '$rid'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $city= $row[0];
+                  $state = $row[1];
+
+                  $sql = "SELECT * from \"Users\" where \"UserID\" = '$cid'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $cname =$row[3]." ".$row[4];
+                  $cphoto=$row[6];
+
+                  $sql = "SELECT * from \"Users\" where \"UserID\" = '$lu'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $servname =$row[3]." ".$row[4];
+                  $servphoto=$row[6];
+
+                  $sql = "SELECT * from \"ServiceProvider\" where \"UserID\" = '$lu'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $rating =$row[2];                  
+
+
+                  $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = '$cid'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $cu= $row[0];
+                  $cd = $row[1];
+                  $ratio = $cu/$cd;
+                   
+                  if ($ratio < 1){
+                      $ratimage = "images/J.jpeg";
+                  }
+                  elseif ($ratio < 2){
+                      $ratimage = "images/Q.jpeg";
+                  }
+                  elseif ($ratio < 3){
+                      $ratimage = "images/K.jpeg";
+                  }
+                  else{
+                      $ratimage = "images/A.jpeg";
+                  }
+
+                  echo "
+                  
+                  <table class=\"table table-bordered table-striped\" style=\" margin-bottom:2px\"> 
               <tbody><tr>
-
-              
-              <td style=\"width: 100px;\">
-              <a style=\"background-color:white\" href=\"$name[2]\" class=\"cboxElement\"><img src=\"$name[2]\" width=\"100\" height=\"100\"></a>
-              </td>
-
-              <td class=\"span5\">
-              <a href=\"serviceprovider.php?see=$rowprov[0]\"><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$name[0] $name[1]</font></a><br>
-              <font style=\"color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;font-size: 12px; line-height: 1.28;\">$rowprov[6]</font><br>
-              <a href=\"spType.php?type=$type[0]&see=$u\"><font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-              font-size: 11px; line-height: 1.28;\">
-
-              $type[0]</font></a> <a href=\"/spSubType.php?type=$type[0]&subtype=$type[1]&see=$u\">
-              <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-              font-size: 11px; line-height: 1.28;\"> ($type[1])</a></font>
+                <td style=\"width: 100px; height: 100px;\">
 
 
 
-              
-
-              
-
-              <br><font style=\"color:  #006600; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-              font-size: 12px; line-height: 1.28;\">$region[0],$region[1]</font>
-
-              
-              </td>
-              <td>
-              <font style=\" font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-              font-size: 12px; line-height: 1.28;\">$result
-              <br>$rowprov[4] - $rowprov[5]
-              <br><font style=\"font-weight: bold; color: #660066;\">Price </font>$rowprov[7] per appointment
-              <br><font style=\"font-weight: bold; color: #660066;\">Discount </font>$rowprov[8]%</font></td>
+                  <a style=\"background-color:white\"  href=\"$cphoto\" class=\"cboxElement\"><img src=\"$cphoto\" width=\"100\" height=\"100\"></a></td>
+                  <td class=\"span4\"><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$cname</font><br>
 
 
-              
+                    <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                    font-size: 11px; line-height: 1.28;\">$timestamp</font><br>
+                    <img src=\"$ratimage\" width=40px height=70px>
+                  </td>
 
-              
-              
-              </tr>
-              <tr>
-              <td colspan=3>
-              
-              <br>$rowprov[9]
-              
-              </td>
-              </tr>
-              </tbody></table>";
-            }
 
-          }
+
+                  <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$stype</font><br>
+                    <font style=\"float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                    font-size: 12px; line-height: 1.28;\">$type</font><br>
+                    <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                    font-size: 11px; line-height: 1.28;\">$city, $state</font><br>
+                    <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                    font-size: 11px; line-height: 1.28;\">$daystr</font><br>
+                    <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                    font-size: 11px; line-height: 1.28;\">$starttime-$endtime</font><br>
+                    <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                    font-size: 11px; line-height: 1.28;\">Rs. $price per appointment</font></td>
+
+                  </tr>
+                  <tr><td colspan=\"4\" style=\"width: 100%;\">
+                    <br>
+                    <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\"> $des<br>
+                    </p>
+                  </td>
+                </tr>
+              </table>
+             ";
+
+                 }
+                  //$sql = "SELECT \"Review\".\"ReviewID\", sum(\"TypeOfVote\") from \"Review\",\"Vote\" where \"Review\".\"ReviewID\"=\"Vote\".\"ReviewID\" and \"Review\".\"CustomerUserID\"= \"Vote\".\"CustomerUserID\" and \"Review\".\"CustomerUserID\"=53 group by \"Review\".\"ReviewID\";
+     
           ?>
 
           

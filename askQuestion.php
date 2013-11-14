@@ -10,20 +10,10 @@
        
 
 
-       $sql = "INSERT INTO \"Question\" (\"Description\", \"Timestamp\") Values ('".$content."', '".$timestamp."');";
+       $sql = "INSERT INTO \"Question\" (\"Description\", \"Timestamp\", \"CustomerUserID\", \"ServiceProviderUserID\") Values ('".$content."', '".$timestamp."',".$lu.", ".$u.");";
        $query = pg_query($db, $sql);
 
-       $sql = "SELECT \"QuestionID\" from  \"Question\" where \"Timestamp\" = '".$timestamp."';";
-       $query = pg_query($db, $sql);
-       while ($row = pg_fetch_row($query)) {
-       	$qid=$row[0];
-       }
-       //echo $sql;
-
-       $sql = "INSERT INTO \"QandA\" (\"CustomerUserID\", \"ServiceProviderUserID\", \"QuestionID\") Values (".$lu.", ".$u.", ".$qid.");";
-       $query = pg_query($db, $sql);
-       //echo $sql;
-
+       
        header("Location:servicequestions.php?see=$u");
 	   die();
        

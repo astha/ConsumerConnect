@@ -4546,7 +4546,7 @@ COPY "Users" ("UserID", "LoginID", "Password", "FirstName", "LastName", "EmailID
 92	lalitesh	73G8cEJC25	Lalitesh	Mistry	lalitesh@gmail.com	people/men/42.jpg	28420-84331
 93	lohit	C6XTcw92	Lohit	Sengupta	lohit@gmail.com	people/men/43.jpg	44089-41469
 94	lokesh	90dyEJ67	Lokesh	Lobo	lokesh@gmail.com	people/men/44.jpg	51436-82977
-95	lord shiva	X2VTbc80	Lord Shiva	Chauhan	lord shiva@gmail.com	people/men/45.jpg	21207-37264
+95	lordshiva	X2VTbc80	Shiva	Chauhan	lordshiva@gmail.com	people/men/45.jpg	21207-37264
 96	madhujit	59U4kSLJ87	Madhujit	Chavan	madhujit@rediffmail.com	people/men/46.jpg	63310-12069
 97	madhusudhana	68V2kCZR03	Madhusudhana	Rangarajan	madhusudhana@gmail.com	people/men/47.jpg	15877-37853
 98	mahaddev	BP44EWa3j	Mahaddev	Gupta	mahaddev@gmail.com	people/men/48.jpg	90601-23308

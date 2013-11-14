@@ -17,9 +17,11 @@ include_once("consnavbar.php");
     <div class="row-fluid">
 
       <!-- left menu starts -->
-      <?php
-    include_once("conssidebar.php");
-    ?>
+     <?php
+     
+       include_once("serveleftsidebar.php");
+      ?> 
+      
       <!-- left menu ends -->
       
 
@@ -199,7 +201,8 @@ include_once("consnavbar.php");
   <!-- to specify the rating ids -->
   <script src="js/rating.js"></script>
 
-  
+   <script src="js/liveSearch.js"></script>
+
 
 
 

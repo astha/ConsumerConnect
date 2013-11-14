@@ -13,7 +13,7 @@ class convertToAgo {
 
     function makeAgo($timestamp){
 	
-   		$difference = time() - $timestamp;
+   		$difference = time()+19800 - $timestamp;
    		$periods = array("sec", "min", "hr", "day", "week", "month", "year", "decade");
    		$lengths = array("60","60","24","7","4.35","12","10");
    		for($j = 0; $difference >= $lengths[$j]; $j++)

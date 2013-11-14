@@ -49,7 +49,7 @@ include_once("consnavbar.php");
                 <?php
                
               //include("connect_sql.php");
-              $sql = "SELECT * from \"QandA\" where \"ServiceProviderUserID\"= '$u'";
+              $sql = "SELECT * from \"Question\" where \"ServiceProviderUserID\"= '$u'";
  
               $query1 = pg_query($db, $sql);
               
@@ -61,8 +61,8 @@ include_once("consnavbar.php");
                 //echo "No Error!";
               }
               while ($row = pg_fetch_row($query1)) {
-                  $cid = $row[0];
-                  $qid = $row[2];
+                  $cid = $row[3];
+                  $qid = $row[0];
                   $sql = "SELECT \"Description\",\"Timestamp\" from \"Question\" where \"QuestionID\"= '$qid'";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);

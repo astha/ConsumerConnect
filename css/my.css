@@ -38,10 +38,14 @@ a.gallerypic:hover span.zoom-icon{
 }
 
 #results{
+    display:block;
+    background-color: #ffffff;
+    opacity: 0.8;
     list-style-type: none;
     font-weight:bold;
-    padding-top:5px;
-    padding-bottom:5px;
+    margin-left: 0px;
+    /*padding-top:5px;*/
+    /*padding-bottom:5px;*/
     text-align: left;
   }
 }

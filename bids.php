@@ -1,3 +1,36 @@
+<?php 
+       include_once("checksession.php");
+
+       include("connect_sql.php");
+       $lu=16;
+       
+
+       function findDays($days)
+        {
+
+        $result="";
+        if($days[0]=='1'){
+          $result=$result. "Mon ";
+          
+        }
+        if($days[1]=='1')
+          $result=$result."Tue ";
+        if($days[2]=='1')
+          $result=$result."Wed ";
+        if($days[3]=='1')
+          $result=$result. "Thu ";
+        if($days[4]=='1')
+          $result=$result."Fri ";
+        if($days[5]=='1')
+          $result=$result."Sat ";
+        if($days[6]=='1')
+          $result=$result."Sun ";
+
+        return $result;
+      }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -105,80 +138,175 @@
           </div>
           <div class="box-content" style="display: block;">
             <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
-            <table class="table table-bordered table-striped" style=" margin-bottom:2px"> 
+            <?php
+
+              //include("connect_sql.php");
+              $sql = "SELECT * from \"Bids\" where \"ServiceProviderUserID\" = $lu";
+ 
+              //echo $sql;
+            
+              $query1 = pg_query($db, $sql);
+       
+              if (!$query1) {
+                //echo "An error occurred.\n";
+               exit;
+              }
+              else {
+                //echo "No Error!";
+              }
+             
+              while ($row = pg_fetch_row($query1)) {
+                  $wid = $row[1];
+                  $cid = $row[2];
+                  $bidvalue = $row[3];
+                  $details = $row[4];
+                  
+                  $sql = "SELECT * from \"Wish\" where \"WishID\" = '$wid'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $cid = $row[1];
+                  $des = $row[2];
+                  $price = $row[3];
+                  $startdate = $row[4];
+                  $enddate = $row[5];
+                  $days= $row[6];
+                  $daystr=findDays($days);
+                  $starttime= $row[7];
+                  $endtime= $row[8];
+                  $sid = $row[9];
+                  $rid = $row[10];
+                  $timestamp = $row[11];
+
+
+                   $sql = "SELECT \"Type\", \"SubType\" from \"Service\" where \"ServiceID\" = '$sid'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $type = $row[0];
+                  $stype = $row[1];
+
+                   $sql = "SELECT \"CityName\", \"StateName\" from \"Location\" where \"RegionID\" = '$rid'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $city= $row[0];
+                  $state = $row[1];
+
+                  $sql = "SELECT * from \"Users\" where \"UserID\" = '$cid'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $cname =$row[3]." ".$row[4];
+                  $cphoto=$row[6];
+
+                  $sql = "SELECT * from \"Users\" where \"UserID\" = '$lu'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $servname =$row[3]." ".$row[4];
+                  $servphoto=$row[6];
+
+                  $sql = "SELECT * from \"ServiceProvider\" where \"UserID\" = '$lu'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $rating =$row[2];                  
+
+
+                  $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = '$cid'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $cu= $row[0];
+                  $cd = $row[1];
+                  $ratio = $cu/$cd;
+                   
+                  if ($ratio < 1){
+                      $ratimage = "images/J.jpeg";
+                  }
+                  elseif ($ratio < 2){
+                      $ratimage = "images/Q.jpeg";
+                  }
+                  elseif ($ratio < 3){
+                      $ratimage = "images/K.jpeg";
+                  }
+                  else{
+                      $ratimage = "images/A.jpeg";
+                  }
+
+                  echo "
+                  
+                  <table class=\"table table-bordered table-striped\" style=\" margin-bottom:2px\"> 
               <tbody><tr>
-                <td style="width: 100px; height: 100px;">
+                <td style=\"width: 100px; height: 100px;\">
 
 
 
-                  <a style="background-color:white" title="User4" href="images/user4.png" class="cboxElement"><img src="images/user4.png" alt="User4" width="100" height="100"></a></td>
-                  <td class="span4"><font style="color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">Rashmi Sharma</font><br>
+                  <a style=\"background-color:white\"  href=\"$cphoto\" class=\"cboxElement\"><img src=\"$cphoto\" width=\"100\" height=\"100\"></a></td>
+                  <td class=\"span4\"><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$cname</font><br>
 
 
-                    <font style="color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 11px; line-height: 1.28;">5 days ago</font><br>
-                    <img src="images/Q.jpeg" width=40px height=70px>
+                    <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                    font-size: 11px; line-height: 1.28;\">$timestamp</font><br>
+                    <img src=\"$ratimage\" width=40px height=70px>
                   </td>
 
 
 
-                  <td class="span4"><font style="float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">Home Tutor</font><br>
-                    <font style="float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 12px; line-height: 1.28;">Mathematics</font><br>
-                    <font style="float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 11px; line-height: 1.28;">Jaipur, Rajasthan</font><br>
-                    <font style="float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 11px; line-height: 1.28;">3-4 PM Everyday</font><br>
-                    <font style="float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 11px; line-height: 1.28;">No Maximum Price</font></td>
+                  <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$stype</font><br>
+                    <font style=\"float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                    font-size: 12px; line-height: 1.28;\">$type</font><br>
+                    <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                    font-size: 11px; line-height: 1.28;\">$city, $state</font><br>
+                    <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                    font-size: 11px; line-height: 1.28;\">$daystr</font><br>
+                    <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                    font-size: 11px; line-height: 1.28;\">$starttime-$endtime</font><br>
+                    <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                    font-size: 11px; line-height: 1.28;\">Rs. $price per appointment</font></td>
 
                   </tr>
-                  <tr><td colspan="4" style="width: 100%;">
+                  <tr><td colspan=\"4\" style=\"width: 100%;\">
                     <br>
-                    <p style="float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;"> I urgently need a tutor for my 10 year old son, who needs help with his Grade 5 Mathematics. Anyone willing can put a bid over here, and I will contact you accordingly. The selection of tutor will be solely based on his/her skills and sufficient salary would be provided as long as results are satisfactory. Please provide some details while putting a bid.<br>
+                    <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\"> $des<br>
                     </p>
                   </td>
                 </tr>
               </table>
-              <table class="table table-bordered">
+              <table class=\"table table-bordered\">
                 <tbody><tr>
 
 
-                  <!-- <td class="span4"></td> -->
+                  <!-- <td class=\"span4\"></td> -->
                   <td>
 
-                    <p style="color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">
-                      <i class="icon-tag"></i>
-                      Ma'am I would like to offer my services to you. I completed Mathematics major from Patiala University. I am free right now, for around two months, I would like if I could meet you and your son in person.<br>
-                      <font style="color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                      font-size: 11px; line-height: 1.28;">2 days ago</font>
-                      <div class="btn btn-danger pull-right enabled vbtn"><i class="icon-trash"></i> Remove Bid</div>
+                    <p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
+                      <i class=\"icon-tag\"></i>
+                      $details<br>
+        
+                      <a href=\"removebid.php?wid=$wid&cid=$cid&spid=$lu\"><div class=\"btn btn-danger pull-right enabled vbtn\"><i class=\"icon-trash\"></i> Remove Bid</div></a>
 
                     </p>
 
 
 
                   </td>
-                  <td style="width:115px;"><font style="float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;">Dinesh Shah</font><br>
-                    <font style="float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 11px; line-height: 1.28;">&#8377 400 per appt.</font>
+                  <td style=\"width:115px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$servname</font><br>
+                    <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                    font-size: 11px; line-height: 1.28;\">&#8377 $bidvalue per appt.</font>
                     <br>
-                    <div id="half" data-score="3.3" class="pull-right"></div>
+                     <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
                     
                     
                   </td>
 
-                  <td style="width: 100px;">
-                    <a style="background-color:white" title="User5" href="images/user5.png" class="cboxElement"><img src="images/user5.png" alt="User5"></a></td>
+                  <td style=\"width: 100px;\">
+                    <a style=\"background-color:white\"  href=\"$servphoto\" class=\"cboxElement\"><img src=\"$servphoto\" ></a></td>
 
                   </tr>
 
-                </tr></tbody></table>
+                </tr></tbody></table>";
 
+                 }
+                  //$sql = "SELECT \"Review\".\"ReviewID\", sum(\"TypeOfVote\") from \"Review\",\"Vote\" where \"Review\".\"ReviewID\"=\"Vote\".\"ReviewID\" and \"Review\".\"CustomerUserID\"= \"Vote\".\"CustomerUserID\" and \"Review\".\"CustomerUserID\"=53 group by \"Review\".\"ReviewID\";
+        ?>
+         <!-- </div> -->
 
-                <!-- </div> -->
-
-              </div>
+                 </div>
             </div><!--/span-->
 
           </div>

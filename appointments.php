@@ -6,7 +6,7 @@ include_once("checksession.php");
 
 <?php 
 include("connect_sql.php");
-$lu=40; 
+$lu=$userID; 
 ?>
 
 
@@ -213,7 +213,7 @@ function dochange() {
 } 
 }
 };
-     req.open("GET", "loadCalendar.php?data"); //make connection
+   <?php echo" req.open(\"GET\", \"loadCalendar.php?user=$lu\");"; ?> //make connection
      req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=iso-8859-1"); // set Header
      req.send(null); //send value
  }

@@ -3,8 +3,7 @@
        include("connect_sql.php");
        
        $lu=$userID;
-       $startdate=$_REQUEST["startdate"];
-       $enddate=$_REQUEST["enddate"];
+       
        $starttime=$_REQUEST["starttime"];
        $endtime=$_REQUEST["endtime"];
 
@@ -15,9 +14,8 @@
        $price=$_REQUEST["price"];
        $description=$_REQUEST["description"];
 
-       date_default_timezone_set("Asia/Kolkata"); 
-       $timestamp=date("Y-m-d H:i:s");
-       
+       $discount=$_REQUEST["discount"];
+       $sname=$_REQUEST["sname"];
 
        // echo $starttime;
        // echo $endtime;
@@ -72,14 +70,14 @@
 
       //echo $sql;
        
-       $sql = "INSERT INTO \"Wish\" (\"RegionID\",\"ServiceID\", \"CustomerUserID\",\"MaximumPrice\", \"Days\", \"StartDate\", \"EndDate\", \"StartTime\", \"EndTime\", \"Description\", \"Timestamp\") Values (".$rid.",".$sid.",".$lu.",".$price.",'".$daystring."','".$startdate."','".$enddate."','".$starttime."','".$endtime."','".$description."','".$timestamp."');";
+       $sql = "INSERT INTO \"Provides\" (\"RegionID\",\"ServiceID\", \"ServiceProviderUserID\",\"Price\", \"Days\", \"StartTime\", \"EndTime\", \"Description\", \"Discount\", \"Name\") Values (".$rid.",".$sid.",".$lu.",".$price.",'".$daystring."','".$starttime."','".$endtime."','".$description."','".$discount."','".$sname."');";
        $query = pg_query($db, $sql);
 
        //echo $sql;
 
      
 
-     header("Location:wishlist.php");
-	 die();
+     header("Location:addservice.php");
+       die();
        
 ?>

@@ -2,9 +2,6 @@
 
 <?php
 include_once("checksession.php");
-?>
-
-<?php 
 include("connect_sql.php");
 $lu=$userID; 
 ?>

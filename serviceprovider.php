@@ -46,149 +46,38 @@ include_once("consnavbar.php");
             <tbody><tr>
               <td style="width: 100px;">
                 <?php
+
                 $sql = "SELECT \"FirstName\",\"LastName\",\"Photograph\" from \"Users\" where \"UserID\"= '$u'";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
                   $fn = $row[0];
                   $ln = $row[1];
                   $pic = $row[2];
-                  if($pic=="")$pic="./people/basic.png";
-                  echo " <a style=\"background-color:white\" href=\"$pic\" class=\"cboxElement\"><img src=\"$pic\"></a></td>
- <td class=\"span4\"><font class=\"user-name\"><a href=\"consprofile.php?see=$cid\">$fn $ln</a></font><br>
- <div id=\"half\" data-score=\"$rat\" class=\"pull-right\"></div></td>";
- echo "<td><a href=$webpage><font style=\"float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                    font-size: 12px; line-height: 1.28;\">$webpage</font></a><br>";
+
+                   $sql = "SELECT \"Rating\", \"Webpage\" from \"ServiceProvider\" where \"UserID\"= '$u'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $rating = $row[0];
+                  $webpage = $row[1];
+                  echo $rat;
+                if($pic=="")$pic="./people/basic.png";
+                echo " <a style=\"background-color:white\" href=\"$pic\" class=\"cboxElement\"><img src=\"$pic\"></a></td>
+                <td class=\"span4\"><font class=\"user-name\"><a href=\"consprofile.php?see=$cid\">$fn $ln</a></font><br>
+                <div id=\"half\" data-score=$rating class=\"pull-left\"></div></td>";
+                echo "<td><a href=http://$webpage><font style=\"float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                font-size: 12px; line-height: 1.28;\">$webpage</font></a><br>";
 
                 ?>
-              
-                      
-                    <div class="dropdown pull-right">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Options <b class="caret"></b></a>
-                      <ul class="dropdown-menu" align="left">
-                        <li><a href="#">Switch To</a></li>
-                        <li><a href="#">Book an Appointment</li>
-                      </ul>
-                    </div></td>
-                  </tr></tbody></table>
-
-                </div>
-              </div><!--/span-->
-
-            </div>
 
 
-
-            <div class="row-fluid sortable ui-sortable" style="text-shadow:none;">
-              <div class="box">
-                <div class="box-header well" data-original-title="">
-                 <h2>Customers' Reviews</h2>
-                 <div class="box-icon">
-                  <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-                  <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
-                </div>
-              </div>
-              <div class="box-content" style="display: block;">
-                <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
-                <?php
-
-              //include("connect_sql.php");
-                $sql = "SELECT * from \"Review\" where \"ServiceProviderUserID\" = $u order by \"Timestamp\" desc";
-
-              //echo $sql;
-
-                $query1 = pg_query($db, $sql);
-
-                if (!$query1) {
-                //echo "An error occurred.\n";
-                 exit;
-               }
-               else {
-                //echo "No Error!";
-               }
-
-               while ($row = pg_fetch_row($query1)) {
-                $sid = $row[1];
-                $cid = $row[2];
-                $content = $row[3];
-                $rating = $row[4];
-                $time = $row[5];
-                $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '$cid'";
-                $query = pg_query($db, $sql);
-                $row = pg_fetch_row($query);
-                $cfn = $row[0];
-                $cln = $row[1];
-                $cpic = $row[2];
-                if($cpic=="")$cpic="./people/basic.png";
-                $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '$u'";
-                $query = pg_query($db, $sql);
-                $row = pg_fetch_row($query);
-                $spfn = $row[0];
-                $spln = $row[1];
-                $sppic = $row[2];
-                if($sppic=="")$sppic="./people/basic.png";
-                $sql = "SELECT \"Type\", \"SubType\" from \"Service\" where \"ServiceID\" = '$sid'";
-                $query = pg_query($db, $sql);
-                $row = pg_fetch_row($query);
-                $type = $row[0];
-                $stype = $row[1];
-                $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = '$cid'";
-                $query = pg_query($db, $sql);
-                $row = pg_fetch_row($query);
-                $cu= $row[0];
-                $cd = $row[1];
-                $ratio = $cu/$cd;
-
-                if ($ratio < 1){
-                  $ratimage = "images/J.jpeg";
-                }
-                elseif ($ratio < 2){
-                  $ratimage = "images/Q.jpeg";
-                }
-                elseif ($ratio < 3){
-                  $ratimage = "images/K.jpeg";
-                }
-                else{
-                  $ratimage = "images/A.jpeg";
-                }
-                echo "<table class=\"table table-bordered table-striped\">
-                <tbody><tr>
-
-                <td style=\"width: 100px; height: 100px;\">
-
-
-
-                <a style=\"background-color:white\" title=\"User1\" href=\"$cpic\" class=\"cboxElement\"><img src=\"$cpic\" alt=\"User4\" width=\"100\" height=\"100\"></a></td>
-                <td class=\"span4\"><font class=\"user-name\"><a href=\"consprofile.php?see=$cid\">$cfn $cln</a></font><br>
-
-
-                <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                font-size: 11px; line-height: 1.28;\">$time</font><br>
-                <img src=$ratimage width=40px height=70px>
-                </td>
-
-
-
-                <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href=\"serviceprovider?see=$spid\">$spfn $spln</a></font><br>
-
-                <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                font-size: 11px; line-height: 1.28;\">$type ($stype)</font></td>
-
-                <td style=\"width: 100px;\">
-                <a style=\"background-color:white\" title=\"User3\" href=\"$sppic\" class=\"cboxElement\"><img src=\"$sppic\" alt=\"User8\" width=\"100\" height=\"100%\"></a></td></tr><tr></tr>
-                <tr><td colspan=\"4\" style=\"width: 100%;\">
-
-                <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
-
-                <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $cu</div>
-                <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $cd</div><br><br>
-                <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
-                </td>
-                </tr></tbody></table>";
-
-              }
-                  //$sql = "SELECT \"Review\".\"ReviewID\", sum(\"TypeOfVote\") from \"Review\",\"Vote\" where \"Review\".\"ReviewID\"=\"Vote\".\"ReviewID\" and \"Review\".\"CustomerUserID\"= \"Vote\".\"CustomerUserID\" and \"Review\".\"CustomerUserID\"=53 group by \"Review\".\"ReviewID\";
-              ?>
-              <!-- </div> -->
+                <div class="dropdown pull-right">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Options <b class="caret"></b></a>
+                  <ul class="dropdown-menu" align="left">
+                    <li><a href="#">Switch To</a></li>
+                    <li><a href="#">Book an Appointment</li>
+                  </ul>
+                </div></td>
+              </tr></tbody></table>
 
             </div>
           </div><!--/span-->
@@ -197,45 +86,169 @@ include_once("consnavbar.php");
 
 
 
+        <div class="row-fluid sortable ui-sortable" style="text-shadow:none;">
+          <div class="box">
+            <div class="box-header well" data-original-title="">
+             <h2>Customers' Reviews</h2>
+             <div class="box-icon">
+              <a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+              <a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+            </div>
+          </div>
+          <div class="box-content" style="display: block;">
+            <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
+            <?php
+
+
+              include_once("classes/develop_php_library.php"); // Include the class library
+            $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
+            
+            $sql = "SELECT * from \"Review\" where \"ServiceProviderUserID\" = $u order by \"Timestamp\" desc";
+
+              //echo $sql;
+            
+            $query1 = pg_query($db, $sql);
+
+            if (!$query1) {
+                //echo "An error occurred.\n";
+             exit;
+           }
+           else {
+                //echo "No Error!";
+           }
+
+           while ($row = pg_fetch_row($query1)) {
+            $sid = $row[1];
+            $cid = $row[2];
+            $content = $row[3];
+            $rating = $row[4];
+                  //$time = $row[5];
+
+            $ts = $row[5];
+                  //$ts = "2010-01-30 20:19:18";
+                   $convertedTime = ($timeAgoObject -> convert_datetime($ts)); // Convert Date Time
+                  $time = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
+
+                  $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '$cid'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $cfn = $row[0];
+                  $cln = $row[1];
+                  $cpic = $row[2];
+                  if($cpic=="")$cpic="./people/basic.png";
+                  $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '$u'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $spfn = $row[0];
+                  $spln = $row[1];
+                  $sppic = $row[2];
+                  if($sppic=="")$sppic="./people/basic.png";
+                  $sql = "SELECT \"Type\", \"SubType\" from \"Service\" where \"ServiceID\" = '$sid'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $type = $row[0];
+                  $stype = $row[1];
+                  $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = '$cid'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $cu= $row[0];
+                  $cd = $row[1];
+                  $ratio = $cu/$cd;
+
+                  if ($ratio < 1){
+                    $ratimage = "images/J.jpeg";
+                  }
+                  elseif ($ratio < 2){
+                    $ratimage = "images/Q.jpeg";
+                  }
+                  elseif ($ratio < 3){
+                    $ratimage = "images/K.jpeg";
+                  }
+                  else{
+                    $ratimage = "images/A.jpeg";
+                  }
+                  echo "<table class=\"table table-bordered table-striped\">
+                  <tbody><tr>
+
+                  <td style=\"width: 100px; height: 100px;\">
 
 
 
-        <!-- content ends -->
+                  <a style=\"background-color:white\" title=\"User1\" href=\"$cpic\" class=\"cboxElement\"><img src=\"$cpic\" alt=\"User4\" width=\"100\" height=\"100\"></a></td>
+                  <td class=\"span4\"><font class=\"user-name\"><a href=\"consprofile.php?see=$cid\">$cfn $cln</a></font><br>
+
+
+                  <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                  font-size: 11px; line-height: 1.28;\">$time</font><br>
+                  <img src=$ratimage width=40px height=70px>
+                  </td>
+
+
+
+                  <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href=\"serviceprovider?see=$spid\">$spfn $spln</a></font><br>
+                  
+                  <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                  font-size: 11px; line-height: 1.28;\">$type ($stype)</font></td>
+
+                  <td style=\"width: 100px;\">
+                  <a style=\"background-color:white\" title=\"User3\" href=\"$sppic\" class=\"cboxElement\"><img src=\"$sppic\" alt=\"User8\" width=\"100\" height=\"100%\"></a></td></tr><tr></tr>
+                  <tr><td colspan=\"4\" style=\"width: 100%;\">
+
+                  <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
+
+                  <div class=\"btn btn-success enabled vbtn\"><i class=\"icon-thumbs-up\"></i> $cu</div>
+                  <div class=\"btn btn-danger enabled vbtn\"><i class=\"icon-thumbs-down\"></i> $cd</div><br><br>
+                  <p style=\"float: left; color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif; padding-top:2px;\">$content</p>
+                  </td>
+                  </tr></tbody></table>";
+
+                }
+                  //$sql = "SELECT \"Review\".\"ReviewID\", sum(\"TypeOfVote\") from \"Review\",\"Vote\" where \"Review\".\"ReviewID\"=\"Vote\".\"ReviewID\" and \"Review\".\"CustomerUserID\"= \"Vote\".\"CustomerUserID\" and \"Review\".\"CustomerUserID\"=53 group by \"Review\".\"ReviewID\";
+                ?>
+                <!-- </div> -->
+
+              </div>
+            </div><!--/span-->
+
+          </div>
+
+
+          <!-- content ends -->
+        </div>
+
+        <?php
+        include_once("serviceprovidersidebar.php");
+        ?>
+
+
+      </div><!--/fluid-row-->
+
+
+
+
+
+
+
+      <div class="modal hide fade" id="myModal" style="display: none;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬&nbsp;ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â</button>
+          <h3>Settings</h3>
+        </div>
+        <div class="modal-body">
+          <?php echo "<form action=\"askQuestion.php\"> 
+          <input type=\"text\" name=\"content\" placeholder=\"Ask question to this Service Provider\"><br>
+          <input type=\"hidden\" name=\"see\" value=\"$u\">
+          <input type=\"submit\" value=\"Submit\">
+        </form>"; ?>
       </div>
-
-      <?php
-      include_once("serviceprovidersidebar.php");
-      ?>
-
-
-    </div><!--/fluid-row-->
-
-
-
-
-
-
-
-    <div class="modal hide fade" id="myModal" style="display: none;">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬&nbsp;ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â</button>
-        <h3>Settings</h3>
+      <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
       </div>
-      <div class="modal-body">
-        <?php echo "<form action=\"askQuestion.php\"> 
-        <input type=\"text\" name=\"content\" placeholder=\"Ask question to this Service Provider\"><br>
-        <input type=\"hidden\" name=\"see\" value=\"$u\">
-        <input type=\"submit\" value=\"Submit\">
-      </form>"; ?>
     </div>
-    <div class="modal-footer">
-      <a href="#" class="btn" data-dismiss="modal">Close</a>
-    </div>
-  </div>
 
 
 
-</div><!--/.fluid-container-->
+  </div><!--/.fluid-container-->
 
   <!-- external javascript
   ================================================== -->

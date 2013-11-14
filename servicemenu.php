@@ -199,6 +199,7 @@ include_once("consnavbar.php");
   <!-- to specify the rating ids -->
   <script src="js/rating.js"></script>
 
+  <script src="js/liveSearch.js"></script>
   
 
 

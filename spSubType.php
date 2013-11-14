@@ -28,7 +28,7 @@
         return $result;
       }
        $u=$_REQUEST['see'];
-       $lu=40;
+       $lu=$userID;
        $typeReq=$_REQUEST['type'];
        $subtypeReq=$_REQUEST['subtype'];
        
@@ -278,6 +278,7 @@ include_once("consnavbar.php");
   <script src="js/charisma.js"></script>
   <!-- to specify the rating ids -->
   <script src="js/rating.js"></script>
+  <script src="js/liveSearch.js"></script>
   
 
 

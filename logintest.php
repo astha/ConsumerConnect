@@ -1,6 +1,7 @@
 <?php
 
 include("connect_sql.php");
+
 $u = $_POST['login'];
 //$e = $_POST['email'];
 $p = $_POST['password'];
@@ -22,15 +23,17 @@ if (!$query) {
 
 while ($row = pg_fetch_row($query)) {
 	//echo "Author: $row[0]  E-mail: $row[1]";
+
+	$lu=$row[0];
 	echo "<br />\n";
 }
 
 if ($num == "1") {
 	
 	$expire=time()+60*60*24;
-	setcookie("userID", $u, $expire);
+	setcookie("userID", $lu, $expire);
 	session_start();
-	$_SESSION['userID']=$u;
+	$_SESSION['userID']=$lu;
 	session_write_close(); 
 	header("Location: cons.php");
 	die();

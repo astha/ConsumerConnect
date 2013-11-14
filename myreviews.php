@@ -2,6 +2,7 @@
 
 <?php
 include_once("checksession.php");
+$lu = $userID;
 ?>
 
 <html lang="en"><head>
@@ -43,7 +44,7 @@ include_once("checksession.php");
               include_once("classes/develop_php_library.php"); // Include the class library
               $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
            
-              $sql = "SELECT * from \"Review\" where \"CustomerUserID\"= '5' order by \"Timestamp\" desc";
+              $sql = "SELECT * from \"Review\" where \"CustomerUserID\"= $lu order by \"Timestamp\" desc";
  
               include 'paging.php';
               $sql = paging_function('page',"myreviews.php",$sql);
@@ -68,7 +69,7 @@ include_once("checksession.php");
                   $spid = $row[6];
                   $sid = $row[1];
                   $rid = $row[0];
-                  $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '5'";
+                  $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = $lu";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
                   $cfn = $row[0];
@@ -86,16 +87,16 @@ include_once("checksession.php");
                   $type = $row[0];
                   $stype = $row[1];
                   
-                  $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = '5'";
+                  $sql = "SELECT \"CumulativeUpVotes\", \"CumulativeDownVotes\" from \"Customer\" where \"UserID\" = $lu";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
                   $cu= $row[0];
                   $cd = $row[1];
-                  $sql = "SELECT count(*) from \"Vote\" where \"ReviewID\"=$rid and \"CustomerUserID\"='5'and \"TypeOfVote\"=1";
+                  $sql = "SELECT count(*) from \"Vote\" where \"ReviewID\"=$rid and \"CustomerUserID\"=$lu and \"TypeOfVote\"=1";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
                   $totalup= $row[0];
-                  $sql = "SELECT count(*) from \"Vote\" where \"ReviewID\"=$rid and \"CustomerUserID\"='5' and \"TypeOfVote\"=-1";
+                  $sql = "SELECT count(*) from \"Vote\" where \"ReviewID\"=$rid and \"CustomerUserID\"=$lu and \"TypeOfVote\"=-1";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
                   $totaldown= $row[0];

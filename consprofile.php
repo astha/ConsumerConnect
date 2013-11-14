@@ -87,7 +87,7 @@ include_once("consnavbar.php");
                 <tr>
 
                   <td style=\"width: 100px; height: 100px;\">
-                    <a style=\"background-color:white\" title=\"User3\" href=\"images/user3.png\" class=\"cboxElement\"><img src=\"images/user3.png\" alt=\"User3\" width=\"100\" height=\"100\"></a></td>
+                    <a style=\"background-color:white\" title=\"User3\" href=$cpic class=\"cboxElement\"><img src=$cpic alt=\"User3\" width=\"100\" height=\"100\"></a></td>
                     <td class=\"span4\"><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$cfn $cln</font><br>
                       <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                       font-size: 11px; line-height: 1.28;\">32 years old</font><br>
@@ -209,7 +209,7 @@ include_once("consnavbar.php");
 
 
 
-            <a style=\"background-color:white\" title=\"User1\" href=\"images/user4.png\" class=\"cboxElement\"><img src=\"images/user4.png\" alt=\"User4\" width=\"100\" height=\"100\"></a></td>
+            <a style=\"background-color:white\" title=\"User1\" href=$cpic class=\"cboxElement\"><img src=$cpic alt=\"User4\" width=\"100\" height=\"100\"></a></td>
             <td class=\"span4\"><font class=\"user-name\">$cfn $cln</font><br>
 
 
@@ -220,13 +220,13 @@ include_once("consnavbar.php");
 
 
 
-            <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$spfn $spln</font><br>
+            <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href=\"serviceprovider?see=$spid\">$spfn $spln</a></font><br>
             
             <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
             font-size: 11px; line-height: 1.28;\">$type ($stype)</font></td>
 
             <td style=\"width: 100px;\">
-            <a style=\"background-color:white\" title=\"User3\" href=\"images/user8.png\" class=\"cboxElement\"><img src=\"images/user8.png\" alt=\"User8\" width=\"100\" height=\"100%\"></a></td></tr><tr></tr>
+            <a style=\"background-color:white\" title=\"User3\" href=$sppic class=\"cboxElement\"><img src=$sppic alt=\"User8\" width=\"100\" height=\"100%\"></a></td></tr><tr></tr>
             <tr><td colspan=\"4\" style=\"width: 100%;\">
             
             <div id=\"fixed\" data-score=\"$rating\" class=\"pull-right\"></div>
@@ -275,8 +275,8 @@ include_once("consnavbar.php");
                 //echo "No Error!";
               }
               while ($row = pg_fetch_row($query1)) {
-                  $spid = $row[1];
-                  $qid = $row[2];
+                  $spid = $row[4];
+                  $qid = $row[0];
                   $sql = "SELECT \"Description\",\"Timestamp\" from \"Question\" where \"QuestionID\"= '$qid'";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);
@@ -329,7 +329,7 @@ echo "<table class=\"table table-bordered table-striped\">
                   <div id=\"half\" data-score=\"3.3\" class=\"pull-right\"></div></td>
 
                   <td style=\"width: 100px;\">
-                    <a style=\"background-color:white\" title=\"User5\" href=\"images/user5.png\" class=\"cboxElement\"><img src=\"images/user5.png\" alt=\"User5\"></a></td>
+                    <a style=\"background-color:white\" title=\"User5\" href=\"images/user5.png\" class=\"cboxElement\"><img src=$pic alt=\"User5\"></a></td>
 
                   ";
 
@@ -349,10 +349,7 @@ echo "<table class=\"table table-bordered table-striped\">
 
 
                       
-       <?php
-    include_once("consrightsidebar.php");
-    ?>
-
+     
                       </div><!--/fluid-row-->
 
 

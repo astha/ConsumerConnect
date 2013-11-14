@@ -4,7 +4,7 @@
       include_once("checksession.php");
 
        include("connect_sql.php");
-       $lu=45;
+       $lu=$userID;
 ?>
 
 

@@ -89,6 +89,10 @@ echo "<table class=\"table table-bordered table-striped\">
                   $fn = $row[0];
                   $ln = $row[1];
                   $pic = $row[2];
+                  $sql = "SELECT \"Rating\" from \"ServiceProvider\" where \"UserID\"= '$spid'";
+                  $query = pg_query($db, $sql);
+                  $row = pg_fetch_row($query);
+                  $rating = $row[0];
 
                   $sql = "SELECT * from \"Answer\" where \"QuestionID\"= '$qid' order by \"Timestamp\" desc";
                   $query = pg_query($db, $sql);
@@ -97,30 +101,27 @@ echo "<table class=\"table table-bordered table-striped\">
                       $ts1 = $row[3];
                       $convertedTime = ($timeAgoObject -> convert_datetime($ts1)); // Convert Date Time
                       $time1 = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
-                      $sql = "Select Avg(\"Rating\") from \"Review\" where \"ServiceProviderUserID\" = $spid";
-                      $query = pg_query($db, $sql);
-                      $row = pg_fetch_row($query);
-                      $rat = $row[0];
-                      echo "<p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
+                       echo "<p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
                     <i class=\"icon-check\"></i>
                     $des1<br>
                     <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                     font-size: 11px; line-height: 1.28;\">$time1</font>
                   </p>
-                </td>
-                <td style=\"width:110px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href=\"serviceprovider?see=$spid\">$fn $ln</a></font><br>
-                  <div id=\"half\" data-score=\"$rat\" class=\"pull-right\"></div></td>
-
-                  <td style=\"width: 100px;\">
-                    <a style=\"background-color:white\" title=\"User5\" href=$pic class=\"cboxElement\"><img src=$pic alt=\"User5\"></a></td>
-
+                
+                
                   ";
 
 
                   } 
+                  echo"</td><td style=\"width:110px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href =\"consprofile.php?see=$spid\">$fn $ln</a></font><br>
+                 
+                  <div id=\"half\" data-score=$rating class=\"pull-right\"></div></td>
+
+                  <td style=\"width: 100px;\">
+                    <a style=\"background-color:white\" title=\"User5\" href=\"images/user5.png\" class=\"cboxElement\"><img src=$pic alt=\"User5\"></a></td>";
+
                   echo "</tr></tbody></table>";
-              }
-            ?>
+              } ?>
 
             
                     <!-- </div> -->

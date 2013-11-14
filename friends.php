@@ -100,8 +100,7 @@ $lu = $userID;
                   <td style=\"width: 100px; height: 100px;\">
                     <a style=\"background-color:white\" title=\"User3\" href=$cpic class=\"cboxElement\"><img src=$cpic alt=\"User3\" width=\"100\" height=\"100\"></a></td>
                     <td class=\"span4\"><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href =\"consprofile.php?see=$followed\">$cfn $cln</a></font><br>
-                      <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                      font-size: 11px; line-height: 1.28;\">32 years old</font><br>
+                      
                       <img src=$ratimage width=40px height=70px>
                     </td>
                     <td class=\"span4\"><font style=\"float:right; color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">Contact Details</font><br>
@@ -137,9 +136,6 @@ $lu = $userID;
 
 
 
-       <?php
-    include_once("consrightsidebar.php");
-    ?>
 
           </div><!--/fluid-row-->
 

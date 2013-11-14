@@ -46,7 +46,10 @@ include_once("consnavbar.php");
             <!-- <div class="thumbnail" style="background-color: rgba(252, 247, 247, 0.68);/* opacity: 0.6; */"> -->
             <?php
 
-              //include("connect_sql.php");
+              include("connect_sql.php");
+              include_once("classes/develop_php_library.php"); // Include the class library
+            $timeAgoObject = new convertToAgo; // Create an object for the time conversion functions
+            
               $sql = "SELECT * from \"Review\" where \"ServiceProviderUserID\" = $u order by \"Timestamp\" desc";
  
               //echo $sql;
@@ -66,7 +69,13 @@ include_once("consnavbar.php");
                   $cid = $row[2];
                   $content = $row[3];
                   $rating = $row[4];
-                  $time = $row[5];
+                  //$time = $row[5];
+
+                   $ts = $row[5];
+                  //$ts = "2010-01-30 20:19:18";
+                   $convertedTime = ($timeAgoObject -> convert_datetime($ts)); // Convert Date Time
+                  $time = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
+
                   $sql = "SELECT \"FirstName\", \"LastName\", \"Photograph\" from \"Users\" where \"UserID\" = '$cid'";
                   $query = pg_query($db, $sql);
                   $row = pg_fetch_row($query);

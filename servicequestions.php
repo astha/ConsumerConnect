@@ -82,7 +82,7 @@ echo "<table class=\"table table-bordered table-striped\">
                       <a style=\"background-color:white\" href=\"$pic\" class=\"cboxElement\"><img src=\"$pic\"></a></td>
 
 
-                      <td><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$fn $ln</font><br><br>
+                      <td><font style=\"color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\"><a href =\"consprofile.php?see=$cid\">$fn $ln</a></font><br><br>
 
 
                        <p style=\"color: #333; font-size: 13px;line-height: 1.38; font-weight: normal; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">
@@ -107,17 +107,16 @@ echo "<table class=\"table table-bordered table-striped\">
                         $des1<br>
                         <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                         font-size: 11px; line-height: 1.28;\">$time1</font>
-                      </p>
+                      </p>";
                       
-                      <textarea class=\"autogrow span11\" style=\"height: 60px; float: left;\" placeholder=\"Add an answer\"></textarea>
-                      <input type=\"submit\" name=\"submit\" value=\"Add\" class=\"btn\" style=\"float:left;\">
-                    </td>";
+                      
 
 
 
 
                   } 
-                  echo "</tr></tbody></table>";
+                  echo "  
+                    </td></tr></tbody></table>";
               }
             ?>
 

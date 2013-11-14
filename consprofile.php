@@ -285,7 +285,7 @@ include_once("consnavbar.php");
                   $convertedTime = ($timeAgoObject -> convert_datetime($ts)); // Convert Date Time
                   $time = ($timeAgoObject -> makeAgo($convertedTime)); // Then convert to ago time
               
-echo "<table class=\"table table-bordered table-striped\">
+echo "<table class=\"bla bla table table-bordered table-striped\">
               <tbody><tr>
 
 
@@ -320,21 +320,22 @@ echo "<table class=\"table table-bordered table-striped\">
                     <font style=\"color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
                     font-size: 11px; line-height: 1.28;\">$time1</font>
                   </p>
-                </td>
-                <td style=\"width:110px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$fn $ln</font><br>
-                  <font style=\"float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                  font-size: 12px; line-height: 1.28;\">Dinesh Pharmacy</font><br>
-                  <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
-                  font-size: 11px; line-height: 1.28;\">Medical (Chemist)</font><br>
-                  <div id=\"half\" data-score=\"3.3\" class=\"pull-right\"></div></td>
-
-                  <td style=\"width: 100px;\">
-                    <a style=\"background-color:white\" title=\"User5\" href=\"images/user5.png\" class=\"cboxElement\"><img src=$pic alt=\"User5\"></a></td>
-
+                
+                
                   ";
 
 
                   } 
+                  echo"</td><td style=\"width:110px;\"><font style=\"float:right;color: #3b5998; font-weight: bold; font-size: 13px; line-height: 1.38; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;\">$fn $ln</font><br>
+                  <font style=\"float:right;color:  #6d84b4; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                  font-size: 12px; line-height: 1.28;\">TODO</font><br>
+                  <font style=\"float:right;color: #999; font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+                  font-size: 11px; line-height: 1.28;\">TODO</font><br>
+                  <div id=\"half\" data-score=\"3.3\" class=\"pull-right\"></div></td>
+
+                  <td style=\"width: 100px;\">
+                    <a style=\"background-color:white\" title=\"User5\" href=\"images/user5.png\" class=\"cboxElement\"><img src=$pic alt=\"User5\"></a></td>";
+
                   echo "</tr></tbody></table>";
               } ?>
                                 <!-- </div> -->
@@ -345,34 +346,9 @@ echo "<table class=\"table table-bordered table-striped\">
 
 
 
-                        </div>
-
-
-                      
+                        </div>                      
      
                       </div><!--/fluid-row-->
-
-
-
-
-
-
-
-                      <div class="modal hide fade" id="myModal" style="display: none;">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal">ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬&nbsp;ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬&nbsp;ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€&nbsp;Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â</button>
-                          <h3>Settings</h3>
-                        </div>
-                        <div class="modal-body">
-                          <p>Here settings can be configured...</p>
-                        </div>
-                        <div class="modal-footer">
-                          <a href="#" class="btn" data-dismiss="modal">Close</a>
-                          <a href="#" class="btn btn-primary">Save changes</a>
-                        </div>
-                      </div>
-
-
 
                     </div><!--/.fluid-container-->
 

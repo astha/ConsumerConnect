@@ -266,9 +266,6 @@ include_once("consnavbar.php");
 
 
 
-<?php
-include_once("consrightsidebar.php");
-?>
 
 </div><!--/fluid-row-->
 

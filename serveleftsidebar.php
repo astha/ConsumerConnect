@@ -7,6 +7,7 @@
             <li style="margin-left: -2px;"><a class="ajax-link" href="servereviews.php"><i class="icon-home"></i><span class="hidden-tablet"> Reviews</span></a></li>
             <li style="margin-left: -2px;"><a class="ajax-link" href="serviceprovideranswer.php"><i class="icon-star"></i><span class="hidden-tablet">Questions</span></a></li>
             <li style="margin-left: -2px;"><a class="ajax-link" href="bids.php"><i class="icon-tag"></i><span class="hidden-tablet">Bids</span></a></li>
+            <li style="margin-left: -2px;"><a class="ajax-link" href="wishmenu.php"><i class="icon-search"></i><span class="hidden-tablet"> Search Wishes</span></a></li>
             <li style="margin-left: -2px;"><a class="ajax-link" href="addservice.php"><i class="icon-question-sign"></i><span class="hidden-tablet"> Add New Service</span></a></li>
             
           </ul>
